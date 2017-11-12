@@ -238,3 +238,47 @@ SELECT
 	[BirthDay],
 	[PhoneNumber]
 FROM Persons	
+
+SELECT p.Name AS PoductName, c.Name AS CategoryName
+FROM Products p
+		LEFT JOIN Categories c ON p.CategoryID= c.CategoryID
+GROUP BY p.Name, c.Name
+
+
+SELECT s.Name AS SubCategoryName
+FROM Categories c
+		RIGHT JOIN CategorSubCategor cs ON c.CategoryID= cs.CategoryID
+		LEFT JOIN SubCategories s ON cs.SubCategoryID=s.SubCategoryID
+
+SELECT COUNT(ProductID), Stock
+FROM Products
+GROUP BY Stock
+HAVING Stock > 25;
+
+SELECT [PersonID]
+FROM Orders
+
+SELECT [PersonID]
+FROM Persons
+
+SELECT TOP(3) p.FirstName,p.LastName
+FROM Persons p
+	INNER JOIN Orders o ON p.PersonID=o.PersonID;
+
+SELECT [PersonID]
+FROM Orders
+
+SELECT [PersonID]
+FROM Persons
+
+SELECT  p.FirstName, p.LastName
+FROM Persons p 
+		INNER JOIN Accounts a ON p.AccountID=a.AccountID
+		INNER JOIN Roles r ON a.RoleID=r.RoleID
+WHERE r.Description='User'
+
+SELECT p.FirstName, p.LastName
+FROM Persons p 
+		INNER JOIN Accounts a ON p.AccountID=a.AccountID
+		INNER JOIN Roles r ON a.RoleID=r.RoleID
+WHERE r.Description='Administrator'
