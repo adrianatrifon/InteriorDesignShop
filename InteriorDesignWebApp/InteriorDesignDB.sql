@@ -95,17 +95,14 @@ CREATE TABLE [Products](
 	[Guarantee] nvarchar(50) NOT NULL,	
 	[Description] nvarchar(max),
 	[ColorID] uniqueidentifier NOT NULL,	
-	[BrandID] uniqueidentifier NOT NULL,	
-	[PromotionID] uniqueidentifier,
+	[BrandID] uniqueidentifier NOT NULL,
 	[CategoryID] uniqueidentifier NOT NULL,
 	
 	CONSTRAINT [PK_Products] PRIMARY KEY ([ProductID]),	
 	CONSTRAINT [FK_Products_Colors] FOREIGN KEY ([ColorID])
 		REFERENCES [Colors]([ColorID]),	
 	CONSTRAINT [FK_Products_Brands] FOREIGN KEY ([BrandID])
-		REFERENCES [Brands]([BrandID]),	
-	CONSTRAINT [FK_Products_Promotion] FOREIGN KEY ([PromotionID])
-		REFERENCES [Promotions]([PromotionID]),
+		REFERENCES [Brands]([BrandID]),		
 	CONSTRAINT [FK_Products_Categories] FOREIGN KEY ([CategoryID])
 		REFERENCES [Categories]([CategoryID]),
 	CONSTRAINT [FK_Products_Currencies] FOREIGN KEY ([CurrencyID])
@@ -133,6 +130,18 @@ CREATE TABLE [ProductsPhotos](
 	CONSTRAINT [FK_ProductsPhotos_Products] FOREIGN KEY ([ProductID])
 		REFERENCES [Products]([ProductID])
 );
+
+CREATE TABLE [ProductsPromotions](
+	[ProductID] uniqueidentifier NOT NULL,
+	[PromotionID] uniqueidentifier NOT NULL
+
+	CONSTRAINT [Pk_ProductsPromotions] PRIMARY KEY([ProductID],[PromotionID]),
+	CONSTRAINT [FK_ProductsPromotions_Products] FOREIGN KEY([ProductID])
+		REFERENCES [Products]([ProductID]),
+	CONSTRAINT [FK_ProductsPromotions_Promotions] FOREIGN KEY([PromotionID])
+		REFERENCES [Promotions]([PromotionID])
+
+	);
 
 CREATE TABLE [PaymentOptions](
 	[PaymentOptionID] uniqueidentifier NOT NULL,
@@ -208,3 +217,14 @@ CREATE TABLE [Orders](
 	CONSTRAINT [FK_Orders_PaymentOptions] FOREIGN KEY ([PaymentOptionID])
 		REFERENCES [PaymentOptions]([PaymentOptionID])	
 	);
+
+
+
+
+
+
+
+
+
+
+
