@@ -1,10 +1,11 @@
 ﻿USE InteriorDesignShopDB
-
+/*
 DECLARE @Photo uniqueidentifier  
 SET @Photo= NEWID()
 INSERT INTO Photos ([PhotoID],[Image]) 
 SELECT @Photo,BulkColumn 
 FROM Openrowset( Bulk 'C:\Users\Adriana\source\repos\imagini\Pat-Viena-800x600.jpg', Single_Blob) AS ProductImage
+*/
 
 DECLARE @Color uniqueidentifier  
 SET @Color = NEWID()
@@ -18,28 +19,37 @@ DECLARE @Brand uniqueidentifier
 SET @Brand = NEWID()
 INSERT INTO Brands ([BrandID],[Name]) VALUES (@Brand,'Kalatzerka');
 
-DECLARE @Category uniqueidentifier  
-SET @Category= NEWID()
-INSERT INTO Categories ([CategoryID],[Name]) VALUES (@Category,'Bedroom');
+DECLARE @ParentCategory uniqueidentifier  
+SET @ParentCategory= NEWID()
+INSERT INTO Categories ([CategoryID],[Name],[ParentCategoryID]) VALUES (@ParentCategory,'Bedroom',NULL);
 
 DECLARE @SubCategory uniqueidentifier  
 SET @SubCategory= NEWID()
 
-INSERT INTO SubCategories([SubCategoryID],[Name]) VALUES (@SubCategory,'Beds');
-INSERT INTO CategorSubCategor([CategoryID],[SubCategoryID]) VALUES (@Category,@SubCategory);
+INSERT INTO Categories ([CategoryID],[Name],[ParentCategoryID]) VALUES (@SubCategory,'Beds',@ParentCategory);
+
+DECLARE @Currency uniqueidentifier
+SET @Currency=NEWID()
+INSERT INTO Currencies([CurrencyID],[Currency]) VALUES (@Currency,'RON');
+
+INSERT INTO Currencies([CurrencyID],[Currency]) VALUES (NEWID(),'EURO');
+INSERT INTO Currencies([CurrencyID],[Currency]) VALUES (NEWID(),'USD');
+
 
 DECLARE @Product uniqueidentifier  
 SET @Product = NEWID()
-INSERT INTO Products([ProductID],[Name],[Price],[Stock],[Dimensions],[Weight],[Description],[Guarantee],[ColorID],[BrandID],[PromotionID],[CategoryID]) 
-VALUES (@Product,'Pat Piele Grandiose','500RON',25,'lungime 200 cm/latime 180 cm','20 Kg',NULL,'5 ani',@Color,@Brand,NULL,@Category);
+INSERT INTO Products([ProductID],[Name],[Price],[CurrencyID],[Stock],[Dimensions],[Weight],[Description],[Guarantee],[ColorID],[BrandID],[CategoryID]) 
+VALUES (@Product,'Pat Piele Grandiose',500,@Currency,25,'lungime 200 cm/latime 180 cm','20 Kg',NULL,'5 ani',@Color,@Brand,@SubCategory);
 
-INSERT INTO ProductsPhotos([ProductID],[PhotoID]) VALUES(@Product,@Photo);
+--INSERT INTO ProductsPhotos([ProductID],[PhotoID]) VALUES(@Product,@Photo);
 INSERT INTO ProductsMaterials([ProductID],[MaterialID]) VALUES(@Product,@Material);
 
+/*
 SET @Photo= NEWID()
 INSERT INTO Photos ([PhotoID],[Image]) 
 SELECT @Photo,BulkColumn 
 FROM Openrowset( Bulk 'C:\Users\Adriana\source\repos\imagini\pat.jpg', Single_Blob) AS ProductImage
+*/
 
 SET @Color = NEWID()
 INSERT INTO Colors ([ColorID],[Name]) VALUES (@Color,'Gri'); 
@@ -48,10 +58,10 @@ INSERT INTO Materials([MaterialID],[Name]) VALUES (@Material,'lether');
 SET @Brand = NEWID()
 INSERT INTO Brands ([BrandID],[Name]) VALUES (@Brand,'Karup');
 SET @Product = NEWID()
-INSERT INTO Products([ProductID],[Name],[Price],[Stock],[Dimensions],[Weight],[Description],[Guarantee],[ColorID],[BrandID],[PromotionID],[CategoryID]) 
-VALUES (@Product,'Pat Piele Inspiration','450RON',30,'lungime 209 cm/latime 98 cm/inaltime 78 cm','22.6 Kg',NULL,'5 ani',@Color,@Brand,NULL,@Category);
+INSERT INTO Products([ProductID],[Name],[Price],[CurrencyID],[Stock],[Dimensions],[Weight],[Description],[Guarantee],[ColorID],[BrandID],[CategoryID]) 
+VALUES (@Product,'Pat Piele Inspiration',450,@Currency,30,'lungime 209 cm/latime 98 cm/inaltime 78 cm','22.6 Kg',NULL,'5 ani',@Color,@Brand,@SubCategory);
 
-INSERT INTO ProductsPhotos([ProductID],[PhotoID]) VALUES(@Product,@Photo);
+--INSERT INTO ProductsPhotos([ProductID],[PhotoID]) VALUES(@Product,@Photo);
 INSERT INTO ProductsMaterials([ProductID],[MaterialID]) VALUES(@Product,@Material);
 
 
@@ -78,18 +88,6 @@ INSERT INTO Materials([MaterialID],[Name]) VALUES (NEWID(),'painted steel');
 INSERT INTO Materials([MaterialID],[Name]) VALUES (NEWID(),'polyester');
 
 
-INSERT INTO SubCategories([SubCategoryID],[Name]) VALUES (NEWID(),'Furniture');
-INSERT INTO SubCategories([SubCategoryID],[Name]) VALUES (NEWID(),'Mirrors');
-INSERT INTO SubCategories([SubCategoryID],[Name]) VALUES (NEWID(),'Tables');
-INSERT INTO SubCategories([SubCategoryID],[Name]) VALUES (NEWID(),'Seats');
-INSERT INTO SubCategories([SubCategoryID],[Name]) VALUES (NEWID(),'Paintings');
-INSERT INTO SubCategories([SubCategoryID],[Name]) VALUES (NEWID(),'Rugs');
-INSERT INTO SubCategories([SubCategoryID],[Name]) VALUES (NEWID(),'Curtains');
-INSERT INTO SubCategories([SubCategoryID],[Name]) VALUES (NEWID(),'Closets');
-INSERT INTO SubCategories([SubCategoryID],[Name]) VALUES (NEWID(),'Lamps');
-INSERT INTO SubCategories([SubCategoryID],[Name]) VALUES (NEWID(),'Spots');
-INSERT INTO SubCategories([SubCategoryID],[Name]) VALUES (NEWID(),'Floor lamps');
-
 
 INSERT INTO Brands ([BrandID],[Name]) VALUES (NEWID(),'Ixia');
 INSERT INTO Brands ([BrandID],[Name]) VALUES (NEWID(),'CIMC');
@@ -102,12 +100,12 @@ INSERT INTO Brands ([BrandID],[Name]) VALUES (NEWID(),' B Home');
 
 
 
-INSERT INTO Categories ([CategoryID],[Name]) VALUES (NEWID(),'Library');
-INSERT INTO Categories ([CategoryID],[Name]) VALUES (NEWID(),'Livingroom');
-INSERT INTO Categories ([CategoryID],[Name]) VALUES (NEWID(),'Bathroom');
-INSERT INTO Categories ([CategoryID],[Name]) VALUES (NEWID(),'Kitchen');
-INSERT INTO Categories ([CategoryID],[Name]) VALUES (NEWID(),'Office');
-INSERT INTO Categories ([CategoryID],[Name]) VALUES (NEWID(),'Dressing');
+INSERT INTO Categories ([CategoryID],[Name],[ParentCategoryID]) VALUES (NEWID(),'Library',NULL);
+INSERT INTO Categories ([CategoryID],[Name],[ParentCategoryID]) VALUES (NEWID(),'Livingroom',NULL);
+INSERT INTO Categories ([CategoryID],[Name],[ParentCategoryID]) VALUES (NEWID(),'Bathroom',NULL);
+INSERT INTO Categories ([CategoryID],[Name],[ParentCategoryID]) VALUES (NEWID(),'Kitchen',NULL);
+INSERT INTO Categories ([CategoryID],[Name],[ParentCategoryID]) VALUES (NEWID(),'Office',NULL);
+INSERT INTO Categories ([CategoryID],[Name],[ParentCategoryID]) VALUES (NEWID(),'Dressing',NULL);
 
 
 
@@ -132,13 +130,13 @@ INSERT INTO Roles([RoleID],[Description]) VALUES (@Role,'Administrator');
 
 DECLARE @Account uniqueidentifier  
 SET @Account= NEWID()
-INSERT INTO Accounts([AccountID],[EmailAddress],[Password],[Photo],[RoleID]) 
+INSERT INTO Accounts([AccountID],[EmailAddress],[Password],[PhotoID],[RoleID]) 
 	VALUES (@Account,'adrianatrifon@yahoo.com','test1',NULL,@Role);
 
 DECLARE @Person uniqueidentifier  
 SET @Person= NEWID()
-INSERT INTO Persons([PersonID],[FirstName],[LastName],[Street],[Home/BlockNumber],[BirthDay],[CNP],[PhoneNumber],[CityID],[AccountID]) 
-VALUES (@Person,'Adriana','Trifon','Str. Izvorului', 'Nr.49','1995-08-28','2950828011150','0747060741',@City,@Account);
+INSERT INTO Persons([PersonID],[FirstName],[LastName],[Street],[Number],[BirthDay],[PhoneNumber],[CityID],[AccountID]) 
+VALUES (@Person,'Adriana','Trifon','Str. Izvorului', 'Nr.49','1995-08-28','0747060741',@City,@Account);
 
 
 SET @County = NEWID()
@@ -149,25 +147,25 @@ DECLARE @Role1 uniqueidentifier
 SET @Role1 = NEWID()
 INSERT INTO Roles([RoleID],[Description]) VALUES (@Role1,'User');
 SET @Account= NEWID()
-INSERT INTO Accounts([AccountID],[EmailAddress],[Password],[Photo],[RoleID]) 
+INSERT INTO Accounts([AccountID],[EmailAddress],[Password],[PhotoID],[RoleID]) 
 	VALUES (@Account,'alexserban@yahoo.com','test2',NULL,@Role1);
 SET @Person= NEWID()
-INSERT INTO Persons([PersonID],[FirstName],[LastName],[Street],[Home/BlockNumber],[BirthDay],[CNP],[PhoneNumber],[CityID],[AccountID]) 
-VALUES (@Person,'Alexandru','Serban','Str. Bucium', 'Nr.28','1992-01-26','1930126011151','0728883043',@City,@Account);
+INSERT INTO Persons([PersonID],[FirstName],[LastName],[Street],[Number],[BirthDay],[PhoneNumber],[CityID],[AccountID]) 
+VALUES (@Person,'Alexandru','Serban','Str. Bucium', 'Nr.28','1992-01-26','0728883043',@City,@Account);
 
 SET @Person=NEWID();
 SET @Account= NEWID()
-INSERT INTO Accounts([AccountID],[EmailAddress],[Password],[Photo],[RoleID]) 
+INSERT INTO Accounts([AccountID],[EmailAddress],[Password],[PhotoID],[RoleID]) 
 	VALUES (@Account,'ana1234n@yahoo.com','test3',NULL,@Role1);
-INSERT INTO Persons([PersonID],[FirstName],[LastName],[Street],[Home/BlockNumber],[BirthDay],[CNP],[PhoneNumber],[CityID],[AccountID]) 
-VALUES (@Person,'Ana Maria','Lazar','Str. Lalelelor', 'Bl. P1A','1994-04-14','2940414011152','0745591021',@City,@Account);
+INSERT INTO Persons([PersonID],[FirstName],[LastName],[Street],[Number],[BirthDay],[PhoneNumber],[CityID],[AccountID]) 
+VALUES (@Person,'Ana Maria','Lazar','Str. Lalelelor', 'Bl. P1A','1994-04-14','0745591021',@City,@Account);
 
 SET @Person=NEWID();
 SET @Account= NEWID()
-INSERT INTO Accounts([AccountID],[EmailAddress],[Password],[Photo],[RoleID]) 
+INSERT INTO Accounts([AccountID],[EmailAddress],[Password],[PhotoID],[RoleID]) 
 	VALUES (@Account,'miha_28@yahoo.com','test4',NULL,@Role1);
-INSERT INTO Persons([PersonID],[FirstName],[LastName],[Street],[Home/BlockNumber],[BirthDay],[CNP],[PhoneNumber],[CityID],[AccountID]) 
-VALUES (@Person,'Mihaela','Varga','Str. Macesului', 'Bl. 3B','1994-07-14','2940714001150','0745391021',@City,@Account);
+INSERT INTO Persons([PersonID],[FirstName],[LastName],[Street],[Number],[BirthDay],[PhoneNumber],[CityID],[AccountID]) 
+VALUES (@Person,'Mihaela','Varga','Str. Macesului', 'Bl. 3B','1994-07-14','0745391021',@City,@Account);
 
 DECLARE @Pay uniqueidentifier  
 SET @Pay= NEWID()
@@ -183,8 +181,8 @@ INSERT INTO OrderedProducts([OrderedProductID],[ProductID],[Quantity])
 	VALUES (@OrderedProduct,@Product,1);
 DECLARE @Order uniqueidentifier  
 SET @Order= NEWID()
-INSERT INTO Orders([OrderID],[Date],[OrderedProductID],[PersonID],[PaymentOptionID]) 
-	VALUES (@Order,'2017-11-05',@OrderedProduct,@Person,@Pay);
+INSERT INTO Orders([OrderID],[Date],[DeliveryAddress],[OrderedProductID],[PersonID],[PaymentOptionID]) 
+	VALUES (@Order,'2017-11-05','adfbgndhmrjjrdsa',@OrderedProduct,@Person,@Pay);
 
 INSERT INTO Counties ([CountyID],[Name],[CountryID]) VALUES (NEWID(),'Constanta',@Country);
 INSERT INTO Counties ([CountyID],[Name],[CountryID]) VALUES (NEWID(),'Satu Mare',@Country);
@@ -209,7 +207,7 @@ SELECT
 	[AccountID],
 	[EmailAddress],
 	[Password],
-	[Photo],
+	[PhotoID],
 	[RoleID]
 FROM Accounts	
 
@@ -228,13 +226,15 @@ SELECT
 	[Guarantee]	
 FROM Products	
 
+SELECT *
+FROM Categories
+
 SELECT 
 	[PersonID],
 	[FirstName],
 	[LastName],
 	[Street],
-	[Home/BlockNumber],
-	[CNP],
+	[Number],
 	[BirthDay],
 	[PhoneNumber]
 FROM Persons	
@@ -245,10 +245,10 @@ FROM Products p
 GROUP BY p.Name, c.Name
 
 
-SELECT s.Name AS SubCategoryName
-FROM Categories c
-		RIGHT JOIN CategorSubCategor cs ON c.CategoryID= cs.CategoryID
-		LEFT JOIN SubCategories s ON cs.SubCategoryID=s.SubCategoryID
+--SELECT s.Name AS SubCategoryName
+--FROM Categories c
+	--	RIGHT JOIN CategorSubCategor cs ON c.CategoryID= cs.CategoryID
+		--LEFT JOIN SubCategories s ON cs.SubCategoryID=s.SubCategoryID
 
 SELECT COUNT(ProductID), Stock
 FROM Products
@@ -282,3 +282,4 @@ FROM Persons p
 		INNER JOIN Accounts a ON p.AccountID=a.AccountID
 		INNER JOIN Roles r ON a.RoleID=r.RoleID
 WHERE r.Description='Administrator'
+

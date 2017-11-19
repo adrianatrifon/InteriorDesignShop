@@ -51,31 +51,15 @@ CREATE TABLE [Cities](
 	);
 
 
-
 CREATE TABLE [Categories](
 	[CategoryID] uniqueidentifier NOT NULL,
+	[ParentCategoryID] uniqueidentifier,
 	[Name] nvarchar(50) NOT NULL,	
 
-	CONSTRAINT [PK_Categories] PRIMARY KEY ([CategoryID])		
+	CONSTRAINT [PK_Categories] PRIMARY KEY ([CategoryID]),	
+	CONSTRAINT [FK_Categories_Categories] FOREIGN KEY ([ParentCategoryID])	
+		REFERENCES [Categories]([CategoryID])
 	);
-
-CREATE TABLE [SubCategories](
-	[SubCategoryID] uniqueidentifier NOT NULL,
-	[Name] nvarchar(50) NOT NULL,
-
-	CONSTRAINT [PK_SubCategories] PRIMARY KEY ([SubCategoryID]),			
-	);
-
-CREATE TABLE [CategorSubCategor](
-	[CategoryID] uniqueidentifier NOT NULL,
-	[SubCategoryID] uniqueidentifier NOT NULL,
-
-	CONSTRAINT [PK_CategorSubCategor] PRIMARY KEY ([CategoryID], [SubCategoryID]),
-	CONSTRAINT [FK_CategorSubCategor_Categories] FOREIGN KEY ([CategoryID])
-		REFERENCES [Categories]([CategoryID]),
-	CONSTRAINT [FK_CategorSubCategor_SubCategories] FOREIGN KEY ([SubCategoryID])
-		REFERENCES [SubCategories]([SubCategoryID]));
-
 
 CREATE TABLE [Promotions](
 	[PromotionID] uniqueidentifier NOT NULL,
@@ -93,10 +77,18 @@ CREATE TABLE [Photos](
 	CONSTRAINT [PK_Photos] PRIMARY KEY ([PhotoID])		
 	);
 
+CREATE TABLE [Currencies](
+	[CurrencyID] uniqueidentifier NOT NULL,
+	[Currency] nvarchar(30) NOT NULL
+
+	CONSTRAINT [PK_Currencies] PRIMARY KEY ([CurrencyID])
+);
+
 CREATE TABLE [Products](
 	[ProductID] uniqueidentifier NOT NULL,
 	[Name] nvarchar(50) NOT NULL,
-	[Price] nvarchar(20) NOT NULL,
+	[Price] decimal(19,6) NOT NULL,
+	[CurrencyID] uniqueidentifier NOT NULL,
 	[Stock] int,
 	[Dimensions] nvarchar(50) NOT NULL,
 	[Weight] nvarchar(50) NOT NULL,
@@ -115,7 +107,9 @@ CREATE TABLE [Products](
 	CONSTRAINT [FK_Products_Promotion] FOREIGN KEY ([PromotionID])
 		REFERENCES [Promotions]([PromotionID]),
 	CONSTRAINT [FK_Products_Categories] FOREIGN KEY ([CategoryID])
-		REFERENCES [Categories]([CategoryID])
+		REFERENCES [Categories]([CategoryID]),
+	CONSTRAINT [FK_Products_Currencies] FOREIGN KEY ([CurrencyID])
+		REFERENCES [Currencies]([CurrencyID])
 	);
 
 CREATE TABLE [ProductsMaterials](
@@ -159,12 +153,14 @@ CREATE TABLE [Accounts](
 	[AccountID] uniqueidentifier NOT NULL,
 	[EmailAddress] nvarchar(50) NOT NULL,
 	[Password] nvarchar(50) NOT NULL,
-	[Photo] varbinary(MAX), 
-	[RoleID] uniqueidentifier NOT NULL
+	[RoleID] uniqueidentifier NOT NULL,
+	[PhotoID] uniqueidentifier
 	 
 	CONSTRAINT [PK_Accounts] PRIMARY KEY ([AccountID]),
 	CONSTRAINT [FK_Accounts_Roles] FOREIGN KEY ([RoleID])
-		REFERENCES [Roles]([RoleID])	
+		REFERENCES [Roles]([RoleID]),
+	CONSTRAINT [FK_Accounts_Photos] FOREIGN KEY ([PhotoID])
+		REFERENCES [Photos]([PhotoID])
 	);
 
 
@@ -173,8 +169,7 @@ CREATE TABLE [Persons](
 	[FirstName] nvarchar(50) NOT NULL,
 	[LastName] nvarchar(50) NOT NULL,
 	[Street] nvarchar(150) NOT NULL,
-	[Home/BlockNumber] nvarchar(30) NOT NULL,
-	[CNP] nvarchar(30) NOT NULL,
+	[Number] nvarchar(30) NOT NULL,	
 	[BirthDay] date,	
 	[PhoneNumber] nvarchar(50) NOT NULL,
 	[CityID] uniqueidentifier NOT NULL,	
@@ -200,6 +195,7 @@ CREATE TABLE [OrderedProducts](
 CREATE TABLE [Orders](
 	[OrderID] uniqueidentifier NOT NULL,
 	[Date] datetime NOT NULL,
+	[DeliveryAddress] nvarchar(100)  NOT NULL,
 	[OrderedProductID] uniqueidentifier NOT NULL,
 	[PersonID] uniqueidentifier NOT NULL,
 	[PaymentOptionID] uniqueidentifier NOT NULL,
@@ -212,14 +208,3 @@ CREATE TABLE [Orders](
 	CONSTRAINT [FK_Orders_PaymentOptions] FOREIGN KEY ([PaymentOptionID])
 		REFERENCES [PaymentOptions]([PaymentOptionID])	
 	);
-
-	
-
-
-
-
-
-
-
-
-
