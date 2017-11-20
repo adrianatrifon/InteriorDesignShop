@@ -3,12 +3,13 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.26730.15
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "InteriorDesignWebApp", "InteriorDesignWebApp\InteriorDesignWebApp.csproj", "{294CB546-8A70-4A34-A43A-BED2F7B31DF9}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "InteriorDesignWebApp", "InteriorDesignWebApp\InteriorDesignWebApp.csproj", "{294CB546-8A70-4A34-A43A-BED2F7B31DF9}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SQL", "SQL", "{7D30F337-BF59-4138-80A8-B8C8CFBF8FFD}"
 	ProjectSection(SolutionItems) = preProject
 		InteriorDesignDB.sql = InteriorDesignDB.sql
 		PopulateDB.sql = PopulateDB.sql
+		StoredProcedures.sql = StoredProcedures.sql
 	EndProjectSection
 EndProject
 Global
