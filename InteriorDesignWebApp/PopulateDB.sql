@@ -38,8 +38,9 @@ INSERT INTO Currencies([CurrencyID],[Currency]) VALUES (NEWID(),'USD');
 
 DECLARE @Product uniqueidentifier  
 SET @Product = NEWID()
-INSERT INTO Products([ProductID],[Name],[Price],[CurrencyID],[Stock],[Dimensions],[Weight],[Description],[Guarantee],[ColorID],[BrandID],[CategoryID]) 
-VALUES (@Product,'Pat Piele Grandiose',500,@Currency,25,'lungime 200 cm/latime 180 cm','20 Kg',NULL,'5 ani',@Color,@Brand,@SubCategory);
+INSERT INTO Products([ProductID],[Name],[Price],[CurrencyID],[Stock],[Dimensions],[Weight],[Description],[Guarantee],[BrandID],[CategoryID]) 
+VALUES (@Product,'Pat Piele Grandiose',500,@Currency,25,'lungime 200 cm/latime 180 cm','20 Kg',NULL,'5 ani',@Brand,@SubCategory);
+INSERT INTO ProductsColors([ProductID],[ColorID]) VALUES (@Product,@Color);
 
 --INSERT INTO ProductsPhotos([ProductID],[PhotoID]) VALUES(@Product,@Photo);
 INSERT INTO ProductsMaterials([ProductID],[MaterialID]) VALUES(@Product,@Material);
@@ -58,8 +59,9 @@ INSERT INTO Materials([MaterialID],[Name]) VALUES (@Material,'lether');
 SET @Brand = NEWID()
 INSERT INTO Brands ([BrandID],[Name]) VALUES (@Brand,'Karup');
 SET @Product = NEWID()
-INSERT INTO Products([ProductID],[Name],[Price],[CurrencyID],[Stock],[Dimensions],[Weight],[Description],[Guarantee],[ColorID],[BrandID],[CategoryID]) 
-VALUES (@Product,'Pat Piele Inspiration',450,@Currency,30,'lungime 209 cm/latime 98 cm/inaltime 78 cm','22.6 Kg',NULL,'5 ani',@Color,@Brand,@SubCategory);
+INSERT INTO Products([ProductID],[Name],[Price],[CurrencyID],[Stock],[Dimensions],[Weight],[Description],[Guarantee],[BrandID],[CategoryID]) 
+VALUES (@Product,'Pat Piele Inspiration',450,@Currency,30,'lungime 209 cm/latime 98 cm/inaltime 78 cm','22.6 Kg',NULL,'5 ani',@Brand,@SubCategory);
+INSERT INTO ProductsColors([ProductID],[ColorID]) VALUES (@Product,@Color);
 
 --INSERT INTO ProductsPhotos([ProductID],[PhotoID]) VALUES(@Product,@Photo);
 INSERT INTO ProductsMaterials([ProductID],[MaterialID]) VALUES(@Product,@Material);
@@ -175,14 +177,15 @@ DECLARE @Pay1 uniqueidentifier
 SET @Pay1= NEWID()
 INSERT INTO PaymentOptions([PaymentOptionID],[Name]) VALUES (@Pay1,'Credit Card');
 
-DECLARE @OrderedProduct uniqueidentifier  
-SET @OrderedProduct= NEWID()
-INSERT INTO OrderedProducts([OrderedProductID],[ProductID],[Quantity]) 
-	VALUES (@OrderedProduct,@Product,1);
+
 DECLARE @Order uniqueidentifier  
 SET @Order= NEWID()
-INSERT INTO Orders([OrderID],[Date],[DeliveryAddress],[OrderedProductID],[PersonID],[PaymentOptionID]) 
-	VALUES (@Order,'2017-11-05','adfbgndhmrjjrdsa',@OrderedProduct,@Person,@Pay);
+
+
+INSERT INTO Orders([OrderID],[Date],[DeliveryAddress],[PersonID],[PaymentOptionID]) 
+	VALUES (@Order,'2017-11-05','adfbgndhmrjjrdsa',@Person,@Pay);
+INSERT INTO OrdersProducts([OrderID],[ProductID],[Quantity]) 
+	VALUES (@Order,@Product,1);
 
 INSERT INTO Counties ([CountyID],[Name],[CountryID]) VALUES (NEWID(),'Constanta',@Country);
 INSERT INTO Counties ([CountyID],[Name],[CountryID]) VALUES (NEWID(),'Satu Mare',@Country);
@@ -203,83 +206,5 @@ INSERT INTO Promotions([PromotionID],[Name],[Valability],[Description])
 	VALUES (NEWID(),'Home Decorations for Christmas','48 hours','xghcfhjkfhgf');
 
 
-SELECT 
-	[AccountID],
-	[EmailAddress],
-	[Password],
-	[PhotoID],
-	[RoleID]
-FROM Accounts	
 
-SELECT 
-	[RoleID],
-	[Description]
-FROM Roles	
-
-SELECT 
-	[ProductID],
-	[Name],
-	[Price],
-	[Stock],
-	[Dimensions],
-	[Weight],
-	[Guarantee]	
-FROM Products	
-
-SELECT *
-FROM Categories
-
-SELECT 
-	[PersonID],
-	[FirstName],
-	[LastName],
-	[Street],
-	[Number],
-	[BirthDay],
-	[PhoneNumber]
-FROM Persons	
-
-SELECT p.Name AS PoductName, c.Name AS CategoryName
-FROM Products p
-		LEFT JOIN Categories c ON p.CategoryID= c.CategoryID
-GROUP BY p.Name, c.Name
-
-
---SELECT s.Name AS SubCategoryName
---FROM Categories c
-	--	RIGHT JOIN CategorSubCategor cs ON c.CategoryID= cs.CategoryID
-		--LEFT JOIN SubCategories s ON cs.SubCategoryID=s.SubCategoryID
-
-SELECT COUNT(ProductID), Stock
-FROM Products
-GROUP BY Stock
-HAVING Stock > 25;
-
-SELECT [PersonID]
-FROM Orders
-
-SELECT [PersonID]
-FROM Persons
-
-SELECT TOP(3) p.FirstName,p.LastName
-FROM Persons p
-	INNER JOIN Orders o ON p.PersonID=o.PersonID;
-
-SELECT [PersonID]
-FROM Orders
-
-SELECT [PersonID]
-FROM Persons
-
-SELECT  p.FirstName, p.LastName
-FROM Persons p 
-		INNER JOIN Accounts a ON p.AccountID=a.AccountID
-		INNER JOIN Roles r ON a.RoleID=r.RoleID
-WHERE r.Description='User'
-
-SELECT p.FirstName, p.LastName
-FROM Persons p 
-		INNER JOIN Accounts a ON p.AccountID=a.AccountID
-		INNER JOIN Roles r ON a.RoleID=r.RoleID
-WHERE r.Description='Administrator'
 
