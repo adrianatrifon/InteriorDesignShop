@@ -40,12 +40,11 @@ namespace UMT360.InteriorDesignWebApp.Repository
                 }
                 catch (SqlException sqlEx)
                 {
-                    Console.WriteLine(sqlEx.Message);
+                    Console.WriteLine("There was a SQL error: {0}", sqlEx.Message);
                 }
                 catch (Exception ex)
                 {
-
-                    Console.WriteLine(ex.Message);
+                    Console.WriteLine("There was an error: {0}", ex.Message);
                 }
 
             }
@@ -180,10 +179,14 @@ namespace UMT360.InteriorDesignWebApp.Repository
 
                     }
                 }
+                catch (SqlException sqlEx)
+                {
+                    Console.WriteLine("There was a SQL error: {0}", sqlEx.Message);
+                }
                 catch (Exception ex)
                 {
 
-                    Console.WriteLine(ex.Message);
+                    Console.WriteLine("There was an error: {0}", ex.Message);
                 }
 
 

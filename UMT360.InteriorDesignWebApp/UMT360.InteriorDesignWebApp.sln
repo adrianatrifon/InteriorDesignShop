@@ -3,8 +3,6 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.26730.15
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UMT360.InteriorDesignWebApp", "UMT360.InteriorDesignWebApp\UMT360.InteriorDesignWebApp.csproj", "{6C05ED1F-9B06-423D-B9E8-1C945FE0D096}"
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SQL", "SQL", "{5C39BF70-CAF4-4EC9-9CCF-C34BEEE1B641}"
 	ProjectSection(SolutionItems) = preProject
 		..\InteriorDesignWebApp\InteriorDesignDB.sql = ..\InteriorDesignWebApp\InteriorDesignDB.sql
@@ -15,16 +13,14 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UMT360.InteriorDesignWebApp
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UMT360.InteriorDesignWebApp.Repository", "UMT360.InteriorDesignWebApp.Repository\UMT360.InteriorDesignWebApp.Repository.csproj", "{DA6EE371-3872-4E37-9424-287B7538971B}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UMT360.InteriorDesignWebApp", "UMT360.InteriorDesignWebApp\UMT360.InteriorDesignWebApp.csproj", "{17CED89A-F36E-4D4C-ADE7-85E94C51B8F9}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{6C05ED1F-9B06-423D-B9E8-1C945FE0D096}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{6C05ED1F-9B06-423D-B9E8-1C945FE0D096}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{6C05ED1F-9B06-423D-B9E8-1C945FE0D096}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{6C05ED1F-9B06-423D-B9E8-1C945FE0D096}.Release|Any CPU.Build.0 = Release|Any CPU
 		{BFC6D468-F040-493A-B81A-3274DF43FD96}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{BFC6D468-F040-493A-B81A-3274DF43FD96}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{BFC6D468-F040-493A-B81A-3274DF43FD96}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -33,6 +29,10 @@ Global
 		{DA6EE371-3872-4E37-9424-287B7538971B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DA6EE371-3872-4E37-9424-287B7538971B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{DA6EE371-3872-4E37-9424-287B7538971B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{17CED89A-F36E-4D4C-ADE7-85E94C51B8F9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{17CED89A-F36E-4D4C-ADE7-85E94C51B8F9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{17CED89A-F36E-4D4C-ADE7-85E94C51B8F9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{17CED89A-F36E-4D4C-ADE7-85E94C51B8F9}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

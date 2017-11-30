@@ -202,8 +202,8 @@ INSERT INTO Countries([CountryID],[Name]) VALUES (NEWID(),'Bulgaria');
 INSERT INTO Countries([CountryID],[Name]) VALUES (NEWID(),'Denmark');
 INSERT INTO Countries([CountryID],[Name]) VALUES (NEWID(),'Germany');
 
-INSERT INTO Promotions([PromotionID],[Name],[Valability],[Description]) 
-	VALUES (NEWID(),'Home Decorations for Christmas','48 hours','xghcfhjkfhgf');
+INSERT INTO Promotions([PromotionID],[Name],[StartDate],[EndDate],[Description]) 
+	VALUES (NEWID(),'Home Decorations for Christmas','2017-05-11','2017-05-13','xghcfhjkfhgf');
 
 
 

@@ -5,13 +5,13 @@ using UMT360.InteriorDesignWebApp.Models;
 
 namespace UMT360.InteriorDesignWebApp.Repository
 {
-    public class ColorRepository
+    public class CurrencyRepository
     {
         #region Methods
-        public List<Color> ReadAll()
+        public List<Currency> ReadAll()
         {
             string connectionString = @"Server=ADRI-PC\SQLEXPRESS;Database=InteriorDesignShopDB;Trusted_Connection=True;";
-            List<Color> colors = new List<Color>();
+            List<Currency> currencies = new List<Currency>();
             using (SqlConnection connection = new SqlConnection(connectionString))
             {
                 try
@@ -19,7 +19,7 @@ namespace UMT360.InteriorDesignWebApp.Repository
                     using (SqlCommand command = new SqlCommand())
                     {
                         command.Connection = connection;
-                        command.CommandText = "dbo.Colors_ReadAll";
+                        command.CommandText = "dbo.Currencies_ReadAll";
                         command.CommandType = System.Data.CommandType.StoredProcedure;
 
                         connection.Open();
@@ -28,11 +28,11 @@ namespace UMT360.InteriorDesignWebApp.Repository
 
                             while (reader.Read())
                             {
-                                Color color = new Color();
-                                color.Id = reader.GetGuid(reader.GetOrdinal("ColorID"));
-                                color.Name = reader.GetString(reader.GetOrdinal("Name"));
+                                Currency currency = new Currency();
+                                currency.Id = reader.GetGuid(reader.GetOrdinal("CurrencyID"));
+                                currency.Name = reader.GetString(reader.GetOrdinal("Currency"));
 
-                                colors.Add(color);
+                                currencies.Add(currency);
                             }
                         }
                     }
@@ -44,15 +44,14 @@ namespace UMT360.InteriorDesignWebApp.Repository
                 }
                 catch (Exception ex)
                 {
-
                     Console.WriteLine("There was an error: {0}", ex.Message);
                 }
 
             }
-            return colors;
+            return currencies;
         }
 
-        public void Insert(Color color)
+        public void Insert(Currency currency)
         {
             string connectionString = @"Server=ADRI-PC\SQLEXPRESS;Database=InteriorDesignShopDB;Trusted_Connection=True;";
             using (SqlConnection connection = new SqlConnection(connectionString))
@@ -62,10 +61,10 @@ namespace UMT360.InteriorDesignWebApp.Repository
                     using (SqlCommand command = new SqlCommand())
                     {
                         command.Connection = connection;
-                        command.CommandText = "dbo.Colors_Create";
+                        command.CommandText = "dbo.Currencies_Create";
                         command.CommandType = System.Data.CommandType.StoredProcedure;
-                        command.Parameters.Add(new SqlParameter("@ColorID", color.Id));
-                        command.Parameters.Add(new SqlParameter("@ColorName", color.Name));
+                        command.Parameters.Add(new SqlParameter("@CurrencyID", currency.Id));
+                        command.Parameters.Add(new SqlParameter("@CurrencyName", currency.Name));
 
                         connection.Open();
                         command.ExecuteNonQuery();
@@ -85,7 +84,7 @@ namespace UMT360.InteriorDesignWebApp.Repository
             }
 
         }
-        public void Update(Color color, string newColorName)
+        public void Update(Currency currency, string newCurrencyName)
         {
             string connectionString = @"Server=ADRI-PC\SQLEXPRESS;Database=InteriorDesignShopDB;Trusted_Connection=True;";
             using (SqlConnection connection = new SqlConnection(connectionString))
@@ -95,10 +94,10 @@ namespace UMT360.InteriorDesignWebApp.Repository
                     using (SqlCommand command = new SqlCommand())
                     {
                         command.Connection = connection;
-                        command.CommandText = "dbo.Colors_Update";
+                        command.CommandText = "dbo.Currencies_Update";
                         command.CommandType = System.Data.CommandType.StoredProcedure;
-                        command.Parameters.Add(new SqlParameter("@ColorID", color.Id));
-                        command.Parameters.Add(new SqlParameter("@ColorName", newColorName));
+                        command.Parameters.Add(new SqlParameter("@CurrencyID", currency.Id));
+                        command.Parameters.Add(new SqlParameter("@CurrencyName", newCurrencyName));
 
                         connection.Open();
                         command.ExecuteNonQuery();
@@ -118,7 +117,7 @@ namespace UMT360.InteriorDesignWebApp.Repository
             }
 
         }
-        public void Delete(Guid colorId)
+        public void Delete(Guid currencyId)
         {
 
             string connectionString = @"Server=ADRI-PC\SQLEXPRESS;Database=InteriorDesignShopDB;Trusted_Connection=True;";
@@ -129,9 +128,9 @@ namespace UMT360.InteriorDesignWebApp.Repository
                     using (SqlCommand command = new SqlCommand())
                     {
                         command.Connection = connection;
-                        command.CommandText = "dbo.Colors_Delete";
+                        command.CommandText = "dbo.Currencies_Delete";
                         command.CommandType = System.Data.CommandType.StoredProcedure;
-                        command.Parameters.Add(new SqlParameter("@ColorID", colorId));
+                        command.Parameters.Add(new SqlParameter("@CurrencyID", currencyId));
 
                         connection.Open();
                         command.ExecuteNonQuery();
@@ -152,9 +151,9 @@ namespace UMT360.InteriorDesignWebApp.Repository
 
         }
 
-        public Color GetById(Guid colorId)
+        public Currency GetById(Guid currencyId)
         {
-            Color color = new Color();
+            Currency currency = new Currency();
             string connectionString = @"Server=ADRI-PC\SQLEXPRESS;Database=InteriorDesignShopDB;Trusted_Connection=True;";
             using (SqlConnection connection = new SqlConnection(connectionString))
             {
@@ -163,17 +162,17 @@ namespace UMT360.InteriorDesignWebApp.Repository
                     using (SqlCommand command = new SqlCommand())
                     {
                         command.Connection = connection;
-                        command.CommandText = "dbo.Colors_GetById";
+                        command.CommandText = "dbo.Currencies_GetById";
                         command.CommandType = System.Data.CommandType.StoredProcedure;
 
-                        command.Parameters.Add(new SqlParameter("@ColorID", colorId));
+                        command.Parameters.Add(new SqlParameter("@CurrencyID", currencyId));
                         connection.Open();
                         using (SqlDataReader reader = command.ExecuteReader())
                         {
                             while (reader.Read())
                             {
-                                color.Id = reader.GetGuid(reader.GetOrdinal("ColorID"));
-                                color.Name = reader.GetString(reader.GetOrdinal("Name"));
+                                currency.Id = reader.GetGuid(reader.GetOrdinal("CurrencyID"));
+                                currency.Name = reader.GetString(reader.GetOrdinal("Currency"));
                             }
 
                         }
@@ -192,8 +191,7 @@ namespace UMT360.InteriorDesignWebApp.Repository
 
 
             }
-
-            return color;
+            return currency;
         }
         #endregion
     }

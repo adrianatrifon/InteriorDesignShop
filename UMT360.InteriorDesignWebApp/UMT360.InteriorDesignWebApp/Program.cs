@@ -5,11 +5,10 @@ using UMT360.InteriorDesignWebApp.Repository;
 
 namespace UMT360.InteriorDesignWebApp
 {
-    public class Program
+    class Program
     {
         static void Main(string[] args)
         {
-
             Console.WriteLine("---------------------ColorRepository TEST----------------------------");
 
             Console.Clear();
@@ -118,8 +117,62 @@ namespace UMT360.InteriorDesignWebApp
             Console.WriteLine("{0}  {1}", material3.Id, material3.Name);
             materialRepository.Delete(material3.Id);
 
+            Console.WriteLine("---------------------Brand Repository TEST----------------------------");
+            List<Brand> brands = new List<Brand>();
+            BrandRepository brandRepository = new BrandRepository();
+            Brand brand = new Brand();
+            Guid id2 = Guid.NewGuid();
+            brand.Id = id2;
+            brand.Name = "TestBrand";
+            Brand brand1 = new Brand() { Id = id2, Name = "TestBrand1" };
+
+            Console.WriteLine("---------Insert------------");
+            brandRepository.Insert(brand);
+            brands = brandRepository.ReadAll();
+
+            foreach (Brand bran in brands)
+            {
+                Console.WriteLine("{0} ---- {1}", bran.Id, bran.Name);
+            }
+
+
+            Console.WriteLine("---------Update------------");
+            brandRepository.Update(brand, brand1.Name);
+
+            brands = brandRepository.ReadAll();
+
+            foreach (Brand bran in brands)
+            {
+                Console.WriteLine("{0} ---- {1}", bran.Id, bran.Name);
+            }
+
+            Console.WriteLine("---------Delete------------");
+            brandRepository.Delete(brand.Id);
+
+            brands = brandRepository.ReadAll();
+
+            foreach (Brand bran in brands)
+            {
+                Console.WriteLine("{0} ---- {1}", bran.Id, bran.Name);
+            }
+
+            Console.WriteLine("---------GetById------------");
+            Brand brand2 = new Brand() { Id = id, Name = "TestBrand2" };
+            brandRepository.Insert(brand2);
+            brands = brandRepository.ReadAll();
+
+            foreach (Brand bran in brands)
+            {
+                Console.WriteLine("{0} ---- {1}", bran.Id, bran.Name);
+            }
+            Console.WriteLine("-------------------------------------------------");
+            Brand brand3 = brandRepository.GetById(brand2.Id);
+            Console.WriteLine("{0}  {1}", brand3.Id, brand3.Name);
+            brandRepository.Delete(brand3.Id);
 
             Console.ReadLine();
+
         }
+       
     }
 }

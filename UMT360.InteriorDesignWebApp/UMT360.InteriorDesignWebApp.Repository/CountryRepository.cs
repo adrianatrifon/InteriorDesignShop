@@ -3,15 +3,15 @@ using System.Collections.Generic;
 using System.Data.SqlClient;
 using UMT360.InteriorDesignWebApp.Models;
 
-namespace UMT360.InteriorDesignWebbApp.Repository
+namespace UMT360.InteriorDesignWebApp.Repository
 {
-    public class ColorRepository
+    public class CountryRepository
     {
         #region Methods
-        public List<Color> ReadAll()
+        public List<Country> ReadAll()
         {
             string connectionString = @"Server=ADRI-PC\SQLEXPRESS;Database=InteriorDesignShopDB;Trusted_Connection=True;";
-            List<Color> colors = new List<Color>();
+            List<Country> countries = new List<Country>();
             using (SqlConnection connection = new SqlConnection(connectionString))
             {
                 try
@@ -19,7 +19,7 @@ namespace UMT360.InteriorDesignWebbApp.Repository
                     using (SqlCommand command = new SqlCommand())
                     {
                         command.Connection = connection;
-                        command.CommandText = "dbo.Colors_ReadAll";
+                        command.CommandText = "dbo.Countries_ReadAll";
                         command.CommandType = System.Data.CommandType.StoredProcedure;
 
                         connection.Open();
@@ -28,64 +28,30 @@ namespace UMT360.InteriorDesignWebbApp.Repository
 
                             while (reader.Read())
                             {
-                                Color color = new Color();
-                                color.Id = reader.GetGuid(reader.GetOrdinal("ColorID"));
-                                color.Name = reader.GetString(reader.GetOrdinal("Name"));
+                                Country country = new Country();
+                                country.Id = reader.GetGuid(reader.GetOrdinal("CountryID"));
+                                country.Name = reader.GetString(reader.GetOrdinal("Name"));
 
-                                colors.Add(color);
+                                countries.Add(country);
                             }
                         }
-                    }           
-
-            }
-                catch (SqlException sqlEx)
-                {
-                    Console.WriteLine(sqlEx.Message);
-                }
-                catch (Exception ex)
-                {
-
-                    Console.WriteLine(ex.Message);
-                }       
-
-            }
-            return colors;
-        }
-
-        public void Insert(Color color)
-        {
-            string connectionString = @"Server=ADRI-PC\SQLEXPRESS;Database=InteriorDesignShopDB;Trusted_Connection=True;";
-            using (SqlConnection connection = new SqlConnection(connectionString))
-            {
-                try
-                {
-                    using (SqlCommand command = new SqlCommand())
-                    {
-                        command.Connection = connection;
-                        command.CommandText = "dbo.Colors_Create";
-                        command.CommandType = System.Data.CommandType.StoredProcedure;
-                        command.Parameters.Add(new SqlParameter("@ColorID", color.Id));
-                        command.Parameters.Add(new SqlParameter("@ColorName", color.Name));
-
-                        connection.Open();
-                        command.ExecuteNonQuery();
                     }
 
                 }
-                catch(SqlException sqlEx)
+                catch (SqlException sqlEx)
                 {
                     Console.WriteLine("There was a SQL error: {0}", sqlEx.Message);
                 }
                 catch (Exception ex)
                 {
-
                     Console.WriteLine("There was an error: {0}", ex.Message);
-                }               
-               
-            }
+                }
 
+            }
+            return countries;
         }
-        public void Update(Color color, string newColorName)
+
+        public void Insert(Country country)
         {
             string connectionString = @"Server=ADRI-PC\SQLEXPRESS;Database=InteriorDesignShopDB;Trusted_Connection=True;";
             using (SqlConnection connection = new SqlConnection(connectionString))
@@ -95,10 +61,10 @@ namespace UMT360.InteriorDesignWebbApp.Repository
                     using (SqlCommand command = new SqlCommand())
                     {
                         command.Connection = connection;
-                        command.CommandText = "dbo.Colors_Update";
+                        command.CommandText = "dbo.Countries_Create";
                         command.CommandType = System.Data.CommandType.StoredProcedure;
-                        command.Parameters.Add(new SqlParameter("@ColorID", color.Id));
-                        command.Parameters.Add(new SqlParameter("@ColorName", newColorName));
+                        command.Parameters.Add(new SqlParameter("@CountryID", country.Id));
+                        command.Parameters.Add(new SqlParameter("@CountryName", country.Name));
 
                         connection.Open();
                         command.ExecuteNonQuery();
@@ -118,9 +84,8 @@ namespace UMT360.InteriorDesignWebbApp.Repository
             }
 
         }
-        public void Delete(Guid colorId)
+        public void Update(Country country, string newCountryName)
         {
-            
             string connectionString = @"Server=ADRI-PC\SQLEXPRESS;Database=InteriorDesignShopDB;Trusted_Connection=True;";
             using (SqlConnection connection = new SqlConnection(connectionString))
             {
@@ -129,9 +94,43 @@ namespace UMT360.InteriorDesignWebbApp.Repository
                     using (SqlCommand command = new SqlCommand())
                     {
                         command.Connection = connection;
-                        command.CommandText = "dbo.Colors_Delete";
+                        command.CommandText = "dbo.Countries_Update";
                         command.CommandType = System.Data.CommandType.StoredProcedure;
-                        command.Parameters.Add(new SqlParameter("@ColorID", colorId));
+                        command.Parameters.Add(new SqlParameter("@CountryID", country.Id));
+                        command.Parameters.Add(new SqlParameter("@CountryName", newCountryName));
+
+                        connection.Open();
+                        command.ExecuteNonQuery();
+                    }
+
+                }
+                catch (SqlException sqlEx)
+                {
+                    Console.WriteLine("There was a SQL error: {0}", sqlEx.Message);
+                }
+                catch (Exception ex)
+                {
+
+                    Console.WriteLine("There was an error: {0}", ex.Message);
+                }
+
+            }
+
+        }
+        public void Delete(Guid countryId)
+        {
+
+            string connectionString = @"Server=ADRI-PC\SQLEXPRESS;Database=InteriorDesignShopDB;Trusted_Connection=True;";
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                try
+                {
+                    using (SqlCommand command = new SqlCommand())
+                    {
+                        command.Connection = connection;
+                        command.CommandText = "dbo.Countries_Delete";
+                        command.CommandType = System.Data.CommandType.StoredProcedure;
+                        command.Parameters.Add(new SqlParameter("@CountryID", countryId));
 
                         connection.Open();
                         command.ExecuteNonQuery();
@@ -152,9 +151,9 @@ namespace UMT360.InteriorDesignWebbApp.Repository
 
         }
 
-        public Color GetById(Guid colorId)
+        public Country GetById(Guid countryId)
         {
-            Color color = new Color();
+            Country country = new Country();
             string connectionString = @"Server=ADRI-PC\SQLEXPRESS;Database=InteriorDesignShopDB;Trusted_Connection=True;";
             using (SqlConnection connection = new SqlConnection(connectionString))
             {
@@ -163,33 +162,36 @@ namespace UMT360.InteriorDesignWebbApp.Repository
                     using (SqlCommand command = new SqlCommand())
                     {
                         command.Connection = connection;
-                        command.CommandText = "dbo.Colors_GetById";
+                        command.CommandText = "dbo.Countries_GetById";
                         command.CommandType = System.Data.CommandType.StoredProcedure;
 
-                        command.Parameters.Add(new SqlParameter("@ColorID", colorId));                       
+                        command.Parameters.Add(new SqlParameter("@CountryID", countryId));
                         connection.Open();
                         using (SqlDataReader reader = command.ExecuteReader())
                         {
-                            while(reader.Read())
+                            while (reader.Read())
                             {
-                                color.Id = reader.GetGuid(reader.GetOrdinal("ColorID"));
-                                color.Name = reader.GetString(reader.GetOrdinal("Name"));
+                                country.Id = reader.GetGuid(reader.GetOrdinal("CountryID"));
+                                country.Name = reader.GetString(reader.GetOrdinal("Name"));
                             }
 
                         }
 
                     }
                 }
+                catch (SqlException sqlEx)
+                {
+                    Console.WriteLine("There was a SQL error: {0}", sqlEx.Message);
+                }
                 catch (Exception ex)
                 {
 
-                    Console.WriteLine(ex.Message);
+                    Console.WriteLine("There was an error: {0}", ex.Message);
                 }
-                
-                    
-            }
 
-                return color;
+
+            }
+            return country;
         }
         #endregion
     }

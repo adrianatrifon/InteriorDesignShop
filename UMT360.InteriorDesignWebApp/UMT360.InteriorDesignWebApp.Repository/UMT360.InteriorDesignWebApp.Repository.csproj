@@ -40,9 +40,13 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BrandRepository.cs" />
     <Compile Include="ColorRepository.cs" />
+    <Compile Include="CountryRepository.cs" />
+    <Compile Include="CurrencyRepository.cs" />
     <Compile Include="MaterialRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="RoleRepository.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\UMT360.InteriorDesignWebApp.Models\UMT360.InteriorDesignWebApp.Models.csproj">

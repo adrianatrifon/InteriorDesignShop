@@ -1,17 +1,20 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 using UMT360.InteriorDesignWebApp.Models;
 
 namespace UMT360.InteriorDesignWebApp.Repository
 {
-    public class ColorRepository
+    public class RoleRepository
     {
         #region Methods
-        public List<Color> ReadAll()
+        public List<Role> ReadAll()
         {
             string connectionString = @"Server=ADRI-PC\SQLEXPRESS;Database=InteriorDesignShopDB;Trusted_Connection=True;";
-            List<Color> colors = new List<Color>();
+            List<Role> roles = new List<Role>();
             using (SqlConnection connection = new SqlConnection(connectionString))
             {
                 try
@@ -19,7 +22,7 @@ namespace UMT360.InteriorDesignWebApp.Repository
                     using (SqlCommand command = new SqlCommand())
                     {
                         command.Connection = connection;
-                        command.CommandText = "dbo.Colors_ReadAll";
+                        command.CommandText = "dbo.Roles_ReadAll";
                         command.CommandType = System.Data.CommandType.StoredProcedure;
 
                         connection.Open();
@@ -28,11 +31,11 @@ namespace UMT360.InteriorDesignWebApp.Repository
 
                             while (reader.Read())
                             {
-                                Color color = new Color();
-                                color.Id = reader.GetGuid(reader.GetOrdinal("ColorID"));
-                                color.Name = reader.GetString(reader.GetOrdinal("Name"));
+                                Role role = new Role();
+                                role.Id = reader.GetGuid(reader.GetOrdinal("RoleID"));
+                                role.Description = reader.GetString(reader.GetOrdinal("Description"));
 
-                                colors.Add(color);
+                                roles.Add(role);
                             }
                         }
                     }
@@ -49,10 +52,10 @@ namespace UMT360.InteriorDesignWebApp.Repository
                 }
 
             }
-            return colors;
+            return roles;
         }
 
-        public void Insert(Color color)
+        public void Insert(Role role)
         {
             string connectionString = @"Server=ADRI-PC\SQLEXPRESS;Database=InteriorDesignShopDB;Trusted_Connection=True;";
             using (SqlConnection connection = new SqlConnection(connectionString))
@@ -62,10 +65,10 @@ namespace UMT360.InteriorDesignWebApp.Repository
                     using (SqlCommand command = new SqlCommand())
                     {
                         command.Connection = connection;
-                        command.CommandText = "dbo.Colors_Create";
+                        command.CommandText = "dbo.Roles_Create";
                         command.CommandType = System.Data.CommandType.StoredProcedure;
-                        command.Parameters.Add(new SqlParameter("@ColorID", color.Id));
-                        command.Parameters.Add(new SqlParameter("@ColorName", color.Name));
+                        command.Parameters.Add(new SqlParameter("@RoleID", role.Id));
+                        command.Parameters.Add(new SqlParameter("@RoleName", role.Description));
 
                         connection.Open();
                         command.ExecuteNonQuery();
@@ -85,7 +88,7 @@ namespace UMT360.InteriorDesignWebApp.Repository
             }
 
         }
-        public void Update(Color color, string newColorName)
+        public void Update(Role role, string newRoleDescription)
         {
             string connectionString = @"Server=ADRI-PC\SQLEXPRESS;Database=InteriorDesignShopDB;Trusted_Connection=True;";
             using (SqlConnection connection = new SqlConnection(connectionString))
@@ -95,10 +98,10 @@ namespace UMT360.InteriorDesignWebApp.Repository
                     using (SqlCommand command = new SqlCommand())
                     {
                         command.Connection = connection;
-                        command.CommandText = "dbo.Colors_Update";
+                        command.CommandText = "dbo.Roles_Update";
                         command.CommandType = System.Data.CommandType.StoredProcedure;
-                        command.Parameters.Add(new SqlParameter("@ColorID", color.Id));
-                        command.Parameters.Add(new SqlParameter("@ColorName", newColorName));
+                        command.Parameters.Add(new SqlParameter("@RoleID", role.Id));
+                        command.Parameters.Add(new SqlParameter("@Role", newRoleDescription));
 
                         connection.Open();
                         command.ExecuteNonQuery();
@@ -118,7 +121,7 @@ namespace UMT360.InteriorDesignWebApp.Repository
             }
 
         }
-        public void Delete(Guid colorId)
+        public void Delete(Guid roleId)
         {
 
             string connectionString = @"Server=ADRI-PC\SQLEXPRESS;Database=InteriorDesignShopDB;Trusted_Connection=True;";
@@ -129,9 +132,9 @@ namespace UMT360.InteriorDesignWebApp.Repository
                     using (SqlCommand command = new SqlCommand())
                     {
                         command.Connection = connection;
-                        command.CommandText = "dbo.Colors_Delete";
+                        command.CommandText = "dbo.Roles_Delete";
                         command.CommandType = System.Data.CommandType.StoredProcedure;
-                        command.Parameters.Add(new SqlParameter("@ColorID", colorId));
+                        command.Parameters.Add(new SqlParameter("@RoleID", roleId));
 
                         connection.Open();
                         command.ExecuteNonQuery();
@@ -152,9 +155,9 @@ namespace UMT360.InteriorDesignWebApp.Repository
 
         }
 
-        public Color GetById(Guid colorId)
+        public Role GetById(Guid roleId)
         {
-            Color color = new Color();
+            Role role = new Role();
             string connectionString = @"Server=ADRI-PC\SQLEXPRESS;Database=InteriorDesignShopDB;Trusted_Connection=True;";
             using (SqlConnection connection = new SqlConnection(connectionString))
             {
@@ -163,17 +166,17 @@ namespace UMT360.InteriorDesignWebApp.Repository
                     using (SqlCommand command = new SqlCommand())
                     {
                         command.Connection = connection;
-                        command.CommandText = "dbo.Colors_GetById";
+                        command.CommandText = "dbo.Roles_GetById";
                         command.CommandType = System.Data.CommandType.StoredProcedure;
 
-                        command.Parameters.Add(new SqlParameter("@ColorID", colorId));
+                        command.Parameters.Add(new SqlParameter("@RoleID", roleId));
                         connection.Open();
                         using (SqlDataReader reader = command.ExecuteReader())
                         {
                             while (reader.Read())
                             {
-                                color.Id = reader.GetGuid(reader.GetOrdinal("ColorID"));
-                                color.Name = reader.GetString(reader.GetOrdinal("Name"));
+                                role.Id = reader.GetGuid(reader.GetOrdinal("RoleID"));
+                                role.Description = reader.GetString(reader.GetOrdinal("Description"));
                             }
 
                         }
@@ -193,7 +196,7 @@ namespace UMT360.InteriorDesignWebApp.Repository
 
             }
 
-            return color;
+            return role;
         }
         #endregion
     }

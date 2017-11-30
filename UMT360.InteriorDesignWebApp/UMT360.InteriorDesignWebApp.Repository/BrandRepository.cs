@@ -1,17 +1,17 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
-using UMT360.InteriorDesignWebbApp.Models;
+using UMT360.InteriorDesignWebApp.Models;
 
-namespace UMT360.InteriorDesignWebbApp.Repository
+namespace UMT360.InteriorDesignWebApp.Repository
 {
-    public class MaterialRepository
+    public class BrandRepository
     {
         #region Methods
-        public List<Material> ReadAll()
+        public List<Brand> ReadAll()
         {
             string connectionString = @"Server=ADRI-PC\SQLEXPRESS;Database=InteriorDesignShopDB;Trusted_Connection=True;";
-            List<Material> materials = new List<Material>();
+            List<Brand> brands = new List<Brand>();
             using (SqlConnection connection = new SqlConnection(connectionString))
             {
                 try
@@ -19,7 +19,7 @@ namespace UMT360.InteriorDesignWebbApp.Repository
                     using (SqlCommand command = new SqlCommand())
                     {
                         command.Connection = connection;
-                        command.CommandText = "dbo.Materials_ReadAll";
+                        command.CommandText = "dbo.Brands_ReadAll";
                         command.CommandType = System.Data.CommandType.StoredProcedure;
 
                         connection.Open();
@@ -28,11 +28,11 @@ namespace UMT360.InteriorDesignWebbApp.Repository
 
                             while (reader.Read())
                             {
-                                Material material = new Material();
-                                material.Id = reader.GetGuid(reader.GetOrdinal("MaterialID"));
-                                material.Name = reader.GetString(reader.GetOrdinal("Name"));
+                                Brand brand = new Brand();
+                                brand.Id = reader.GetGuid(reader.GetOrdinal("BrandID"));
+                                brand.Name = reader.GetString(reader.GetOrdinal("Name"));
 
-                                materials.Add(material);
+                                brands.Add(brand);
                             }
                         }
                     }
@@ -40,19 +40,19 @@ namespace UMT360.InteriorDesignWebbApp.Repository
                 }
                 catch (SqlException sqlEx)
                 {
-                    Console.WriteLine(sqlEx.Message);
+                    Console.WriteLine("There was a SQL error: {0}", sqlEx.Message);
                 }
                 catch (Exception ex)
                 {
 
-                    Console.WriteLine(ex.Message);
+                    Console.WriteLine("There was an error: {0}", ex.Message);
                 }
 
             }
-            return materials;
+            return brands;
         }
 
-        public void Insert(Material material)
+        public void Insert(Brand brand)
         {
             string connectionString = @"Server=ADRI-PC\SQLEXPRESS;Database=InteriorDesignShopDB;Trusted_Connection=True;";
             using (SqlConnection connection = new SqlConnection(connectionString))
@@ -62,10 +62,10 @@ namespace UMT360.InteriorDesignWebbApp.Repository
                     using (SqlCommand command = new SqlCommand())
                     {
                         command.Connection = connection;
-                        command.CommandText = "dbo.Materials_Create";
+                        command.CommandText = "dbo.Brands_Create";
                         command.CommandType = System.Data.CommandType.StoredProcedure;
-                        command.Parameters.Add(new SqlParameter("@MaterialID", material.Id));
-                        command.Parameters.Add(new SqlParameter("@MaterialName", material.Name));
+                        command.Parameters.Add(new SqlParameter("@BrandID", brand.Id));
+                        command.Parameters.Add(new SqlParameter("@BrandName", brand.Name));
 
                         connection.Open();
                         command.ExecuteNonQuery();
@@ -85,7 +85,7 @@ namespace UMT360.InteriorDesignWebbApp.Repository
             }
 
         }
-        public void Update(Material material, string newMaterialName)
+        public void Update(Brand brand, string newBrandName)
         {
             string connectionString = @"Server=ADRI-PC\SQLEXPRESS;Database=InteriorDesignShopDB;Trusted_Connection=True;";
             using (SqlConnection connection = new SqlConnection(connectionString))
@@ -95,10 +95,10 @@ namespace UMT360.InteriorDesignWebbApp.Repository
                     using (SqlCommand command = new SqlCommand())
                     {
                         command.Connection = connection;
-                        command.CommandText = "dbo.Materials_Update";
+                        command.CommandText = "dbo.Brands_Update";
                         command.CommandType = System.Data.CommandType.StoredProcedure;
-                        command.Parameters.Add(new SqlParameter("@MaterialID", material.Id));
-                        command.Parameters.Add(new SqlParameter("@MaterialName", newMaterialName));
+                        command.Parameters.Add(new SqlParameter("@BrandID", brand.Id));
+                        command.Parameters.Add(new SqlParameter("@BrandName", newBrandName));
 
                         connection.Open();
                         command.ExecuteNonQuery();
@@ -118,7 +118,7 @@ namespace UMT360.InteriorDesignWebbApp.Repository
             }
 
         }
-        public void Delete(Guid materialId)
+        public void Delete(Guid brandId)
         {
 
             string connectionString = @"Server=ADRI-PC\SQLEXPRESS;Database=InteriorDesignShopDB;Trusted_Connection=True;";
@@ -129,9 +129,9 @@ namespace UMT360.InteriorDesignWebbApp.Repository
                     using (SqlCommand command = new SqlCommand())
                     {
                         command.Connection = connection;
-                        command.CommandText = "dbo.Materials_Delete";
+                        command.CommandText = "dbo.Brands_Delete";
                         command.CommandType = System.Data.CommandType.StoredProcedure;
-                        command.Parameters.Add(new SqlParameter("@MaterialID", materialId));
+                        command.Parameters.Add(new SqlParameter("@BrandID", brandId));
 
                         connection.Open();
                         command.ExecuteNonQuery();
@@ -152,9 +152,9 @@ namespace UMT360.InteriorDesignWebbApp.Repository
 
         }
 
-        public Material GetById(Guid materialId)
+        public Brand GetById(Guid brandId)
         {
-            Material material = new Material();
+            Brand brand = new Brand();
             string connectionString = @"Server=ADRI-PC\SQLEXPRESS;Database=InteriorDesignShopDB;Trusted_Connection=True;";
             using (SqlConnection connection = new SqlConnection(connectionString))
             {
@@ -163,35 +163,38 @@ namespace UMT360.InteriorDesignWebbApp.Repository
                     using (SqlCommand command = new SqlCommand())
                     {
                         command.Connection = connection;
-                        command.CommandText = "dbo.Materials_GetById";
+                        command.CommandText = "dbo.Brands_GetById";
                         command.CommandType = System.Data.CommandType.StoredProcedure;
 
-                        command.Parameters.Add(new SqlParameter("@MaterialID", materialId));
+                        command.Parameters.Add(new SqlParameter("@BrandID", brandId));
                         connection.Open();
                         using (SqlDataReader reader = command.ExecuteReader())
                         {
                             while (reader.Read())
                             {
-                                material.Id = reader.GetGuid(reader.GetOrdinal("MaterialID"));
-                                material.Name = reader.GetString(reader.GetOrdinal("Name"));
+                                brand.Id = reader.GetGuid(reader.GetOrdinal("BrandID"));
+                                brand.Name = reader.GetString(reader.GetOrdinal("Name"));
                             }
 
                         }
 
                     }
                 }
+                catch (SqlException sqlEx)
+                {
+                    Console.WriteLine("There was a SQL error: {0}", sqlEx.Message);
+                }
                 catch (Exception ex)
                 {
 
-                    Console.WriteLine(ex.Message);
+                    Console.WriteLine("There was an error: {0}", ex.Message);
                 }
 
 
             }
 
-            return material;
+            return brand;
         }
         #endregion
-
     }
 }

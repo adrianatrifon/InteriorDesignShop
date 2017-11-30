@@ -71,7 +71,8 @@ CREATE TABLE [Categories](
 CREATE TABLE [Promotions](
 	[PromotionID] uniqueidentifier NOT NULL,
 	[Name] nvarchar(50) NOT NULL,
-	[Valability] nvarchar(50) NOT NULL,
+	[StartDate] date,
+	[EndDate]  date,
 	[Description] nvarchar(MAX),
 
 	CONSTRAINT [PK_Promotions] PRIMARY KEY ([PromotionID])		
@@ -469,7 +470,8 @@ CREATE PROCEDURE dbo.Promotions_Create
 (
 	@PromotionID uniqueidentifier,
 	@PromotionName nvarchar(50),
-	@Valability nvarchar(50),
+	@StartDate date,
+	@EndDate date,
 	@Description nvarchar(max)
 )
 AS
@@ -480,14 +482,16 @@ BEGIN
 	(
 		PromotionID,
 		Name,
-		Valability,
+		StartDate,
+		EndDate,
 		Description	
 	)
 	VALUES
 	(
 		@PromotionID,
 		@PromotionName,
-		@Valability,
+		@StartDate,
+		@EndDate,
 		@Description
 	)
 	
@@ -978,7 +982,8 @@ CREATE PROCEDURE dbo.Promotions_Update
 (
 	@PromotionID uniqueidentifier,
 	@PromotionName nvarchar(50),
-	@Valability nvarchar(50),
+	@StartDate date,
+	@EndDate date,
 	@Description nvarchar(max)
 )
 AS
@@ -988,7 +993,8 @@ BEGIN
 	UPDATE dbo.Promotions
 	SET
 		Name=@PromotionName,
-		Valability=@Valability,
+		StartDate=@StartDate,
+		EndDate=@EndDate,
 		Description	=@Description
 	WHERE PromotionID=@PromotionID
 		
@@ -1737,7 +1743,8 @@ BEGIN
 	SELECT
 		PromotionID,
 		Name,
-		Valability,
+		StartDate,
+		EndDate,
 		Description
 	FROM dbo.Promotions
 	WHERE PromotionID=@PromotionID
@@ -1927,7 +1934,7 @@ AS
 	WHERE r.Description='User'
 GO
 
--- ReadALL PROCEDURES
+-- ReadALL VIEWS
 
 CREATE PROCEDURE dbo.Accounts_ReadAll
 AS
@@ -2111,7 +2118,8 @@ AS
 	SELECT
 		PromotionID,
 		Name,
-		Valability,
+		StartDate,
+		EndDate,
 		Description
 	FROM dbo.Promotions	
 GO
