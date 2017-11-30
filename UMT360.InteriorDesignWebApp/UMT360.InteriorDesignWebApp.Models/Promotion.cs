@@ -11,7 +11,8 @@ namespace UMT360.InteriorDesignWebApp.Models
         #region Properties
         public Guid Id { set; get; }
         public string Name { set; get; }
-        public string Valability { set; get; }
+        public DateTime StartDate { set; get; }
+        public DateTime EndDate { set; get; }
         public string Description { set; get; }
         #endregion
     }
