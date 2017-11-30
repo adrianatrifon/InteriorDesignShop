@@ -2,6 +2,7 @@
 GO
 USE InteriorDesignShopDB
 GO
+--DROP DATABASE InteriorDesignShopDB
 
 CREATE TABLE [Colors](
 	[ColorID] uniqueidentifier NOT NULL,
@@ -1908,7 +1909,7 @@ BEGIN
 END
 GO
 
-CREATE VIEW [dbo.GetUsers]
+CREATE PROCEDURE dbo.GetUsers
 AS 
 	SELECT 
 		p.PersonID,	
@@ -1926,9 +1927,9 @@ AS
 	WHERE r.Description='User'
 GO
 
--- ReadALL VIEWS
+-- ReadALL PROCEDURES
 
-CREATE VIEW [dbo.Accounts_ReadAll]
+CREATE PROCEDURE dbo.Accounts_ReadAll
 AS
 	SELECT
 		AccountID,
@@ -1939,7 +1940,7 @@ AS
 	FROM dbo.Accounts		
 GO
 
-CREATE VIEW [dbo.Brands_ReadAll]
+CREATE PROCEDURE dbo.Brands_ReadAll
 AS
 	SELECT
 		BrandID,
@@ -1947,7 +1948,7 @@ AS
 	FROM dbo.Brands		
 GO
 
-CREATE VIEW [dbo.Categories_ReadAll]
+CREATE PROCEDURE dbo.Categories_ReadAll
 AS
 	SELECT
 		CategoryID,
@@ -1956,7 +1957,7 @@ AS
 	FROM dbo.Categories		
 GO
 
-CREATE VIEW [dbo.Cities_ReadAll]
+CREATE PROCEDURE dbo.Cities_ReadAll
 AS
 	SELECT
 		CityID,
@@ -1965,7 +1966,7 @@ AS
 	FROM dbo.Cities		
 GO
 
-CREATE VIEW [dbo.Counties_ReadAll]
+CREATE PROCEDURE dbo.Counties_ReadAll
 AS
 	SELECT
 		CountyID,
@@ -1974,7 +1975,7 @@ AS
 	FROM dbo.Counties		
 GO
 
-CREATE VIEW [dbo.Countries_ReadAll]
+CREATE PROCEDURE dbo.Countries_ReadAll
 AS
 	SELECT
 		CountryID,
@@ -1982,7 +1983,7 @@ AS
 	FROM dbo.Countries		
 GO
 
-CREATE VIEW [dbo.Colors_ReadAll]
+CREATE PROCEDURE dbo.Colors_ReadAll
 AS
 	SELECT
 		ColorID,
@@ -1990,7 +1991,7 @@ AS
 	FROM dbo.Colors		
 GO
 
-CREATE VIEW [dbo.Currencies_ReadAll]
+CREATE PROCEDURE dbo.Currencies_ReadAll
 AS
 	SELECT
 		CurrencyID,
@@ -1998,7 +1999,7 @@ AS
 	FROM dbo.Currencies	
 GO
 
-CREATE VIEW [dbo.Materials_ReadAll]
+CREATE PROCEDURE dbo.Materials_ReadAll
 AS
 	SELECT
 		MaterialID,
@@ -2006,7 +2007,7 @@ AS
 	FROM dbo.Materials	
 GO
 
-CREATE VIEW [dbo.Orders_ReadAll]
+CREATE PROCEDURE dbo.Orders_ReadAll
 AS
 	SELECT
 		OrderID,
@@ -2017,7 +2018,7 @@ AS
 	FROM dbo.Orders		
 GO
 
-CREATE VIEW [dbo.OrdersProducts_ReadAll]
+CREATE PROCEDURE dbo.OrdersProducts_ReadAll
 AS
 	SELECT
 		OrderID,
@@ -2025,7 +2026,7 @@ AS
 	FROM dbo.OrdersProducts		
 GO
 
-CREATE VIEW [dbo.PaymentOptions_ReadAll]
+CREATE PROCEDURE dbo.PaymentOptions_ReadAll
 AS
 	SELECT
 		PaymentOptionID,
@@ -2033,7 +2034,7 @@ AS
 	FROM dbo.PaymentOptions	
 GO
 
-CREATE VIEW [dbo.Persons_ReadAll]
+CREATE PROCEDURE dbo.Persons_ReadAll
 AS
 	SELECT
 		PersonID,
@@ -2048,7 +2049,7 @@ AS
 	FROM dbo.Persons	
 GO
 
-CREATE VIEW [dbo.Photos_ReadAll]
+CREATE PROCEDURE dbo.Photos_ReadAll
 AS
 	SELECT
 		PhotoID,
@@ -2056,7 +2057,7 @@ AS
 	FROM dbo.Photos	
 GO
 
-CREATE VIEW [dbo.Products_ReadAll]
+CREATE PROCEDURE dbo.Products_ReadAll
 AS
 	SELECT
 		ProductID,
@@ -2073,7 +2074,7 @@ AS
 	FROM dbo.Products	
 GO
 
-CREATE VIEW [dbo.ProductsColors_ReadAll]
+CREATE PROCEDURE dbo.ProductsColors_ReadAll
 AS
 	SELECT
 		ProductID,
@@ -2081,7 +2082,7 @@ AS
 	FROM dbo.ProductsColors	
 GO
 
-CREATE VIEW [dbo.ProductsMaterials_ReadAll]
+CREATE PROCEDURE dbo.ProductsMaterials_ReadAll
 AS
 	SELECT
 		ProductID,
@@ -2089,7 +2090,7 @@ AS
 	FROM dbo.ProductsMaterials
 GO
 
-CREATE VIEW [dbo.ProductsPhotos_ReadAll]
+CREATE PROCEDURE dbo.ProductsPhotos_ReadAll
 AS
 	SELECT
 		ProductID,
@@ -2097,7 +2098,7 @@ AS
 	FROM dbo.ProductsPhotos	
 GO
 
-CREATE VIEW [dbo.ProductsPromotions_ReadAll]
+CREATE PROCEDURE dbo.ProductsPromotions_ReadAll
 AS
 	SELECT
 		ProductID,
@@ -2105,7 +2106,7 @@ AS
 	FROM dbo.ProductsPromotions	
 GO
 
-CREATE VIEW [dbo.Promotions_ReadAll]
+CREATE PROCEDURE dbo.Promotions_ReadAll
 AS
 	SELECT
 		PromotionID,
@@ -2115,7 +2116,7 @@ AS
 	FROM dbo.Promotions	
 GO
 
-CREATE VIEW [dbo.Roles_ReadAll]
+CREATE PROCEDURE dbo.Roles_ReadAll
 AS
 	SELECT
 		RoleID,

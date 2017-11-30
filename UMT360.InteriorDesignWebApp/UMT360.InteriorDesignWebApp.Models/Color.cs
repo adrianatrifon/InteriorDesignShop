@@ -6,7 +6,6 @@ using System.Threading.Tasks;
 
 namespace UMT360.InteriorDesignWebApp.Models
 {
-
     public class Color
     {
         #region Properties
@@ -14,5 +13,4 @@ namespace UMT360.InteriorDesignWebApp.Models
         public string Name { set; get; }
         #endregion
     }
-
 }

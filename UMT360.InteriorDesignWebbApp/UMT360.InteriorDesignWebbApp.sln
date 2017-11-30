@@ -5,6 +5,16 @@ VisualStudioVersion = 15.0.26730.15
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UMT360.InteriorDesignWebbApp.Models", "UMT360.InteriorDesignWebbApp\UMT360.InteriorDesignWebbApp.Models.csproj", "{F7176C62-75D7-40CC-B829-F80B2ED0B0B1}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SQL", "SQL", "{D9343474-F06D-4B4F-9F63-57B32E05CCD8}"
+	ProjectSection(SolutionItems) = preProject
+		..\InteriorDesignWebApp\InteriorDesignDB.sql = ..\InteriorDesignWebApp\InteriorDesignDB.sql
+		..\InteriorDesignWebApp\PopulateDB.sql = ..\InteriorDesignWebApp\PopulateDB.sql
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UMT360.InteriorDesignWebbApp.Repository", "UMT360.InteriorDesignWebbApp.Repository\UMT360.InteriorDesignWebbApp.Repository.csproj", "{ACF8445E-8D3B-4271-9FCE-A8CDA6F33D92}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UMT360.InteriorDesignWebbApp", "ConsoleApp1\UMT360.InteriorDesignWebbApp.csproj", "{D7C1B563-6759-4354-969C-82DC4E6BE86A}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,11 +25,19 @@ Global
 		{F7176C62-75D7-40CC-B829-F80B2ED0B0B1}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F7176C62-75D7-40CC-B829-F80B2ED0B0B1}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F7176C62-75D7-40CC-B829-F80B2ED0B0B1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{ACF8445E-8D3B-4271-9FCE-A8CDA6F33D92}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{ACF8445E-8D3B-4271-9FCE-A8CDA6F33D92}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{ACF8445E-8D3B-4271-9FCE-A8CDA6F33D92}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{ACF8445E-8D3B-4271-9FCE-A8CDA6F33D92}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D7C1B563-6759-4354-969C-82DC4E6BE86A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D7C1B563-6759-4354-969C-82DC4E6BE86A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D7C1B563-6759-4354-969C-82DC4E6BE86A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D7C1B563-6759-4354-969C-82DC4E6BE86A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
-		SolutionGuid = {82B6EAE4-8EDB-4345-8DDD-59558B8C3DFD}
+		SolutionGuid = {9F3DA12C-38B7-46CA-A791-D26DB4449815}
 	EndGlobalSection
 EndGlobal

@@ -6,13 +6,11 @@ using System.Threading.Tasks;
 
 namespace UMT360.InteriorDesignWebApp.Models
 {
-
-    public class Color
+    public class ProductColor
     {
         #region Properties
-        public Guid Id { set; get; }
-        public string Name { set; get; }
+        public Guid ProductId { set; get; }
+        public Guid ColorId { set; get; }
         #endregion
     }
-
 }
