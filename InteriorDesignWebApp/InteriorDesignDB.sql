@@ -743,8 +743,7 @@ CREATE PROCEDURE dbo.Products_Create
 	@Dimensions nvarchar(50),
 	@Weight nvarchar(50),
 	@Guarantee nvarchar(50),
-	@Description nvarchar(max),
-	@ColorID uniqueidentifier,
+	@Description nvarchar(max),	
 	@BrandID uniqueidentifier,
 	@CategoryID uniqueidentifier
 )
@@ -1934,7 +1933,7 @@ AS
 	WHERE r.Description='User'
 GO
 
--- ReadALL VIEWS
+-- ReadALL Procedures
 
 CREATE PROCEDURE dbo.Accounts_ReadAll
 AS

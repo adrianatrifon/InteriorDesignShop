@@ -16,7 +16,7 @@ namespace UMT360.InteriorDesignWebApp.Models
         public string Number { set; get; }
         public DateTime BirthDay { set; get; }
         public string PhoneNumber { set; get; }
-        public Guid CityID { set; get; }
+        public Guid CityId { set; get; }
         public Guid AccountId { set; get; }
         #endregion
     }
