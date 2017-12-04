@@ -170,9 +170,20 @@ namespace UMT360.InteriorDesignWebApp
             Console.WriteLine("{0}  {1}", brand3.Id, brand3.Name);
             brandRepository.Delete(brand3.Id);
 
+          
+           // List<Photo> photos = new List<Photo>();
+            //PhotoRepository photoRepository = new PhotoRepository();         
+           // photos = photoRepository.ReadAll();
+           
+           // foreach (Photo col in photos)
+          // {
+            //    Console.WriteLine("{0} ---- {1}", col.Id, col.Image);
+          // }
+           
             Console.ReadLine();
 
         }
+
        
     }
 }
