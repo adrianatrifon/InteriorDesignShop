@@ -3,17 +3,17 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.26730.15
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SQL", "SQL", "{5C39BF70-CAF4-4EC9-9CCF-C34BEEE1B641}"
-	ProjectSection(SolutionItems) = preProject
-		..\InteriorDesignWebApp\InteriorDesignDB.sql = ..\InteriorDesignWebApp\InteriorDesignDB.sql
-		..\InteriorDesignWebApp\PopulateDB.sql = ..\InteriorDesignWebApp\PopulateDB.sql
-	EndProjectSection
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UMT360.InteriorDesignWebApp.Models", "UMT360.InteriorDesignWebApp.Models\UMT360.InteriorDesignWebApp.Models.csproj", "{BFC6D468-F040-493A-B81A-3274DF43FD96}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UMT360.InteriorDesignWebApp.Repository", "UMT360.InteriorDesignWebApp.Repository\UMT360.InteriorDesignWebApp.Repository.csproj", "{DA6EE371-3872-4E37-9424-287B7538971B}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UMT360.InteriorDesignWebApp", "UMT360.InteriorDesignWebApp\UMT360.InteriorDesignWebApp.csproj", "{17CED89A-F36E-4D4C-ADE7-85E94C51B8F9}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SQL", "SQL", "{1C85FC4C-3E88-4E7A-8FC7-35E8EB5C63EB}"
+	ProjectSection(SolutionItems) = preProject
+		InsertValuesDB.sql = InsertValuesDB.sql
+		InteriorDesignDB.sql = InteriorDesignDB.sql
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
