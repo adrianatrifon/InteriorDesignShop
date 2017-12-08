@@ -85,7 +85,7 @@ namespace UMT360.InteriorDesignWebApp.Repository
             }
 
         }
-        public void Update(Color color, string newColorName)
+        public void Update(Color color)
         {
             string connectionString = @"Server=ADRI-PC\SQLEXPRESS;Database=InteriorDesignShopDB;Trusted_Connection=True;";
             using (SqlConnection connection = new SqlConnection(connectionString))
@@ -98,7 +98,7 @@ namespace UMT360.InteriorDesignWebApp.Repository
                         command.CommandText = "dbo.Colors_Update";
                         command.CommandType = System.Data.CommandType.StoredProcedure;
                         command.Parameters.Add(new SqlParameter("@ColorID", color.Id));
-                        command.Parameters.Add(new SqlParameter("@ColorName", newColorName));
+                        command.Parameters.Add(new SqlParameter("@ColorName", color.Name));
 
                         connection.Open();
                         command.ExecuteNonQuery();

@@ -84,7 +84,7 @@ namespace UMT360.InteriorDesignWebApp.Repository
             }
 
         }
-        public void Update(Currency currency, string newCurrencyName)
+        public void Update(Currency currency)
         {
             string connectionString = @"Server=ADRI-PC\SQLEXPRESS;Database=InteriorDesignShopDB;Trusted_Connection=True;";
             using (SqlConnection connection = new SqlConnection(connectionString))
@@ -97,7 +97,7 @@ namespace UMT360.InteriorDesignWebApp.Repository
                         command.CommandText = "dbo.Currencies_Update";
                         command.CommandType = System.Data.CommandType.StoredProcedure;
                         command.Parameters.Add(new SqlParameter("@CurrencyID", currency.Id));
-                        command.Parameters.Add(new SqlParameter("@CurrencyName", newCurrencyName));
+                        command.Parameters.Add(new SqlParameter("@CurrencyName", currency.Name));
 
                         connection.Open();
                         command.ExecuteNonQuery();

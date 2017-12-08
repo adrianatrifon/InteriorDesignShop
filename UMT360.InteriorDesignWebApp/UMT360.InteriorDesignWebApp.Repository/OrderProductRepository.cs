@@ -87,7 +87,7 @@ namespace UMT360.InteriorDesignWebApp.Repository
             }
 
         }
-        public void Update(OrderProduct orderProduct, int newQuantity)
+        public void Update(OrderProduct orderProduct)
         {
             string connectionString = @"Server=ADRI-PC\SQLEXPRESS;Database=InteriorDesignShopDB;Trusted_Connection=True;";
             using (SqlConnection connection = new SqlConnection(connectionString))
@@ -101,7 +101,7 @@ namespace UMT360.InteriorDesignWebApp.Repository
                         command.CommandType = System.Data.CommandType.StoredProcedure;
                         command.Parameters.Add(new SqlParameter("@OrderID", orderProduct.OrderId));
                         command.Parameters.Add(new SqlParameter("@ProductID", orderProduct.ProductId));
-                        command.Parameters.Add(new SqlParameter("@Quantity", newQuantity));
+                        command.Parameters.Add(new SqlParameter("@Quantity", orderProduct.Quantity));
 
                         connection.Open();
                         command.ExecuteNonQuery();

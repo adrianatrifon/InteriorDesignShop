@@ -86,7 +86,7 @@ namespace UMT360.InteriorDesignWebApp.Repository
             }
 
         }
-        public void Update(City city, string newCityName, Guid newCountyId)
+        public void Update(City city)
         {
             string connectionString = @"Server=ADRI-PC\SQLEXPRESS;Database=InteriorDesignShopDB;Trusted_Connection=True;";
             using (SqlConnection connection = new SqlConnection(connectionString))
@@ -99,8 +99,8 @@ namespace UMT360.InteriorDesignWebApp.Repository
                         command.CommandText = "dbo.Cities_Update";
                         command.CommandType = System.Data.CommandType.StoredProcedure;
                         command.Parameters.Add(new SqlParameter("@CityID", city.Id));
-                        command.Parameters.Add(new SqlParameter("@CityName", newCityName));
-                        command.Parameters.Add(new SqlParameter("@CountyID", newCountyId));
+                        command.Parameters.Add(new SqlParameter("@CityName", city.Name));
+                        command.Parameters.Add(new SqlParameter("@CountyID", city.CountyId));
 
                         connection.Open();
                         command.ExecuteNonQuery();

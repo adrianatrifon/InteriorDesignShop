@@ -90,7 +90,7 @@ namespace UMT360.InteriorDesignWebApp.Repository
             }
 
         }
-        public void Update(Promotion promotion, string newPromotionName, DateTime newStartDate, DateTime newEndDate, string newDescription)
+        public void Update(Promotion promotion)
         {
             string connectionString = @"Server=ADRI-PC\SQLEXPRESS;Database=InteriorDesignShopDB;Trusted_Connection=True;";
             using (SqlConnection connection = new SqlConnection(connectionString))
@@ -103,10 +103,10 @@ namespace UMT360.InteriorDesignWebApp.Repository
                         command.CommandText = "dbo.Promotions_Update";
                         command.CommandType = System.Data.CommandType.StoredProcedure;
                         command.Parameters.Add(new SqlParameter("@PromotionID", promotion.Id));
-                        command.Parameters.Add(new SqlParameter("@PromotionName", newPromotionName));
-                        command.Parameters.Add(new SqlParameter("@StartDate", newStartDate));
-                        command.Parameters.Add(new SqlParameter("@EndDate", newEndDate));
-                        command.Parameters.Add(new SqlParameter("@Description", newDescription));
+                        command.Parameters.Add(new SqlParameter("@PromotionName", promotion.Name));
+                        command.Parameters.Add(new SqlParameter("@StartDate", promotion.StartDate));
+                        command.Parameters.Add(new SqlParameter("@EndDate", promotion.EndDate));
+                        command.Parameters.Add(new SqlParameter("@Description", promotion.Description));
 
                         connection.Open();
                         command.ExecuteNonQuery();

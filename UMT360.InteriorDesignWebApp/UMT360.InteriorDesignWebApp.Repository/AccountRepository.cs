@@ -91,7 +91,7 @@ namespace UMT360.InteriorDesignWebApp.Repository
             }
 
         }
-        public void Update(Account account, string newEmailAddress, string newPassword, Guid newRoleId, Guid newPhotoId)
+        public void Update(Account account)
         {
             string connectionString = @"Server=ADRI-PC\SQLEXPRESS;Database=InteriorDesignShopDB;Trusted_Connection=True;";
             using (SqlConnection connection = new SqlConnection(connectionString))
@@ -104,10 +104,10 @@ namespace UMT360.InteriorDesignWebApp.Repository
                         command.CommandText = "dbo.Accounts_Update";
                         command.CommandType = System.Data.CommandType.StoredProcedure;
                         command.Parameters.Add(new SqlParameter("@AccountID", account.Id));
-                        command.Parameters.Add(new SqlParameter("@EmailAddress", newEmailAddress));
-                        command.Parameters.Add(new SqlParameter("@Password", newPassword));
-                        command.Parameters.Add(new SqlParameter("@RoleID", newRoleId));
-                        command.Parameters.Add(new SqlParameter("@PhotoID", newPhotoId));
+                        command.Parameters.Add(new SqlParameter("@EmailAddress", account.EmailAddress));
+                        command.Parameters.Add(new SqlParameter("@Password", account.Password));
+                        command.Parameters.Add(new SqlParameter("@RoleID", account.RoleId));
+                        command.Parameters.Add(new SqlParameter("@PhotoID", account.PhotoId));
 
                         connection.Open();
                         command.ExecuteNonQuery();

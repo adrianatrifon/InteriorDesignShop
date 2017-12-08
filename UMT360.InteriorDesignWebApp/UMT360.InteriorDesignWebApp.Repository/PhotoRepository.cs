@@ -29,8 +29,8 @@ namespace UMT360.InteriorDesignWebApp.Repository
                             while (reader.Read())
                             {
                                 Photo photo = new Photo();
-                                photo.Id = reader.GetGuid(reader.GetOrdinal("PhotoID"));                              
-                               // long imageBytes = reader.GetBytes(reader.GetOrdinal("Image"), 0, photo.Image, 0, photo.Image.Length);                               
+                                photo.Id = reader.GetGuid(reader.GetOrdinal("PhotoID"));
+                                photo.Image = (byte[])reader["Image"];                               
 
                                 photos.Add(photo);
                             }
@@ -85,7 +85,7 @@ namespace UMT360.InteriorDesignWebApp.Repository
             }
 
         }
-        public void Update(Photo photo, byte[] newPhotoImage)
+        public void Update(Photo photo)
         {
             string connectionString = @"Server=ADRI-PC\SQLEXPRESS;Database=InteriorDesignShopDB;Trusted_Connection=True;";
             using (SqlConnection connection = new SqlConnection(connectionString))
@@ -98,7 +98,7 @@ namespace UMT360.InteriorDesignWebApp.Repository
                         command.CommandText = "dbo.Photos_Update";
                         command.CommandType = System.Data.CommandType.StoredProcedure;
                         command.Parameters.Add(new SqlParameter("@PhotoID", photo.Id));
-                        command.Parameters.Add(new SqlParameter("@PhotoName", newPhotoImage));
+                        command.Parameters.Add(new SqlParameter("@PhotoName", photo.Image));
 
                         connection.Open();
                         command.ExecuteNonQuery();
@@ -173,8 +173,7 @@ namespace UMT360.InteriorDesignWebApp.Repository
                             while (reader.Read())
                             {
                                 photo.Id = reader.GetGuid(reader.GetOrdinal("PhotoID"));
-                                //long imageBytes = reader.GetBytes(reader.GetOrdinal("Image"), 0, photo.Image, 0, photo.Image.Length);
-
+                                photo.Image = (byte[])reader["Image"];
 
                             }
 

@@ -9,6 +9,7 @@ namespace UMT360.InteriorDesignWebApp
     {
         static void Main(string[] args)
         {
+            
             Console.WriteLine("---------------------ColorRepository TEST----------------------------");
 
             Console.Clear();
@@ -169,17 +170,19 @@ namespace UMT360.InteriorDesignWebApp
             Brand brand3 = brandRepository.GetById(brand2.Id);
             Console.WriteLine("{0}  {1}", brand3.Id, brand3.Name);
             brandRepository.Delete(brand3.Id);
-
-          
-           // List<Photo> photos = new List<Photo>();
-            //PhotoRepository photoRepository = new PhotoRepository();         
-           // photos = photoRepository.ReadAll();
+            
+          /*
+            List<Photo> photos = new List<Photo>();
+            PhotoRepository photoRepository = new PhotoRepository();         
+            photos = photoRepository.ReadAll();
            
-           // foreach (Photo col in photos)
-          // {
-            //    Console.WriteLine("{0} ---- {1}", col.Id, col.Image);
-          // }
-           
+            foreach (Photo col in photos)
+           {
+                string hexValue = BitConverter.ToString(col.Image,0,col.Image.Length);
+                Console.Write(hexValue);
+               // Console.WriteLine("{0} ---- {1}", col.Id, hexValue);
+           }
+           */
             Console.ReadLine();
 
         }

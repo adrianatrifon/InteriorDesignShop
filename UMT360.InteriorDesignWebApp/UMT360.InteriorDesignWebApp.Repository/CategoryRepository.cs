@@ -85,7 +85,7 @@ namespace UMT360.InteriorDesignWebApp.Repository
             }
 
         }
-        public void Update(Category srcCategory, Guid newCategoryParentId, string newCategoryName)
+        public void Update(Category category)
         {
             string connectionString = @"Server=ADRI-PC\SQLEXPRESS;Database=InteriorDesignShopDB;Trusted_Connection=True;";
             using (SqlConnection connection = new SqlConnection(connectionString))
@@ -97,9 +97,9 @@ namespace UMT360.InteriorDesignWebApp.Repository
                         command.Connection = connection;
                         command.CommandText = "dbo.Categories_Update";
                         command.CommandType = System.Data.CommandType.StoredProcedure;
-                        command.Parameters.Add(new SqlParameter("@CategoryID", srcCategory.Id));
-                        command.Parameters.Add(new SqlParameter("@ParentCategory", newCategoryParentId));
-                        command.Parameters.Add(new SqlParameter("@CategoryName", newCategoryName));
+                        command.Parameters.Add(new SqlParameter("@CategoryID", category.Id));
+                        command.Parameters.Add(new SqlParameter("@ParentCategory", category.ParentCategoryId));
+                        command.Parameters.Add(new SqlParameter("@CategoryName", category.Name));
                         connection.Open();
                         command.ExecuteNonQuery();
                     }

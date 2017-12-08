@@ -91,7 +91,7 @@ namespace UMT360.InteriorDesignWebApp.Repository
             }
 
         }
-        public void Update(Order order, DateTime newOrderDate, string newDeliveryAddress, Guid newPersonId, Guid newPaymentOptionId)
+        public void Update(Order order)
         {
             string connectionString = @"Server=ADRI-PC\SQLEXPRESS;Database=InteriorDesignShopDB;Trusted_Connection=True;";
             using (SqlConnection connection = new SqlConnection(connectionString))
@@ -104,10 +104,10 @@ namespace UMT360.InteriorDesignWebApp.Repository
                         command.CommandText = "dbo.Orders_Update";
                         command.CommandType = System.Data.CommandType.StoredProcedure;
                         command.Parameters.Add(new SqlParameter("@OrderID", order.Id));
-                        command.Parameters.Add(new SqlParameter("@Date", newOrderDate));
-                        command.Parameters.Add(new SqlParameter("@DeliveryAddress", newDeliveryAddress));
-                        command.Parameters.Add(new SqlParameter("@PersonID", newPersonId));
-                        command.Parameters.Add(new SqlParameter("@PaymentOptionID", newPaymentOptionId));
+                        command.Parameters.Add(new SqlParameter("@Date", order.Date));
+                        command.Parameters.Add(new SqlParameter("@DeliveryAddress", order.DeliveryAddress));
+                        command.Parameters.Add(new SqlParameter("@PersonID", order.PersonId));
+                        command.Parameters.Add(new SqlParameter("@PaymentOptionID", order.PaymentOptionId));
 
                         connection.Open();
                         command.ExecuteNonQuery();

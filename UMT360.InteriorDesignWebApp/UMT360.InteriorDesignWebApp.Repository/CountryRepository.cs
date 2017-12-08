@@ -84,7 +84,7 @@ namespace UMT360.InteriorDesignWebApp.Repository
             }
 
         }
-        public void Update(Country country, string newCountryName)
+        public void Update(Country country)
         {
             string connectionString = @"Server=ADRI-PC\SQLEXPRESS;Database=InteriorDesignShopDB;Trusted_Connection=True;";
             using (SqlConnection connection = new SqlConnection(connectionString))
@@ -97,7 +97,7 @@ namespace UMT360.InteriorDesignWebApp.Repository
                         command.CommandText = "dbo.Countries_Update";
                         command.CommandType = System.Data.CommandType.StoredProcedure;
                         command.Parameters.Add(new SqlParameter("@CountryID", country.Id));
-                        command.Parameters.Add(new SqlParameter("@CountryName", newCountryName));
+                        command.Parameters.Add(new SqlParameter("@CountryName", country.Name));
 
                         connection.Open();
                         command.ExecuteNonQuery();

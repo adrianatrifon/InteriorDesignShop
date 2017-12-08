@@ -84,7 +84,7 @@ namespace UMT360.InteriorDesignWebApp.Repository
             }
 
         }
-        public void Update(Material material, string newMaterialName)
+        public void Update(Material material)
         {
             string connectionString = @"Server=ADRI-PC\SQLEXPRESS;Database=InteriorDesignShopDB;Trusted_Connection=True;";
             using (SqlConnection connection = new SqlConnection(connectionString))
@@ -97,7 +97,7 @@ namespace UMT360.InteriorDesignWebApp.Repository
                         command.CommandText = "dbo.Materials_Update";
                         command.CommandType = System.Data.CommandType.StoredProcedure;
                         command.Parameters.Add(new SqlParameter("@MaterialID", material.Id));
-                        command.Parameters.Add(new SqlParameter("@MaterialName", newMaterialName));
+                        command.Parameters.Add(new SqlParameter("@MaterialName", material.Name));
 
                         connection.Open();
                         command.ExecuteNonQuery();

@@ -98,8 +98,7 @@ namespace UMT360.InteriorDesignWebApp.Repository
             }
 
         }
-        public void Update(Person person, string newFirstName, string newLastName, string newStreet, string newNumber, DateTime newBirthDay,
-                            string newPhoneNumber, Guid newCityId, Guid newAccountId)
+        public void Update(Person person)
         {
             string connectionString = @"Server=ADRI-PC\SQLEXPRESS;Database=InteriorDesignShopDB;Trusted_Connection=True;";
             using (SqlConnection connection = new SqlConnection(connectionString))
@@ -112,14 +111,14 @@ namespace UMT360.InteriorDesignWebApp.Repository
                         command.CommandText = "dbo.Persons_Update";
                         command.CommandType = System.Data.CommandType.StoredProcedure;
                         command.Parameters.Add(new SqlParameter("@PersonID", person.Id));
-                        command.Parameters.Add(new SqlParameter("@FirstName", newFirstName));
-                        command.Parameters.Add(new SqlParameter("@LastName", newLastName));
-                        command.Parameters.Add(new SqlParameter("@Street", newStreet));
-                        command.Parameters.Add(new SqlParameter("@Number", newNumber));
-                        command.Parameters.Add(new SqlParameter("@BirthDay", newBirthDay));
-                        command.Parameters.Add(new SqlParameter("@PhoneNumber", newPhoneNumber));
-                        command.Parameters.Add(new SqlParameter("@CityID", newCityId));
-                        command.Parameters.Add(new SqlParameter("@AccountID", newAccountId));
+                        command.Parameters.Add(new SqlParameter("@FirstName", person.FirstName));
+                        command.Parameters.Add(new SqlParameter("@LastName", person.LastName));
+                        command.Parameters.Add(new SqlParameter("@Street", person.Street));
+                        command.Parameters.Add(new SqlParameter("@Number", person.Number));
+                        command.Parameters.Add(new SqlParameter("@BirthDay", person.BirthDay));
+                        command.Parameters.Add(new SqlParameter("@PhoneNumber", person.PhoneNumber));
+                        command.Parameters.Add(new SqlParameter("@CityID", person.CityId));
+                        command.Parameters.Add(new SqlParameter("@AccountID", person.AccountId));
 
                         connection.Open();
                         command.ExecuteNonQuery();
