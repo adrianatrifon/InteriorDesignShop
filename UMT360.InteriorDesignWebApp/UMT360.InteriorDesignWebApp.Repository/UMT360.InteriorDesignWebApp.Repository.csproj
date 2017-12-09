@@ -31,6 +31,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
+    <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -45,6 +46,7 @@
     <Compile Include="CategoryRepository.cs" />
     <Compile Include="CityRepository.cs" />
     <Compile Include="ColorRepository.cs" />
+    <Compile Include="Core\BaseRepository.cs" />
     <Compile Include="CountryRepository.cs" />
     <Compile Include="CountyRepository.cs" />
     <Compile Include="CurrencyRepository.cs" />

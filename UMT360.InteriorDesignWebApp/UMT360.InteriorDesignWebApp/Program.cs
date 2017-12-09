@@ -32,7 +32,7 @@ namespace UMT360.InteriorDesignWebApp
 
 
             Console.WriteLine("---------Update------------");
-            colorRepository.Update(color, color1.Name);
+            colorRepository.Update(color1);
 
             colors = colorRepository.ReadAll();
 
@@ -64,7 +64,7 @@ namespace UMT360.InteriorDesignWebApp
             Color color3 = colorRepository.GetById(color2.Id);
             Console.WriteLine("{0}  {1}", color3.Id, color3.Name);
             colorRepository.Delete(color3.Id);
-
+            /*
             Console.WriteLine("---------------------MaterialRepository TEST----------------------------");
             List<Material> materials = new List<Material>();
             MaterialRepository materialRepository = new MaterialRepository();
@@ -85,7 +85,7 @@ namespace UMT360.InteriorDesignWebApp
 
 
             Console.WriteLine("---------Update------------");
-            materialRepository.Update(material, material1.Name);
+            materialRepository.Update(material1);
 
             materials = materialRepository.ReadAll();
 
@@ -138,7 +138,7 @@ namespace UMT360.InteriorDesignWebApp
 
 
             Console.WriteLine("---------Update------------");
-            brandRepository.Update(brand, brand1.Name);
+            brandRepository.Update(brand1);
 
             brands = brandRepository.ReadAll();
 
@@ -170,6 +170,7 @@ namespace UMT360.InteriorDesignWebApp
             Brand brand3 = brandRepository.GetById(brand2.Id);
             Console.WriteLine("{0}  {1}", brand3.Id, brand3.Name);
             brandRepository.Delete(brand3.Id);
+            */
             
           /*
             List<Photo> photos = new List<Photo>();

@@ -2,55 +2,19 @@
 using System.Collections.Generic;
 using System.Data.SqlClient;
 using UMT360.InteriorDesignWebApp.Models;
+using UMT360.InteriorDesignWebApp.Repository.Core;
 
 namespace UMT360.InteriorDesignWebApp.Repository
 {
-    public class ColorRepository
+    public class ColorRepository:BaseRepository<Color>
     {
         #region Methods
         public List<Color> ReadAll()
         {
-            string connectionString = @"Server=ADRI-PC\SQLEXPRESS;Database=InteriorDesignShopDB;Trusted_Connection=True;";
-            List<Color> colors = new List<Color>();
-            using (SqlConnection connection = new SqlConnection(connectionString))
-            {
-                try
-                {
-                    using (SqlCommand command = new SqlCommand())
-                    {
-                        command.Connection = connection;
-                        command.CommandText = "dbo.Colors_ReadAll";
-                        command.CommandType = System.Data.CommandType.StoredProcedure;
-
-                        connection.Open();
-                        using (SqlDataReader reader = command.ExecuteReader())
-                        {
-
-                            while (reader.Read())
-                            {
-                                Color color = new Color();
-                                color.Id = reader.GetGuid(reader.GetOrdinal("ColorID"));
-                                color.Name = reader.GetString(reader.GetOrdinal("Name"));
-
-                                colors.Add(color);
-                            }
-                        }
-                    }
-
-                }
-                catch (SqlException sqlEx)
-                {
-                    Console.WriteLine("There was a SQL error: {0}", sqlEx.Message);
-                }
-                catch (Exception ex)
-                {
-
-                    Console.WriteLine("There was an error: {0}", ex.Message);
-                }
-
-            }
-            return colors;
+            return  ReadAll("dbo.Colors_ReadAll");
         }
+
+       
 
         public void Insert(Color color)
         {
@@ -118,6 +82,7 @@ namespace UMT360.InteriorDesignWebApp.Repository
             }
 
         }
+
         public void Delete(Guid colorId)
         {
 
@@ -154,45 +119,16 @@ namespace UMT360.InteriorDesignWebApp.Repository
 
         public Color GetById(Guid colorId)
         {
+            SqlParameter[] parameters ={ new SqlParameter("@ColorID", colorId) };
+            List<Color> colors = ReadAll("dbo.Colors_GetById", parameters);
+            return colors[0];            
+        }
+
+        public override Color GetModelFromReader(SqlDataReader reader)
+        {
             Color color = new Color();
-            string connectionString = @"Server=ADRI-PC\SQLEXPRESS;Database=InteriorDesignShopDB;Trusted_Connection=True;";
-            using (SqlConnection connection = new SqlConnection(connectionString))
-            {
-                try
-                {
-                    using (SqlCommand command = new SqlCommand())
-                    {
-                        command.Connection = connection;
-                        command.CommandText = "dbo.Colors_GetById";
-                        command.CommandType = System.Data.CommandType.StoredProcedure;
-
-                        command.Parameters.Add(new SqlParameter("@ColorID", colorId));
-                        connection.Open();
-                        using (SqlDataReader reader = command.ExecuteReader())
-                        {
-                            while (reader.Read())
-                            {
-                                color.Id = reader.GetGuid(reader.GetOrdinal("ColorID"));
-                                color.Name = reader.GetString(reader.GetOrdinal("Name"));
-                            }
-
-                        }
-
-                    }
-                }
-                catch (SqlException sqlEx)
-                {
-                    Console.WriteLine("There was a SQL error: {0}", sqlEx.Message);
-                }
-                catch (Exception ex)
-                {
-
-                    Console.WriteLine("There was an error: {0}", ex.Message);
-                }
-
-
-            }
-
+            color.Id = reader.GetGuid(reader.GetOrdinal("ColorID"));
+            color.Name = reader.GetString(reader.GetOrdinal("Name"));
             return color;
         }
         #endregion
