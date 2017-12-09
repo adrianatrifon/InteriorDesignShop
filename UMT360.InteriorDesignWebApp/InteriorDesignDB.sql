@@ -1845,6 +1845,22 @@ BEGIN
 END
 GO
 
+CREATE PROCEDURE dbo.OrdersProducts_GetByID
+(
+	@OrderID uniqueidentifier,
+	@ProductID uniqueidentifier	
+)
+AS
+BEGIN
+	SELECT
+		OrderID,
+		ProductID,
+		Quantity
+	FROM dbo.OrdersProducts
+	WHERE OrderID=@OrderID AND ProductID=@ProductID
+END
+GO
+
 CREATE PROCEDURE dbo.Orders_GetByID
 (
 	@OrderID uniqueidentifier
