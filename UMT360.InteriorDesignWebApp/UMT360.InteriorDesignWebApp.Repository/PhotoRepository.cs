@@ -1,200 +1,61 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
+using System.Linq;
 using UMT360.InteriorDesignWebApp.Models;
+using UMT360.InteriorDesignWebApp.Repository.Core;
 
 namespace UMT360.InteriorDesignWebApp.Repository
 {
-    public class PhotoRepository
+    public class PhotoRepository:BaseRepository<Photo>
     {
         #region Methods
         public List<Photo> ReadAll()
         {
-            string connectionString = @"Server=ADRI-PC\SQLEXPRESS;Database=InteriorDesignShopDB;Trusted_Connection=True;";
-            List<Photo> photos = new List<Photo>();
-            using (SqlConnection connection = new SqlConnection(connectionString))
-            {
-                try
-                {
-                    using (SqlCommand command = new SqlCommand())
-                    {
-                        command.Connection = connection;
-                        command.CommandText = "dbo.Photos_ReadAll";
-                        command.CommandType = System.Data.CommandType.StoredProcedure;
+            return ReadAll("dbo.Photos_ReadAll");
 
-                        connection.Open();
-                        using (SqlDataReader reader = command.ExecuteReader())
-                        {
-
-                            while (reader.Read())
-                            {
-                                Photo photo = new Photo();
-                                photo.Id = reader.GetGuid(reader.GetOrdinal("PhotoID"));
-                                photo.Image = (byte[])reader["Image"];                               
-
-                                photos.Add(photo);
-                            }
-                        }
-                    }
-
-                }
-                catch (SqlException sqlEx)
-                {
-                    Console.WriteLine("There was a SQL error: {0}", sqlEx.Message);
-                }
-                catch (Exception ex)
-                {
-
-                    Console.WriteLine("There was an error: {0}", ex.StackTrace);
-                }
-
-            }
-            return photos;
         }
 
         public void Insert(Photo photo)
         {
-            string connectionString = @"Server=ADRI-PC\SQLEXPRESS;Database=InteriorDesignShopDB;Trusted_Connection=True;";
-            using (SqlConnection connection = new SqlConnection(connectionString))
-            {
-                try
-                {
-                    using (SqlCommand command = new SqlCommand())
-                    {
-                        command.Connection = connection;
-                        command.CommandText = "dbo.Photos_Create";
-                        command.CommandType = System.Data.CommandType.StoredProcedure;
-                        command.Parameters.Add(new SqlParameter("@PhotoID", photo.Id));
-                        command.Parameters.Add(new SqlParameter("@PhotoName", photo.Image));
 
-                        connection.Open();
-                        command.ExecuteNonQuery();
-                    }
-
-                }
-                catch (SqlException sqlEx)
-                {
-                    Console.WriteLine("There was a SQL error: {0}", sqlEx.Message);
-                }
-                catch (Exception ex)
-                {
-
-                    Console.WriteLine("There was an error: {0}", ex.Message);
-                }
-
-            }
+            SqlParameter[] parameters = { new SqlParameter("@PhotoID", photo.Id), new SqlParameter("@PhotoName", photo.Image)};
+            Operation("dbo.Photos_Create", parameters);
 
         }
         public void Update(Photo photo)
         {
-            string connectionString = @"Server=ADRI-PC\SQLEXPRESS;Database=InteriorDesignShopDB;Trusted_Connection=True;";
-            using (SqlConnection connection = new SqlConnection(connectionString))
-            {
-                try
-                {
-                    using (SqlCommand command = new SqlCommand())
-                    {
-                        command.Connection = connection;
-                        command.CommandText = "dbo.Photos_Update";
-                        command.CommandType = System.Data.CommandType.StoredProcedure;
-                        command.Parameters.Add(new SqlParameter("@PhotoID", photo.Id));
-                        command.Parameters.Add(new SqlParameter("@PhotoName", photo.Image));
-
-                        connection.Open();
-                        command.ExecuteNonQuery();
-                    }
-
-                }
-                catch (SqlException sqlEx)
-                {
-                    Console.WriteLine("There was a SQL error: {0}", sqlEx.Message);
-                }
-                catch (Exception ex)
-                {
-
-                    Console.WriteLine("There was an error: {0}", ex.Message);
-                }
-
-            }
+            SqlParameter[] parameters = { new SqlParameter("@PhotoID", photo.Id), new SqlParameter("@PhotoName", photo.Image) };
+            Operation("dbo.Photos_Update", parameters);
 
         }
+
         public void Delete(Guid photoId)
         {
-
-            string connectionString = @"Server=ADRI-PC\SQLEXPRESS;Database=InteriorDesignShopDB;Trusted_Connection=True;";
-            using (SqlConnection connection = new SqlConnection(connectionString))
-            {
-                try
-                {
-                    using (SqlCommand command = new SqlCommand())
-                    {
-                        command.Connection = connection;
-                        command.CommandText = "dbo.Photos_Delete";
-                        command.CommandType = System.Data.CommandType.StoredProcedure;
-                        command.Parameters.Add(new SqlParameter("@PhotoID", photoId));
-
-                        connection.Open();
-                        command.ExecuteNonQuery();
-                    }
-
-                }
-                catch (SqlException sqlEx)
-                {
-                    Console.WriteLine("There was a SQL error: {0}", sqlEx.Message);
-                }
-                catch (Exception ex)
-                {
-
-                    Console.WriteLine("There was an error: {0}", ex.Message);
-                }
-
-            }
+            SqlParameter[] parameters = { new SqlParameter("@PhotoID", photoId) };
+            Operation("dbo.Photos_Delete", parameters);
 
         }
 
         public Photo GetById(Guid photoId)
         {
             Photo photo = new Photo();
-            string connectionString = @"Server=ADRI-PC\SQLEXPRESS;Database=InteriorDesignShopDB;Trusted_Connection=True;";
-            using (SqlConnection connection = new SqlConnection(connectionString))
-            {
-                try
-                {
-                    using (SqlCommand command = new SqlCommand())
-                    {
-                        command.Connection = connection;
-                        command.CommandText = "dbo.Photos_GetById";
-                        command.CommandType = System.Data.CommandType.StoredProcedure;
+            SqlParameter[] parameters = { new SqlParameter("@PhotoID", photoId) };
+            List<Photo> photos = new List<Photo>();
+            photos = ReadAll("dbo.Photos_GetById", parameters);
 
-                        command.Parameters.Add(new SqlParameter("@PhotoID", photoId));
-                        connection.Open();
-                        using (SqlDataReader reader = command.ExecuteReader())
-                        {
-                            while (reader.Read())
-                            {
-                                photo.Id = reader.GetGuid(reader.GetOrdinal("PhotoID"));
-                                photo.Image = (byte[])reader["Image"];
+            return photos.ElementAt(0);
+        }
 
-                            }
-
-                        }
-                    }
-                }
-                catch (SqlException sqlEx)
-                {
-                    Console.WriteLine("There was a SQL error: {0}", sqlEx.Message);
-                }
-                catch (Exception ex)
-                {
-
-                    Console.WriteLine("There was an error: {0}", ex.Message);
-                }
-
-
-            }
+        public override Photo GetModelFromReader(SqlDataReader reader)
+        {
+            Photo photo = new Photo();
+            photo.Id = reader.GetGuid(reader.GetOrdinal("PhotoID"));
+            photo.Image = (byte[])reader["Image"];
 
             return photo;
         }
-        #endregion
+        #endregion        
+        
     }
 }

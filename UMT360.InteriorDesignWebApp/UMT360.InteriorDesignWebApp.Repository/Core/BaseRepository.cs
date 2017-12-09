@@ -15,6 +15,8 @@ namespace UMT360.InteriorDesignWebApp.Repository.Core
         protected static string _connectionString = GetConnectionString();
 
         #endregion
+
+
         #region Methods
         private static string GetConnectionString()
         {
@@ -68,6 +70,37 @@ namespace UMT360.InteriorDesignWebApp.Repository.Core
 
             }
             return result;
+        }
+        public void Operation(string stroredProcedureName, SqlParameter[] parameters)
+        {
+
+            using (SqlConnection connection = new SqlConnection(_connectionString))
+            {
+                try
+                {
+                    using (SqlCommand command = new SqlCommand())
+                    {
+                        command.Connection = connection;
+                        command.CommandText = stroredProcedureName;
+                        command.CommandType = System.Data.CommandType.StoredProcedure;
+                        command.Parameters.AddRange(parameters);
+                        connection.Open();
+                        command.ExecuteNonQuery();
+                    }
+
+                }
+                catch (SqlException sqlEx)
+                {
+                    Console.WriteLine("There was a SQL error: {0}", sqlEx.Message);
+                }
+                catch (Exception ex)
+                {
+
+                    Console.WriteLine("There was an error: {0}", ex.Message);
+                }
+
+            }
+
         }
         public abstract TModel GetModelFromReader(SqlDataReader reader);
 

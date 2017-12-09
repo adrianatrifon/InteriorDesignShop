@@ -1,236 +1,94 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
+using System.Linq;
 using UMT360.InteriorDesignWebApp.Models;
+using UMT360.InteriorDesignWebApp.Repository.Core;
 
 namespace UMT360.InteriorDesignWebApp.Repository
 {
-    public class ProductRepository
+    public class ProductRepository : BaseRepository<Product>
     {
         #region Methods
         public List<Product> ReadAll()
         {
-            string connectionString = @"Server=ADRI-PC\SQLEXPRESS;Database=InteriorDesignShopDB;Trusted_Connection=True;";
-            List<Product> products = new List<Product>();
-            using (SqlConnection connection = new SqlConnection(connectionString))
-            {
-                try
-                {
-                    using (SqlCommand command = new SqlCommand())
-                    {
-                        command.Connection = connection;
-                        command.CommandText = "dbo.Products_ReadAll";
-                        command.CommandType = System.Data.CommandType.StoredProcedure;
+            return ReadAll("dbo.Products_ReadAll");
 
-                        connection.Open();
-                        using (SqlDataReader reader = command.ExecuteReader())
-                        {
-
-                            while (reader.Read())
-                            {
-                                Product product = new Product();
-                                product.Id = reader.GetGuid(reader.GetOrdinal("ProductID"));
-                                product.Name = reader.GetString(reader.GetOrdinal("Name"));
-                                product.Price = reader.GetDecimal(reader.GetOrdinal("Price"));
-                                product.CurrencyId= reader.GetGuid(reader.GetOrdinal("CurrencyID"));
-                                product.Stock = reader.GetInt32(reader.GetOrdinal("Stock"));
-                                product.Dimensions = reader.GetString(reader.GetOrdinal("Dimensions"));
-                                product.Weight = reader.GetString(reader.GetOrdinal("Weight"));
-                                product.Guarantee = reader.GetString(reader.GetOrdinal("Guarantee"));
-                                product.Description = reader.GetString(reader.GetOrdinal("Description"));
-                                product.BrandId = reader.GetGuid(reader.GetOrdinal("BrandID"));
-                                product.CategoryId = reader.GetGuid(reader.GetOrdinal("CategoryID"));
-
-                                products.Add(product);
-                            }
-                        }
-                    }
-
-                }
-                catch (SqlException sqlEx)
-                {
-                    Console.WriteLine("There was a SQL error: {0}", sqlEx.Message);
-                }
-                catch (Exception ex)
-                {
-                    Console.WriteLine("There was an error: {0}", ex.Message);
-                }
-
-            }
-            return products;
         }
 
         public void Insert(Product product)
         {
-            string connectionString = @"Server=ADRI-PC\SQLEXPRESS;Database=InteriorDesignShopDB;Trusted_Connection=True;";
-            using (SqlConnection connection = new SqlConnection(connectionString))
-            {
-                try
-                {
-                    using (SqlCommand command = new SqlCommand())
-                    {
-                        command.Connection = connection;
-                        command.CommandText = "dbo.Products_Create";
-                        command.CommandType = System.Data.CommandType.StoredProcedure;
-                        command.Parameters.Add(new SqlParameter("@ProductID", product.Id));
-                        command.Parameters.Add(new SqlParameter("@ProductName", product.Name));
-                        command.Parameters.Add(new SqlParameter("@Price", product.Price));
-                        command.Parameters.Add(new SqlParameter("@CurrencyID", product.CurrencyId));
-                        command.Parameters.Add(new SqlParameter("@Stock", product.Stock));
-                        command.Parameters.Add(new SqlParameter("@Dimensions", product.Dimensions));
-                        command.Parameters.Add(new SqlParameter("@Weight", product.Weight));
-                        command.Parameters.Add(new SqlParameter("@Guarantee", product.Guarantee));
-                        command.Parameters.Add(new SqlParameter("@Description", product.Description));
-                        command.Parameters.Add(new SqlParameter("@BrandID", product.BrandId));
-                        command.Parameters.Add(new SqlParameter("@CategoryID", product.CategoryId));
 
+            SqlParameter[] parameters = { new SqlParameter("@ProductID", product.Id),
+                                          new SqlParameter("@ProductName", product.Name),
+                                          new SqlParameter("@Price", product.Price),
+                                          new SqlParameter("@CurrencyID", product.CurrencyId),
+                                          new SqlParameter("@Stock", product.Stock),
+                                          new SqlParameter("@Dimensions", product.Dimensions),
+                                          new SqlParameter("@Weight", product.Weight),
+                                          new SqlParameter("@Guarantee", product.Guarantee),
+                                          new SqlParameter("@Description", product.Description),
+                                          new SqlParameter("@BrandID", product.BrandId),
+                                          new SqlParameter("@CategoryID", product.CategoryId)
+                                        };
 
-                        connection.Open();
-                        command.ExecuteNonQuery();
-                    }
-
-                }
-                catch (SqlException sqlEx)
-                {
-                    Console.WriteLine("There was a SQL error: {0}", sqlEx.Message);
-                }
-                catch (Exception ex)
-                {
-
-                    Console.WriteLine("There was an error: {0}", ex.Message);
-                }
-
-            }
+            Operation("dbo.Products_Create", parameters);
 
         }
         public void Update(Product product)
         {
-            string connectionString = @"Server=ADRI-PC\SQLEXPRESS;Database=InteriorDesignShopDB;Trusted_Connection=True;";
-            using (SqlConnection connection = new SqlConnection(connectionString))
-            {
-                try
-                {
-                    using (SqlCommand command = new SqlCommand())
-                    {
-                        command.Connection = connection;
-                        command.CommandText = "dbo.Products_Update";
-                        command.CommandType = System.Data.CommandType.StoredProcedure;
-                        command.Parameters.Add(new SqlParameter("@ProductID", product.Id));
-                        command.Parameters.Add(new SqlParameter("@ProductName", product.Name));
-                        command.Parameters.Add(new SqlParameter("@Price", product.Price));
-                        command.Parameters.Add(new SqlParameter("@CurrencyID", product.CurrencyId));
-                        command.Parameters.Add(new SqlParameter("@Stock", product.Stock));
-                        command.Parameters.Add(new SqlParameter("@Dimensions", product.Dimensions));
-                        command.Parameters.Add(new SqlParameter("@Weight", product.Weight));
-                        command.Parameters.Add(new SqlParameter("@Guarantee", product.Guarantee));
-                        command.Parameters.Add(new SqlParameter("@Description", product.Description));
-                        command.Parameters.Add(new SqlParameter("@BrandID", product.BrandId));
-                        command.Parameters.Add(new SqlParameter("@CategoryID", product.CategoryId));
+            SqlParameter[] parameters = { new SqlParameter("@ProductID", product.Id),
+                                          new SqlParameter("@ProductName", product.Name),
+                                          new SqlParameter("@Price", product.Price),
+                                          new SqlParameter("@CurrencyID", product.CurrencyId),
+                                          new SqlParameter("@Stock", product.Stock),
+                                          new SqlParameter("@Dimensions", product.Dimensions),
+                                          new SqlParameter("@Weight", product.Weight),
+                                          new SqlParameter("@Guarantee", product.Guarantee),
+                                          new SqlParameter("@Description", product.Description),
+                                          new SqlParameter("@BrandID", product.BrandId),
+                                          new SqlParameter("@CategoryID", product.CategoryId)
+                                        };
 
-                        connection.Open();
-                        command.ExecuteNonQuery();
-                    }
-
-                }
-                catch (SqlException sqlEx)
-                {
-                    Console.WriteLine("There was a SQL error: {0}", sqlEx.Message);
-                }
-                catch (Exception ex)
-                {
-
-                    Console.WriteLine("There was an error: {0}", ex.Message);
-                }
-
-            }
+            Operation("dbo.Products_Update", parameters);
 
         }
+
         public void Delete(Guid productId)
         {
-
-            string connectionString = @"Server=ADRI-PC\SQLEXPRESS;Database=InteriorDesignShopDB;Trusted_Connection=True;";
-            using (SqlConnection connection = new SqlConnection(connectionString))
-            {
-                try
-                {
-                    using (SqlCommand command = new SqlCommand())
-                    {
-                        command.Connection = connection;
-                        command.CommandText = "dbo.Products_Delete";
-                        command.CommandType = System.Data.CommandType.StoredProcedure;
-                        command.Parameters.Add(new SqlParameter("@ProductID", productId));
-
-                        connection.Open();
-                        command.ExecuteNonQuery();
-                    }
-
-                }
-                catch (SqlException sqlEx)
-                {
-                    Console.WriteLine("There was a SQL error: {0}", sqlEx.Message);
-                }
-                catch (Exception ex)
-                {
-
-                    Console.WriteLine("There was an error: {0}", ex.Message);
-                }
-
-            }
+            SqlParameter[] parameters = { new SqlParameter("@ProductID", productId) };
+            Operation("dbo.Products_Delete", parameters);
 
         }
 
         public Product GetById(Guid productId)
         {
             Product product = new Product();
-            string connectionString = @"Server=ADRI-PC\SQLEXPRESS;Database=InteriorDesignShopDB;Trusted_Connection=True;";
-            using (SqlConnection connection = new SqlConnection(connectionString))
-            {
-                try
-                {
-                    using (SqlCommand command = new SqlCommand())
-                    {
-                        command.Connection = connection;
-                        command.CommandText = "dbo.Products_GetById";
-                        command.CommandType = System.Data.CommandType.StoredProcedure;
+            SqlParameter[] parameters = { new SqlParameter("@ProductID", productId) };
+            List<Product> products = new List<Product>();
+            products = ReadAll("dbo.Products_GetById", parameters);
 
-                        command.Parameters.Add(new SqlParameter("@ProductID", productId));
-                        connection.Open();
-                        using (SqlDataReader reader = command.ExecuteReader())
-                        {
-                            while (reader.Read())
-                            {
-                                product.Id = reader.GetGuid(reader.GetOrdinal("ProductID"));
-                                product.Name = reader.GetString(reader.GetOrdinal("Name"));
-                                product.Price = reader.GetDecimal(reader.GetOrdinal("Price"));
-                                product.CurrencyId = reader.GetGuid(reader.GetOrdinal("CurrencyID"));
-                                product.Stock = reader.GetInt32(reader.GetOrdinal("Stock"));
-                                product.Dimensions = reader.GetString(reader.GetOrdinal("Dimensions"));
-                                product.Weight = reader.GetString(reader.GetOrdinal("Weight"));
-                                product.Guarantee = reader.GetString(reader.GetOrdinal("Guarantee"));
-                                product.Description = reader.GetString(reader.GetOrdinal("Description"));
-                                product.BrandId = reader.GetGuid(reader.GetOrdinal("BrandID"));
-                                product.CategoryId = reader.GetGuid(reader.GetOrdinal("CategoryID"));
-                            }
+            return products.ElementAt(0);
+        }
 
-                        }
-
-                    }
-                }
-                catch (SqlException sqlEx)
-                {
-                    Console.WriteLine("There was a SQL error: {0}", sqlEx.Message);
-                }
-                catch (Exception ex)
-                {
-
-                    Console.WriteLine("There was an error: {0}", ex.Message);
-                }
-
-
-            }
+        public override Product GetModelFromReader(SqlDataReader reader)
+        {
+            Product product = new Product();
+            product.Id = reader.GetGuid(reader.GetOrdinal("ProductID"));
+            product.Name = reader.GetString(reader.GetOrdinal("Name"));
+            product.Price = reader.GetDecimal(reader.GetOrdinal("Price"));
+            product.CurrencyId = reader.GetGuid(reader.GetOrdinal("CurrencyID"));
+            product.Stock = reader.GetInt32(reader.GetOrdinal("Stock"));
+            product.Dimensions = reader.GetString(reader.GetOrdinal("Dimensions"));
+            product.Weight = reader.GetString(reader.GetOrdinal("Weight"));
+            product.Guarantee = reader.GetString(reader.GetOrdinal("Guarantee"));
+            product.Description = reader.GetString(reader.GetOrdinal("Description"));
+            product.BrandId = reader.GetGuid(reader.GetOrdinal("BrandID"));
+            product.CategoryId = reader.GetGuid(reader.GetOrdinal("CategoryID"));
 
             return product;
         }
-        #endregion
+        #endregion       
+        
     }
 }

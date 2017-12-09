@@ -1,201 +1,69 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
+using System.Linq;
 using UMT360.InteriorDesignWebApp.Models;
+using UMT360.InteriorDesignWebApp.Repository.Core;
 
 namespace UMT360.InteriorDesignWebApp.Repository
 {
-    public class CategoryRepository
+    public class CategoryRepository:BaseRepository<Category>
     {
         #region Methods
         public List<Category> ReadAll()
         {
-            string connectionString = @"Server=ADRI-PC\SQLEXPRESS;Database=InteriorDesignShopDB;Trusted_Connection=True;";
-            List<Category> categories = new List<Category>();
-            using (SqlConnection connection = new SqlConnection(connectionString))
-            {
-                try
-                {
-                    using (SqlCommand command = new SqlCommand())
-                    {
-                        command.Connection = connection;
-                        command.CommandText = "dbo.Categories_ReadAll";
-                        command.CommandType = System.Data.CommandType.StoredProcedure;
+            return ReadAll("dbo.Categories_ReadAll");
 
-                        connection.Open();
-                        using (SqlDataReader reader = command.ExecuteReader())
-                        {
-
-                            while (reader.Read())
-                            {
-                                Category category = new Category();
-                                category.Id = reader.GetGuid(reader.GetOrdinal("CategoryID"));
-                                category.ParentCategoryId = reader.GetGuid(reader.GetOrdinal("ParentCategoryID"));
-                                category.Name = reader.GetString(reader.GetOrdinal("Name"));
-                                categories.Add(category);
-                            }
-                        }
-                    }
-
-                }
-                catch (SqlException sqlEx)
-                {
-                    Console.WriteLine("There was a SQL error: {0}", sqlEx.Message);
-                }
-                catch (Exception ex)
-                {
-                    Console.WriteLine("There was an error: {0}", ex.Message);
-                }
-
-            }
-            return categories;
         }
 
         public void Insert(Category category)
         {
-            string connectionString = @"Server=ADRI-PC\SQLEXPRESS;Database=InteriorDesignShopDB;Trusted_Connection=True;";
-            using (SqlConnection connection = new SqlConnection(connectionString))
-            {
-                try
-                {
-                    using (SqlCommand command = new SqlCommand())
-                    {
-                        command.Connection = connection;
-                        command.CommandText = "dbo.Categories_Create";
-                        command.CommandType = System.Data.CommandType.StoredProcedure;
-                        command.Parameters.Add(new SqlParameter("@CategoryID", category.Id));
-                        command.Parameters.Add(new SqlParameter("@ParentCategory", category.ParentCategoryId));
-                        command.Parameters.Add(new SqlParameter("@CategoryName", category.Name));
 
-                        connection.Open();
-                        command.ExecuteNonQuery();
-                    }
+            SqlParameter[] parameters = { new SqlParameter("@CategoryID", category.Id),
+                                          new SqlParameter("@ParentCategory", category.ParentCategoryId),
+                                          new SqlParameter("@CategoryName", category.Name)
+                                        };
 
-                }
-                catch (SqlException sqlEx)
-                {
-                    Console.WriteLine("There was a SQL error: {0}", sqlEx.Message);
-                }
-                catch (Exception ex)
-                {
-
-                    Console.WriteLine("There was an error: {0}", ex.Message);
-                }
-
-            }
+            Operation("dbo.Categories_Create", parameters);
 
         }
         public void Update(Category category)
         {
-            string connectionString = @"Server=ADRI-PC\SQLEXPRESS;Database=InteriorDesignShopDB;Trusted_Connection=True;";
-            using (SqlConnection connection = new SqlConnection(connectionString))
-            {
-                try
-                {
-                    using (SqlCommand command = new SqlCommand())
-                    {
-                        command.Connection = connection;
-                        command.CommandText = "dbo.Categories_Update";
-                        command.CommandType = System.Data.CommandType.StoredProcedure;
-                        command.Parameters.Add(new SqlParameter("@CategoryID", category.Id));
-                        command.Parameters.Add(new SqlParameter("@ParentCategory", category.ParentCategoryId));
-                        command.Parameters.Add(new SqlParameter("@CategoryName", category.Name));
-                        connection.Open();
-                        command.ExecuteNonQuery();
-                    }
+            SqlParameter[] parameters = { new SqlParameter("@CategoryID", category.Id),
+                                          new SqlParameter("@ParentCategory", category.ParentCategoryId),
+                                          new SqlParameter("@CategoryName", category.Name)
+                                        };
 
-                }
-                catch (SqlException sqlEx)
-                {
-                    Console.WriteLine("There was a SQL error: {0}", sqlEx.Message);
-                }
-                catch (Exception ex)
-                {
-
-                    Console.WriteLine("There was an error: {0}", ex.Message);
-                }
-
-            }
+            Operation("dbo.Categories_Update", parameters);
 
         }
+
         public void Delete(Guid categoryId)
         {
-
-            string connectionString = @"Server=ADRI-PC\SQLEXPRESS;Database=InteriorDesignShopDB;Trusted_Connection=True;";
-            using (SqlConnection connection = new SqlConnection(connectionString))
-            {
-                try
-                {
-                    using (SqlCommand command = new SqlCommand())
-                    {
-                        command.Connection = connection;
-                        command.CommandText = "dbo.Categories_Delete";
-                        command.CommandType = System.Data.CommandType.StoredProcedure;
-                        command.Parameters.Add(new SqlParameter("@CategoryID", categoryId));
-
-                        connection.Open();
-                        command.ExecuteNonQuery();
-                    }
-
-                }
-                catch (SqlException sqlEx)
-                {
-                    Console.WriteLine("There was a SQL error: {0}", sqlEx.Message);
-                }
-                catch (Exception ex)
-                {
-
-                    Console.WriteLine("There was an error: {0}", ex.Message);
-                }
-
-            }
+            SqlParameter[] parameters = { new SqlParameter("@CategoryID", categoryId) };
+            Operation("dbo.Categories_Delete", parameters);
 
         }
 
         public Category GetById(Guid categoryId)
         {
             Category category = new Category();
-            string connectionString = @"Server=ADRI-PC\SQLEXPRESS;Database=InteriorDesignShopDB;Trusted_Connection=True;";
-            using (SqlConnection connection = new SqlConnection(connectionString))
-            {
-                try
-                {
-                    using (SqlCommand command = new SqlCommand())
-                    {
-                        command.Connection = connection;
-                        command.CommandText = "dbo.Categories_GetById";
-                        command.CommandType = System.Data.CommandType.StoredProcedure;
+            SqlParameter[] parameters = { new SqlParameter("@CategoryID", categoryId) };
+            List<Category> categories = new List<Category>();
+            categories = ReadAll("dbo.Categories_GetById", parameters);
 
-                        command.Parameters.Add(new SqlParameter("@CategoryID", categoryId));
-                        connection.Open();
-                        using (SqlDataReader reader = command.ExecuteReader())
-                        {
-                            while (reader.Read())
-                            {
-                                category.Id = reader.GetGuid(reader.GetOrdinal("CategoryID"));
-                                category.ParentCategoryId= reader.GetGuid(reader.GetOrdinal("ParentCategoryID"));
-                                category.Name = reader.GetString(reader.GetOrdinal("Name"));
-                            }
+            return categories.ElementAt(0);
+        }
 
-                        }
-
-                    }
-                }
-                catch (SqlException sqlEx)
-                {
-                    Console.WriteLine("There was a SQL error: {0}", sqlEx.Message);
-                }
-                catch (Exception ex)
-                {
-
-                    Console.WriteLine("There was an error: {0}", ex.Message);
-                }
-
-
-            }
-
+        public override Category GetModelFromReader(SqlDataReader reader)
+        {
+            Category category = new Category();
+            category.Id = reader.GetGuid(reader.GetOrdinal("CategoryID"));
+            category.ParentCategoryId = reader.GetGuid(reader.GetOrdinal("ParentCategoryID"));
+            category.Name = reader.GetString(reader.GetOrdinal("Name"));
             return category;
         }
         #endregion
+        
     }
 }

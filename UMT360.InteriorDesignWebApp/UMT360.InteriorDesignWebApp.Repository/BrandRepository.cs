@@ -1,198 +1,57 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
+using System.Linq;
 using UMT360.InteriorDesignWebApp.Models;
+using UMT360.InteriorDesignWebApp.Repository.Core;
 
 namespace UMT360.InteriorDesignWebApp.Repository
 {
-    public class BrandRepository
+    public class BrandRepository:BaseRepository<Brand>
     {
         #region Methods
         public List<Brand> ReadAll()
         {
-            string connectionString = @"Server=ADRI-PC\SQLEXPRESS;Database=InteriorDesignShopDB;Trusted_Connection=True;";
-            List<Brand> brands = new List<Brand>();
-            using (SqlConnection connection = new SqlConnection(connectionString))
-            {
-                try
-                {
-                    using (SqlCommand command = new SqlCommand())
-                    {
-                        command.Connection = connection;
-                        command.CommandText = "dbo.Brands_ReadAll";
-                        command.CommandType = System.Data.CommandType.StoredProcedure;
+            return ReadAll("dbo.Brands_ReadAll");
 
-                        connection.Open();
-                        using (SqlDataReader reader = command.ExecuteReader())
-                        {
-
-                            while (reader.Read())
-                            {
-                                Brand brand = new Brand();
-                                brand.Id = reader.GetGuid(reader.GetOrdinal("BrandID"));
-                                brand.Name = reader.GetString(reader.GetOrdinal("Name"));
-
-                                brands.Add(brand);
-                            }
-                        }
-                    }
-
-                }
-                catch (SqlException sqlEx)
-                {
-                    Console.WriteLine("There was a SQL error: {0}", sqlEx.Message);
-                }
-                catch (Exception ex)
-                {
-
-                    Console.WriteLine("There was an error: {0}", ex.Message);
-                }
-
-            }
-            return brands;
         }
 
         public void Insert(Brand brand)
         {
-            string connectionString = @"Server=ADRI-PC\SQLEXPRESS;Database=InteriorDesignShopDB;Trusted_Connection=True;";
-            using (SqlConnection connection = new SqlConnection(connectionString))
-            {
-                try
-                {
-                    using (SqlCommand command = new SqlCommand())
-                    {
-                        command.Connection = connection;
-                        command.CommandText = "dbo.Brands_Create";
-                        command.CommandType = System.Data.CommandType.StoredProcedure;
-                        command.Parameters.Add(new SqlParameter("@BrandID", brand.Id));
-                        command.Parameters.Add(new SqlParameter("@BrandName", brand.Name));
 
-                        connection.Open();
-                        command.ExecuteNonQuery();
-                    }
-
-                }
-                catch (SqlException sqlEx)
-                {
-                    Console.WriteLine("There was a SQL error: {0}", sqlEx.Message);
-                }
-                catch (Exception ex)
-                {
-
-                    Console.WriteLine("There was an error: {0}", ex.Message);
-                }
-
-            }
+            SqlParameter[] parameters = { new SqlParameter("@BrandID", brand.Id), new SqlParameter("@BrandName", brand.Name) };
+            Operation("dbo.Brands_Create", parameters);
 
         }
         public void Update(Brand brand)
         {
-            string connectionString = @"Server=ADRI-PC\SQLEXPRESS;Database=InteriorDesignShopDB;Trusted_Connection=True;";
-            using (SqlConnection connection = new SqlConnection(connectionString))
-            {
-                try
-                {
-                    using (SqlCommand command = new SqlCommand())
-                    {
-                        command.Connection = connection;
-                        command.CommandText = "dbo.Brands_Update";
-                        command.CommandType = System.Data.CommandType.StoredProcedure;
-                        command.Parameters.Add(new SqlParameter("@BrandID", brand.Id));
-                        command.Parameters.Add(new SqlParameter("@BrandName", brand.Name));
-
-                        connection.Open();
-                        command.ExecuteNonQuery();
-                    }
-
-                }
-                catch (SqlException sqlEx)
-                {
-                    Console.WriteLine("There was a SQL error: {0}", sqlEx.Message);
-                }
-                catch (Exception ex)
-                {
-
-                    Console.WriteLine("There was an error: {0}", ex.Message);
-                }
-
-            }
+            SqlParameter[] parameters = { new SqlParameter("@BrandID", brand.Id), new SqlParameter("@BrandName", brand.Name) };
+            Operation("dbo.Brands_Update", parameters);
 
         }
+
         public void Delete(Guid brandId)
         {
-
-            string connectionString = @"Server=ADRI-PC\SQLEXPRESS;Database=InteriorDesignShopDB;Trusted_Connection=True;";
-            using (SqlConnection connection = new SqlConnection(connectionString))
-            {
-                try
-                {
-                    using (SqlCommand command = new SqlCommand())
-                    {
-                        command.Connection = connection;
-                        command.CommandText = "dbo.Brands_Delete";
-                        command.CommandType = System.Data.CommandType.StoredProcedure;
-                        command.Parameters.Add(new SqlParameter("@BrandID", brandId));
-
-                        connection.Open();
-                        command.ExecuteNonQuery();
-                    }
-
-                }
-                catch (SqlException sqlEx)
-                {
-                    Console.WriteLine("There was a SQL error: {0}", sqlEx.Message);
-                }
-                catch (Exception ex)
-                {
-
-                    Console.WriteLine("There was an error: {0}", ex.Message);
-                }
-
-            }
+            SqlParameter[] parameters = { new SqlParameter("@BrandID", brandId) };
+            Operation("dbo.Brands_Delete", parameters);
 
         }
 
         public Brand GetById(Guid brandId)
         {
             Brand brand = new Brand();
-            string connectionString = @"Server=ADRI-PC\SQLEXPRESS;Database=InteriorDesignShopDB;Trusted_Connection=True;";
-            using (SqlConnection connection = new SqlConnection(connectionString))
-            {
-                try
-                {
-                    using (SqlCommand command = new SqlCommand())
-                    {
-                        command.Connection = connection;
-                        command.CommandText = "dbo.Brands_GetById";
-                        command.CommandType = System.Data.CommandType.StoredProcedure;
+            SqlParameter[] parameters = { new SqlParameter("@BrandID", brandId) };
+            List<Brand> brands = new List<Brand>();
+            brands = ReadAll("dbo.Brands_GetById", parameters);
 
-                        command.Parameters.Add(new SqlParameter("@BrandID", brandId));
-                        connection.Open();
-                        using (SqlDataReader reader = command.ExecuteReader())
-                        {
-                            while (reader.Read())
-                            {
-                                brand.Id = reader.GetGuid(reader.GetOrdinal("BrandID"));
-                                brand.Name = reader.GetString(reader.GetOrdinal("Name"));
-                            }
+            return brands.ElementAt(0);
+        }
 
-                        }
-
-                    }
-                }
-                catch (SqlException sqlEx)
-                {
-                    Console.WriteLine("There was a SQL error: {0}", sqlEx.Message);
-                }
-                catch (Exception ex)
-                {
-
-                    Console.WriteLine("There was an error: {0}", ex.Message);
-                }
-
-
-            }
-
+        public override Brand GetModelFromReader(SqlDataReader reader)
+        {
+            Brand brand = new Brand();
+            brand.Id = reader.GetGuid(reader.GetOrdinal("BrandID"));
+            brand.Name = reader.GetString(reader.GetOrdinal("Name"));
             return brand;
         }
         #endregion

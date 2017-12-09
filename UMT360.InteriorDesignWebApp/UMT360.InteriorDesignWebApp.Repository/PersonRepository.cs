@@ -1,228 +1,87 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
+using System.Linq;
 using UMT360.InteriorDesignWebApp.Models;
+using UMT360.InteriorDesignWebApp.Repository.Core;
 
 namespace UMT360.InteriorDesignWebApp.Repository
 {
-    class PersonRepository
+    class PersonRepository:BaseRepository<Person>
     {
         #region Methods
         public List<Person> ReadAll()
         {
-            string connectionString = @"Server=ADRI-PC\SQLEXPRESS;Database=InteriorDesignShopDB;Trusted_Connection=True;";
-            List<Person> persons = new List<Person>();
-            using (SqlConnection connection = new SqlConnection(connectionString))
-            {
-                try
-                {
-                    using (SqlCommand command = new SqlCommand())
-                    {
-                        command.Connection = connection;
-                        command.CommandText = "dbo.Persons_ReadAll";
-                        command.CommandType = System.Data.CommandType.StoredProcedure;
+            return ReadAll("dbo.Persons_ReadAll");
 
-                        connection.Open();
-                        using (SqlDataReader reader = command.ExecuteReader())
-                        {
-
-                            while (reader.Read())
-                            {
-                                Person person = new Person();
-                                person.Id = reader.GetGuid(reader.GetOrdinal("PersonID"));
-                                person.FirstName = reader.GetString(reader.GetOrdinal("FirstName"));
-                                person.LastName = reader.GetString(reader.GetOrdinal("LastName"));
-                                person.Street = reader.GetString(reader.GetOrdinal("Street"));
-                                person.Number = reader.GetString(reader.GetOrdinal("Number"));
-                                person.BirthDay = reader.GetDateTime(reader.GetOrdinal("BirthDay"));
-                                person.PhoneNumber = reader.GetString(reader.GetOrdinal("PhoneNumber"));                                
-                                person.CityId = reader.GetGuid(reader.GetOrdinal("CityID"));
-                                person.AccountId = reader.GetGuid(reader.GetOrdinal("AccountID"));
-
-                                persons.Add(person);
-                            }
-                        }
-                    }
-
-                }
-                catch (SqlException sqlEx)
-                {
-                    Console.WriteLine("There was a SQL error: {0}", sqlEx.Message);
-                }
-                catch (Exception ex)
-                {
-                    Console.WriteLine("There was an error: {0}", ex.Message);
-                }
-
-            }
-            return persons;
         }
 
         public void Insert(Person person)
         {
-            string connectionString = @"Server=ADRI-PC\SQLEXPRESS;Database=InteriorDesignShopDB;Trusted_Connection=True;";
-            using (SqlConnection connection = new SqlConnection(connectionString))
-            {
-                try
-                {
-                    using (SqlCommand command = new SqlCommand())
-                    {
-                        command.Connection = connection;
-                        command.CommandText = "dbo.Persons_Create";
-                        command.CommandType = System.Data.CommandType.StoredProcedure;
-                        command.Parameters.Add(new SqlParameter("@PersonID", person.Id));
-                        command.Parameters.Add(new SqlParameter("@FirstName", person.FirstName));
-                        command.Parameters.Add(new SqlParameter("@LastName", person.LastName));
-                        command.Parameters.Add(new SqlParameter("@Street", person.Street));
-                        command.Parameters.Add(new SqlParameter("@Number", person.Number));
-                        command.Parameters.Add(new SqlParameter("@BirthDay", person.BirthDay));
-                        command.Parameters.Add(new SqlParameter("@PhoneNumber", person.PhoneNumber));
-                        command.Parameters.Add(new SqlParameter("@CityID", person.CityId));
-                        command.Parameters.Add(new SqlParameter("@AccountID", person.AccountId));                       
 
-                        connection.Open();
-                        command.ExecuteNonQuery();
-                    }
+            SqlParameter[] parameters = { new SqlParameter("@PersonID", person.Id),
+                                          new SqlParameter("@FirstName", person.FirstName),
+                                          new SqlParameter("@LastName", person.LastName),
+                                          new SqlParameter("@Street", person.Street),
+                                          new SqlParameter("@Number", person.Number),
+                                          new SqlParameter("@BirthDay", person.BirthDay),
+                                          new SqlParameter("@PhoneNumber", person.PhoneNumber),
+                                          new SqlParameter("@CityID", person.CityId),
+                                          new SqlParameter("@AccountID", person.AccountId)
+                                         };
 
-                }
-                catch (SqlException sqlEx)
-                {
-                    Console.WriteLine("There was a SQL error: {0}", sqlEx.Message);
-                }
-                catch (Exception ex)
-                {
-
-                    Console.WriteLine("There was an error: {0}", ex.Message);
-                }
-
-            }
+            Operation("dbo.Persons_Create", parameters);
 
         }
         public void Update(Person person)
         {
-            string connectionString = @"Server=ADRI-PC\SQLEXPRESS;Database=InteriorDesignShopDB;Trusted_Connection=True;";
-            using (SqlConnection connection = new SqlConnection(connectionString))
-            {
-                try
-                {
-                    using (SqlCommand command = new SqlCommand())
-                    {
-                        command.Connection = connection;
-                        command.CommandText = "dbo.Persons_Update";
-                        command.CommandType = System.Data.CommandType.StoredProcedure;
-                        command.Parameters.Add(new SqlParameter("@PersonID", person.Id));
-                        command.Parameters.Add(new SqlParameter("@FirstName", person.FirstName));
-                        command.Parameters.Add(new SqlParameter("@LastName", person.LastName));
-                        command.Parameters.Add(new SqlParameter("@Street", person.Street));
-                        command.Parameters.Add(new SqlParameter("@Number", person.Number));
-                        command.Parameters.Add(new SqlParameter("@BirthDay", person.BirthDay));
-                        command.Parameters.Add(new SqlParameter("@PhoneNumber", person.PhoneNumber));
-                        command.Parameters.Add(new SqlParameter("@CityID", person.CityId));
-                        command.Parameters.Add(new SqlParameter("@AccountID", person.AccountId));
+            SqlParameter[] parameters = { new SqlParameter("@PersonID", person.Id),
+                                          new SqlParameter("@FirstName", person.FirstName),
+                                          new SqlParameter("@LastName", person.LastName),
+                                          new SqlParameter("@Street", person.Street),
+                                          new SqlParameter("@Number", person.Number),
+                                          new SqlParameter("@BirthDay", person.BirthDay),
+                                          new SqlParameter("@PhoneNumber", person.PhoneNumber),
+                                          new SqlParameter("@CityID", person.CityId),
+                                          new SqlParameter("@AccountID", person.AccountId)
+                                         };
 
-                        connection.Open();
-                        command.ExecuteNonQuery();
-                    }
-
-                }
-                catch (SqlException sqlEx)
-                {
-                    Console.WriteLine("There was a SQL error: {0}", sqlEx.Message);
-                }
-                catch (Exception ex)
-                {
-
-                    Console.WriteLine("There was an error: {0}", ex.Message);
-                }
-
-            }
+            Operation("dbo.Persons_Update", parameters);
 
         }
+
         public void Delete(Guid personId)
         {
-
-            string connectionString = @"Server=ADRI-PC\SQLEXPRESS;Database=InteriorDesignShopDB;Trusted_Connection=True;";
-            using (SqlConnection connection = new SqlConnection(connectionString))
-            {
-                try
-                {
-                    using (SqlCommand command = new SqlCommand())
-                    {
-                        command.Connection = connection;
-                        command.CommandText = "dbo.Persons_Delete";
-                        command.CommandType = System.Data.CommandType.StoredProcedure;
-                        command.Parameters.Add(new SqlParameter("@PersonID", personId));
-
-                        connection.Open();
-                        command.ExecuteNonQuery();
-                    }
-
-                }
-                catch (SqlException sqlEx)
-                {
-                    Console.WriteLine("There was a SQL error: {0}", sqlEx.Message);
-                }
-                catch (Exception ex)
-                {
-
-                    Console.WriteLine("There was an error: {0}", ex.Message);
-                }
-
-            }
+            SqlParameter[] parameters = { new SqlParameter("@PersonID", personId) };
+            Operation("dbo.Persons_Delete", parameters);
 
         }
 
         public Person GetById(Guid personId)
         {
             Person person = new Person();
-            string connectionString = @"Server=ADRI-PC\SQLEXPRESS;Database=InteriorDesignShopDB;Trusted_Connection=True;";
-            using (SqlConnection connection = new SqlConnection(connectionString))
-            {
-                try
-                {
-                    using (SqlCommand command = new SqlCommand())
-                    {
-                        command.Connection = connection;
-                        command.CommandText = "dbo.Persons_GetById";
-                        command.CommandType = System.Data.CommandType.StoredProcedure;
+            SqlParameter[] parameters = { new SqlParameter("@PersonID", personId) };
+            List<Person> persons = new List<Person>();
+            persons = ReadAll("dbo.Persons_GetById", parameters);
 
-                        command.Parameters.Add(new SqlParameter("@PersonID", personId));
-                        connection.Open();
-                        using (SqlDataReader reader = command.ExecuteReader())
-                        {
-                            while (reader.Read())
-                            {
-                                person.Id = reader.GetGuid(reader.GetOrdinal("PersonID"));
-                                person.FirstName = reader.GetString(reader.GetOrdinal("FirstName"));
-                                person.LastName = reader.GetString(reader.GetOrdinal("LastName"));
-                                person.Street = reader.GetString(reader.GetOrdinal("Street"));
-                                person.Number = reader.GetString(reader.GetOrdinal("Number"));
-                                person.BirthDay = reader.GetDateTime(reader.GetOrdinal("BirthDay"));
-                                person.PhoneNumber = reader.GetString(reader.GetOrdinal("PhoneNumber"));
-                                person.CityId = reader.GetGuid(reader.GetOrdinal("CityID"));
-                                person.AccountId = reader.GetGuid(reader.GetOrdinal("AccountID"));
+            return persons.ElementAt(0);
+        }
 
-                            }
-
-                        }
-
-                    }
-                }
-                catch (SqlException sqlEx)
-                {
-                    Console.WriteLine("There was a SQL error: {0}", sqlEx.Message);
-                }
-                catch (Exception ex)
-                {
-
-                    Console.WriteLine("There was an error: {0}", ex.Message);
-                }
-
-
-            }
+        public override Person GetModelFromReader(SqlDataReader reader)
+        {
+            Person person = new Person();
+            person.Id = reader.GetGuid(reader.GetOrdinal("PersonID"));
+            person.FirstName = reader.GetString(reader.GetOrdinal("FirstName"));
+            person.LastName = reader.GetString(reader.GetOrdinal("LastName"));
+            person.Street = reader.GetString(reader.GetOrdinal("Street"));
+            person.Number = reader.GetString(reader.GetOrdinal("Number"));
+            person.BirthDay = reader.GetDateTime(reader.GetOrdinal("BirthDay"));
+            person.PhoneNumber = reader.GetString(reader.GetOrdinal("PhoneNumber"));
+            person.CityId = reader.GetGuid(reader.GetOrdinal("CityID"));
+            person.AccountId = reader.GetGuid(reader.GetOrdinal("AccountID"));
 
             return person;
         }
-        #endregion
+        #endregion        
     }
 }

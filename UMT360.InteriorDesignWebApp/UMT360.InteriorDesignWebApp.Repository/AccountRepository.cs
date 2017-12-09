@@ -1,212 +1,73 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
+using System.Linq;
 using UMT360.InteriorDesignWebApp.Models;
+using UMT360.InteriorDesignWebApp.Repository.Core;
 
 namespace UMT360.InteriorDesignWebApp.Repository
 {
-    public class AccountRepository
+    public class AccountRepository:BaseRepository<Account>
     {
         #region Methods
         public List<Account> ReadAll()
         {
-            string connectionString = @"Server=ADRI-PC\SQLEXPRESS;Database=InteriorDesignShopDB;Trusted_Connection=True;";
-            List<Account> accounts = new List<Account>();
-            using (SqlConnection connection = new SqlConnection(connectionString))
-            {
-                try
-                {
-                    using (SqlCommand command = new SqlCommand())
-                    {
-                        command.Connection = connection;
-                        command.CommandText = "dbo.Accounts_ReadAll";
-                        command.CommandType = System.Data.CommandType.StoredProcedure;
+            return ReadAll("dbo.Accounts_ReadAll");
 
-                        connection.Open();
-                        using (SqlDataReader reader = command.ExecuteReader())
-                        {
-
-                            while (reader.Read())
-                            {
-                                Account account = new Account();
-                                account.Id = reader.GetGuid(reader.GetOrdinal("AccountID"));
-                                account.EmailAddress = reader.GetString(reader.GetOrdinal("EmailAddress"));
-                                account.Password = reader.GetString(reader.GetOrdinal("Password"));
-                                account.RoleId = reader.GetGuid(reader.GetOrdinal("RoleID"));
-                                account.PhotoId = reader.GetGuid(reader.GetOrdinal("PhotoID"));
-
-                                accounts.Add(account);
-                            }
-                        }
-                    }
-
-                }
-                catch (SqlException sqlEx)
-                {
-                    Console.WriteLine("There was a SQL error: {0}", sqlEx.Message);
-                }
-                catch (Exception ex)
-                {
-
-                    Console.WriteLine("There was an error: {0}", ex.Message);
-                }
-
-            }
-            return accounts;
         }
 
         public void Insert(Account account)
         {
-            string connectionString = @"Server=ADRI-PC\SQLEXPRESS;Database=InteriorDesignShopDB;Trusted_Connection=True;";
-            using (SqlConnection connection = new SqlConnection(connectionString))
-            {
-                try
-                {
-                    using (SqlCommand command = new SqlCommand())
-                    {
-                        command.Connection = connection;
-                        command.CommandText = "dbo.Accounts_Create";
-                        command.CommandType = System.Data.CommandType.StoredProcedure;
-                        command.Parameters.Add(new SqlParameter("@AccountID", account.Id));
-                        command.Parameters.Add(new SqlParameter("@EmailAddress", account.EmailAddress));
-                        command.Parameters.Add(new SqlParameter("@Password", account.Password));
-                        command.Parameters.Add(new SqlParameter("@RoleID", account.RoleId));
-                        command.Parameters.Add(new SqlParameter("@PhotoID", account.PhotoId));
 
-                        connection.Open();
-                        command.ExecuteNonQuery();
-                    }
+            SqlParameter[] parameters = { new SqlParameter("@AccountID", account.Id),
+                                          new SqlParameter("@EmailAddress", account.EmailAddress),
+                                          new SqlParameter("@Password", account.Password),
+                                          new SqlParameter("@RoleID", account.RoleId),
+                                          new SqlParameter("@PhotoID", account.PhotoId)};
 
-                }
-                catch (SqlException sqlEx)
-                {
-                    Console.WriteLine("There was a SQL error: {0}", sqlEx.Message);
-                }
-                catch (Exception ex)
-                {
-
-                    Console.WriteLine("There was an error: {0}", ex.Message);
-                }
-
-            }
+            Operation("dbo.Accounts_Create", parameters);
 
         }
         public void Update(Account account)
         {
-            string connectionString = @"Server=ADRI-PC\SQLEXPRESS;Database=InteriorDesignShopDB;Trusted_Connection=True;";
-            using (SqlConnection connection = new SqlConnection(connectionString))
-            {
-                try
-                {
-                    using (SqlCommand command = new SqlCommand())
-                    {
-                        command.Connection = connection;
-                        command.CommandText = "dbo.Accounts_Update";
-                        command.CommandType = System.Data.CommandType.StoredProcedure;
-                        command.Parameters.Add(new SqlParameter("@AccountID", account.Id));
-                        command.Parameters.Add(new SqlParameter("@EmailAddress", account.EmailAddress));
-                        command.Parameters.Add(new SqlParameter("@Password", account.Password));
-                        command.Parameters.Add(new SqlParameter("@RoleID", account.RoleId));
-                        command.Parameters.Add(new SqlParameter("@PhotoID", account.PhotoId));
+            SqlParameter[] parameters = { new SqlParameter("@AccountID", account.Id),
+                                          new SqlParameter("@EmailAddress", account.EmailAddress),
+                                          new SqlParameter("@Password", account.Password),
+                                          new SqlParameter("@RoleID", account.RoleId),
+                                          new SqlParameter("@PhotoID", account.PhotoId)};
 
-                        connection.Open();
-                        command.ExecuteNonQuery();
-                    }
-
-                }
-                catch (SqlException sqlEx)
-                {
-                    Console.WriteLine("There was a SQL error: {0}", sqlEx.Message);
-                }
-                catch (Exception ex)
-                {
-
-                    Console.WriteLine("There was an error: {0}", ex.Message);
-                }
-
-            }
+            Operation("dbo.Accounts_Update", parameters);
 
         }
+
         public void Delete(Guid accountId)
         {
-
-            string connectionString = @"Server=ADRI-PC\SQLEXPRESS;Database=InteriorDesignShopDB;Trusted_Connection=True;";
-            using (SqlConnection connection = new SqlConnection(connectionString))
-            {
-                try
-                {
-                    using (SqlCommand command = new SqlCommand())
-                    {
-                        command.Connection = connection;
-                        command.CommandText = "dbo.Accounts_Delete";
-                        command.CommandType = System.Data.CommandType.StoredProcedure;
-                        command.Parameters.Add(new SqlParameter("@AccountID", accountId));
-
-                        connection.Open();
-                        command.ExecuteNonQuery();
-                    }
-
-                }
-                catch (SqlException sqlEx)
-                {
-                    Console.WriteLine("There was a SQL error: {0}", sqlEx.Message);
-                }
-                catch (Exception ex)
-                {
-
-                    Console.WriteLine("There was an error: {0}", ex.Message);
-                }
-
-            }
+            SqlParameter[] parameters = { new SqlParameter("@AccountID", accountId) };
+            Operation("dbo.Accounts_Delete", parameters);
 
         }
 
         public Account GetById(Guid accountId)
         {
             Account account = new Account();
-            string connectionString = @"Server=ADRI-PC\SQLEXPRESS;Database=InteriorDesignShopDB;Trusted_Connection=True;";
-            using (SqlConnection connection = new SqlConnection(connectionString))
-            {
-                try
-                {
-                    using (SqlCommand command = new SqlCommand())
-                    {
-                        command.Connection = connection;
-                        command.CommandText = "dbo.Accounts_GetById";
-                        command.CommandType = System.Data.CommandType.StoredProcedure;
+            SqlParameter[] parameters = { new SqlParameter("@AccountID", accountId) };
+            List<Account> accounts = new List<Account>();
+            accounts = ReadAll("dbo.Accounts_GetById", parameters);
 
-                        command.Parameters.Add(new SqlParameter("@AccountID", accountId));
-                        connection.Open();
-                        using (SqlDataReader reader = command.ExecuteReader())
-                        {
-                            while (reader.Read())
-                            {
-                                account.Id = reader.GetGuid(reader.GetOrdinal("AccountID"));
-                                account.EmailAddress = reader.GetString(reader.GetOrdinal("EmailAddress"));
-                                account.Password = reader.GetString(reader.GetOrdinal("Password"));
-                                account.RoleId = reader.GetGuid(reader.GetOrdinal("RoleID"));
-                                account.PhotoId = reader.GetGuid(reader.GetOrdinal("PhotoID"));
+            return accounts.ElementAt(0);
+        }
 
-                            }
-
-                        }
-                    }
-                }
-                catch (SqlException sqlEx)
-                {
-                    Console.WriteLine("There was a SQL error: {0}", sqlEx.Message);
-                }
-                catch (Exception ex)
-                {
-
-                    Console.WriteLine("There was an error: {0}", ex.Message);
-                }
-
-
-            }
-
+        public override Account GetModelFromReader(SqlDataReader reader)
+        {
+            Account account = new Account();
+            account.Id = reader.GetGuid(reader.GetOrdinal("AccountID"));
+            account.EmailAddress = reader.GetString(reader.GetOrdinal("EmailAddress"));
+            account.Password = reader.GetString(reader.GetOrdinal("Password"));
+            account.RoleId = reader.GetGuid(reader.GetOrdinal("RoleID"));
+            account.PhotoId = reader.GetGuid(reader.GetOrdinal("PhotoID"));
             return account;
         }
         #endregion
+        
     }
 }

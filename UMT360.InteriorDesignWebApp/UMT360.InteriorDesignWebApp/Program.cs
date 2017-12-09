@@ -20,7 +20,7 @@ namespace UMT360.InteriorDesignWebApp
             color.Id = id;
             color.Name = "TestColor";
             Color color1 = new Color() { Id = id, Name = "TestColor1" };
-
+            
             Console.WriteLine("---------Insert------------");
             colorRepository.Insert(color);
             colors = colorRepository.ReadAll();
@@ -50,7 +50,7 @@ namespace UMT360.InteriorDesignWebApp
             {
                 Console.WriteLine("{0} ---- {1}", col.Id, col.Name);
             }
-
+            
             Console.WriteLine("---------GetById------------");
             Color color2 = new Color() { Id = id, Name = "TestColor2" };
             colorRepository.Insert(color2);
@@ -64,7 +64,7 @@ namespace UMT360.InteriorDesignWebApp
             Color color3 = colorRepository.GetById(color2.Id);
             Console.WriteLine("{0}  {1}", color3.Id, color3.Name);
             colorRepository.Delete(color3.Id);
-            /*
+            
             Console.WriteLine("---------------------MaterialRepository TEST----------------------------");
             List<Material> materials = new List<Material>();
             MaterialRepository materialRepository = new MaterialRepository();
@@ -117,7 +117,7 @@ namespace UMT360.InteriorDesignWebApp
             Material material3 = materialRepository.GetById(material2.Id);
             Console.WriteLine("{0}  {1}", material3.Id, material3.Name);
             materialRepository.Delete(material3.Id);
-
+            
             Console.WriteLine("---------------------Brand Repository TEST----------------------------");
             List<Brand> brands = new List<Brand>();
             BrandRepository brandRepository = new BrandRepository();
@@ -170,7 +170,7 @@ namespace UMT360.InteriorDesignWebApp
             Brand brand3 = brandRepository.GetById(brand2.Id);
             Console.WriteLine("{0}  {1}", brand3.Id, brand3.Name);
             brandRepository.Delete(brand3.Id);
-            */
+            
             
           /*
             List<Photo> photos = new List<Photo>();

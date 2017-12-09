@@ -1,203 +1,70 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
+using System.Linq;
 using UMT360.InteriorDesignWebApp.Models;
+using UMT360.InteriorDesignWebApp.Repository.Core;
 
 namespace UMT360.InteriorDesignWebApp.Repository
 {
-    public class CountyRepository
+    public class CountyRepository:BaseRepository<County>
     {
         #region Methods
         public List<County> ReadAll()
         {
-            string connectionString = @"Server=ADRI-PC\SQLEXPRESS;Database=InteriorDesignShopDB;Trusted_Connection=True;";
-            List<County> counties = new List<County>();
-            using (SqlConnection connection = new SqlConnection(connectionString))
-            {
-                try
-                {
-                    using (SqlCommand command = new SqlCommand())
-                    {
-                        command.Connection = connection;
-                        command.CommandText = "dbo.Counties_ReadAll";
-                        command.CommandType = System.Data.CommandType.StoredProcedure;
+            return ReadAll("dbo.Counties_ReadAll");
 
-                        connection.Open();
-                        using (SqlDataReader reader = command.ExecuteReader())
-                        {
-
-                            while (reader.Read())
-                            {
-                                County county = new County();
-                                county.Id = reader.GetGuid(reader.GetOrdinal("CountyID"));
-                                county.Name = reader.GetString(reader.GetOrdinal("Name"));
-                                county.CountryId = reader.GetGuid(reader.GetOrdinal("CountryID"));
-
-                                counties.Add(county);
-                            }
-                        }
-                    }
-
-                }
-                catch (SqlException sqlEx)
-                {
-                    Console.WriteLine("There was a SQL error: {0}", sqlEx.Message);
-                }
-                catch (Exception ex)
-                {
-                    Console.WriteLine("There was an error: {0}", ex.Message);
-                }
-
-            }
-            return counties;
         }
 
         public void Insert(County county)
         {
-            string connectionString = @"Server=ADRI-PC\SQLEXPRESS;Database=InteriorDesignShopDB;Trusted_Connection=True;";
-            using (SqlConnection connection = new SqlConnection(connectionString))
-            {
-                try
-                {
-                    using (SqlCommand command = new SqlCommand())
-                    {
-                        command.Connection = connection;
-                        command.CommandText = "dbo.Counties_Create";
-                        command.CommandType = System.Data.CommandType.StoredProcedure;
-                        command.Parameters.Add(new SqlParameter("@CountyID", county.Id));
-                        command.Parameters.Add(new SqlParameter("@CountyName", county.Name));
-                        command.Parameters.Add(new SqlParameter("@CountryID", county.CountryId));
 
-                        connection.Open();
-                        command.ExecuteNonQuery();
-                    }
+            SqlParameter[] parameters = { new SqlParameter("@CountyID", county.Id),
+                                          new SqlParameter("@CountyName", county.Name),
+                                          new SqlParameter("@CountryID", county.CountryId)
+                                        };
 
-                }
-                catch (SqlException sqlEx)
-                {
-                    Console.WriteLine("There was a SQL error: {0}", sqlEx.Message);
-                }
-                catch (Exception ex)
-                {
-
-                    Console.WriteLine("There was an error: {0}", ex.Message);
-                }
-
-            }
+            Operation("dbo.Counties_Create", parameters);
 
         }
         public void Update(County county)
         {
-            string connectionString = @"Server=ADRI-PC\SQLEXPRESS;Database=InteriorDesignShopDB;Trusted_Connection=True;";
-            using (SqlConnection connection = new SqlConnection(connectionString))
-            {
-                try
-                {
-                    using (SqlCommand command = new SqlCommand())
-                    {
-                        command.Connection = connection;
-                        command.CommandText = "dbo.Counties_Update";
-                        command.CommandType = System.Data.CommandType.StoredProcedure;
-                        command.Parameters.Add(new SqlParameter("@CountyID", county.Id));
-                        command.Parameters.Add(new SqlParameter("@CountyName", county.Name));
-                        command.Parameters.Add(new SqlParameter("@CountryID", county.CountryId));
+            SqlParameter[] parameters = { new SqlParameter("@CountyID", county.Id),
+                                          new SqlParameter("@CountyName", county.Name),
+                                          new SqlParameter("@CountryID", county.CountryId)
+                                        };
 
-                        connection.Open();
-                        command.ExecuteNonQuery();
-                    }
-
-                }
-                catch (SqlException sqlEx)
-                {
-                    Console.WriteLine("There was a SQL error: {0}", sqlEx.Message);
-                }
-                catch (Exception ex)
-                {
-
-                    Console.WriteLine("There was an error: {0}", ex.Message);
-                }
-
-            }
+            Operation("dbo.Counties_Update", parameters);
 
         }
+
         public void Delete(Guid countyId)
         {
-
-            string connectionString = @"Server=ADRI-PC\SQLEXPRESS;Database=InteriorDesignShopDB;Trusted_Connection=True;";
-            using (SqlConnection connection = new SqlConnection(connectionString))
-            {
-                try
-                {
-                    using (SqlCommand command = new SqlCommand())
-                    {
-                        command.Connection = connection;
-                        command.CommandText = "dbo.Counties_Delete";
-                        command.CommandType = System.Data.CommandType.StoredProcedure;
-                        command.Parameters.Add(new SqlParameter("@CountyID", countyId));
-
-                        connection.Open();
-                        command.ExecuteNonQuery();
-                    }
-
-                }
-                catch (SqlException sqlEx)
-                {
-                    Console.WriteLine("There was a SQL error: {0}", sqlEx.Message);
-                }
-                catch (Exception ex)
-                {
-
-                    Console.WriteLine("There was an error: {0}", ex.Message);
-                }
-
-            }
+            SqlParameter[] parameters = { new SqlParameter("@CountyID", countyId) };
+            Operation("dbo.Counties_Delete", parameters);
 
         }
 
         public County GetById(Guid countyId)
         {
             County county = new County();
-            string connectionString = @"Server=ADRI-PC\SQLEXPRESS;Database=InteriorDesignShopDB;Trusted_Connection=True;";
-            using (SqlConnection connection = new SqlConnection(connectionString))
-            {
-                try
-                {
-                    using (SqlCommand command = new SqlCommand())
-                    {
-                        command.Connection = connection;
-                        command.CommandText = "dbo.Counties_GetById";
-                        command.CommandType = System.Data.CommandType.StoredProcedure;
+            SqlParameter[] parameters = { new SqlParameter("@CountyID", countyId) };
+            List<County> counties = new List<County>();
+            counties = ReadAll("dbo.Counties_GetById", parameters);
 
-                        command.Parameters.Add(new SqlParameter("@CountyID", countyId));
-                        connection.Open();
-                        using (SqlDataReader reader = command.ExecuteReader())
-                        {
-                            while (reader.Read())
-                            {
-                                county.Id = reader.GetGuid(reader.GetOrdinal("CountyID"));
-                                county.Name = reader.GetString(reader.GetOrdinal("Name"));
-                                county.CountryId = reader.GetGuid(reader.GetOrdinal("CountryID"));
+            return counties.ElementAt(0);
+        }
 
-                            }
+        public override County GetModelFromReader(SqlDataReader reader)
+        {
+            County county = new County();
+            county.Id = reader.GetGuid(reader.GetOrdinal("CountyID"));
+            county.Name = reader.GetString(reader.GetOrdinal("Name"));
+            county.CountryId = reader.GetGuid(reader.GetOrdinal("CountryID"));
 
-                        }
-
-                    }
-                }
-                catch (SqlException sqlEx)
-                {
-                    Console.WriteLine("There was a SQL error: {0}", sqlEx.Message);
-                }
-                catch (Exception ex)
-                {
-
-                    Console.WriteLine("There was an error: {0}", ex.Message);
-                }
-
-
-            }
             return county;
         }
         #endregion
+        
     }
 }

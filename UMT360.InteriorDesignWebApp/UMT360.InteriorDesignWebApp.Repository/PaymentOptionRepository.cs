@@ -1,200 +1,60 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
+using System.Linq;
 using UMT360.InteriorDesignWebApp.Models;
+using UMT360.InteriorDesignWebApp.Repository.Core;
 
 namespace UMT360.InteriorDesignWebApp.Repository
 {
-    public class PaymentOptionRepository
+    public class PaymentOptionRepository:BaseRepository<PaymentOption>
     {
         #region Methods
         public List<PaymentOption> ReadAll()
         {
-            string connectionString = @"Server=ADRI-PC\SQLEXPRESS;Database=InteriorDesignShopDB;Trusted_Connection=True;";
-            List<PaymentOption> paymentOptions = new List<PaymentOption>();
-            using (SqlConnection connection = new SqlConnection(connectionString))
-            {
-                try
-                {
-                    using (SqlCommand command = new SqlCommand())
-                    {
-                        command.Connection = connection;
-                        command.CommandText = "dbo.PaymentOptions_ReadAll";
-                        command.CommandType = System.Data.CommandType.StoredProcedure;
+            return ReadAll("dbo.PaymentOptions_ReadAll");
 
-                        connection.Open();
-                        using (SqlDataReader reader = command.ExecuteReader())
-                        {
-
-                            while (reader.Read())
-                            {
-                                PaymentOption paymentOption = new PaymentOption();
-                                paymentOption.Id = reader.GetGuid(reader.GetOrdinal("PaymentOptionID"));
-                                paymentOption.Name = reader.GetString(reader.GetOrdinal("Name"));
-
-                                paymentOptions.Add(paymentOption);
-                            }
-                        }
-                    }
-
-                }
-                catch (SqlException sqlEx)
-                {
-                    Console.WriteLine("There was a SQL error: {0}", sqlEx.Message);
-                }
-                catch (Exception ex)
-                {
-
-                    Console.WriteLine("There was an error: {0}", ex.Message);
-                }
-
-            }
-            return paymentOptions;
         }
 
         public void Insert(PaymentOption paymentOption)
         {
-            string connectionString = @"Server=ADRI-PC\SQLEXPRESS;Database=InteriorDesignShopDB;Trusted_Connection=True;";
-            using (SqlConnection connection = new SqlConnection(connectionString))
-            {
-                try
-                {
-                    using (SqlCommand command = new SqlCommand())
-                    {
-                        command.Connection = connection;
-                        command.CommandText = "dbo.PaymentOptions_Create";
-                        command.CommandType = System.Data.CommandType.StoredProcedure;
-                        command.Parameters.Add(new SqlParameter("@PaymentOptionID", paymentOption.Id));
-                        command.Parameters.Add(new SqlParameter("@PaymentOptionName", paymentOption.Name));
 
-                        connection.Open();
-                        command.ExecuteNonQuery();
-                    }
-
-                }
-                catch (SqlException sqlEx)
-                {
-                    Console.WriteLine("There was a SQL error: {0}", sqlEx.Message);
-                }
-                catch (Exception ex)
-                {
-
-                    Console.WriteLine("There was an error: {0}", ex.Message);
-                }
-
-            }
+            SqlParameter[] parameters = { new SqlParameter("@PaymentOptionID", paymentOption.Id), new SqlParameter("@PaymentOptionName", paymentOption.Name) };
+            Operation("dbo.PaymentOptions_Create", parameters);
 
         }
         public void Update(PaymentOption paymentOption)
         {
-            string connectionString = @"Server=ADRI-PC\SQLEXPRESS;Database=InteriorDesignShopDB;Trusted_Connection=True;";
-            using (SqlConnection connection = new SqlConnection(connectionString))
-            {
-                try
-                {
-                    using (SqlCommand command = new SqlCommand())
-                    {
-                        command.Connection = connection;
-                        command.CommandText = "dbo.PaymentOptions_Update";
-                        command.CommandType = System.Data.CommandType.StoredProcedure;
-                        command.Parameters.Add(new SqlParameter("@PaymentOptionID", paymentOption.Id));
-                        command.Parameters.Add(new SqlParameter("@PaymentOptionName", paymentOption.Name));
-
-                        connection.Open();
-                        command.ExecuteNonQuery();
-                    }
-
-                }
-                catch (SqlException sqlEx)
-                {
-                    Console.WriteLine("There was a SQL error: {0}", sqlEx.Message);
-                }
-                catch (Exception ex)
-                {
-
-                    Console.WriteLine("There was an error: {0}", ex.Message);
-                }
-
-            }
+            SqlParameter[] parameters = { new SqlParameter("@PaymentOptionID", paymentOption.Id), new SqlParameter("@PaymentOptionName", paymentOption.Name) };
+            Operation("dbo.PaymentOptions_Update", parameters);
 
         }
+
         public void Delete(Guid paymentOptionId)
         {
-
-            string connectionString = @"Server=ADRI-PC\SQLEXPRESS;Database=InteriorDesignShopDB;Trusted_Connection=True;";
-            using (SqlConnection connection = new SqlConnection(connectionString))
-            {
-                try
-                {
-                    using (SqlCommand command = new SqlCommand())
-                    {
-                        command.Connection = connection;
-                        command.CommandText = "dbo.PaymentOptions_Delete";
-                        command.CommandType = System.Data.CommandType.StoredProcedure;
-                        command.Parameters.Add(new SqlParameter("@PaymentOptionID", paymentOptionId));
-
-                        connection.Open();
-                        command.ExecuteNonQuery();
-                    }
-
-                }
-                catch (SqlException sqlEx)
-                {
-                    Console.WriteLine("There was a SQL error: {0}", sqlEx.Message);
-                }
-                catch (Exception ex)
-                {
-
-                    Console.WriteLine("There was an error: {0}", ex.Message);
-                }
-
-            }
+            SqlParameter[] parameters = { new SqlParameter("@PaymentOptionID", paymentOptionId) };
+            Operation("dbo.PaymentOptions_Delete", parameters);
 
         }
 
         public PaymentOption GetById(Guid paymentOptionId)
         {
             PaymentOption paymentOption = new PaymentOption();
-            string connectionString = @"Server=ADRI-PC\SQLEXPRESS;Database=InteriorDesignShopDB;Trusted_Connection=True;";
-            using (SqlConnection connection = new SqlConnection(connectionString))
-            {
-                try
-                {
-                    using (SqlCommand command = new SqlCommand())
-                    {
-                        command.Connection = connection;
-                        command.CommandText = "dbo.PaymentOptions_GetById";
-                        command.CommandType = System.Data.CommandType.StoredProcedure;
+            SqlParameter[] parameters = { new SqlParameter("@PaymentOptionID", paymentOptionId) };
+            List<PaymentOption> paymentOptions = new List<PaymentOption>();
+            paymentOptions = ReadAll("dbo.PaymentOptions_GetById", parameters);
 
-                        command.Parameters.Add(new SqlParameter("@PaymentOptionID", paymentOptionId));
-                        connection.Open();
-                        using (SqlDataReader reader = command.ExecuteReader())
-                        {
-                            while (reader.Read())
-                            {
-                                paymentOption.Id = reader.GetGuid(reader.GetOrdinal("PaymentOptionID"));
-                                paymentOption.Name = reader.GetString(reader.GetOrdinal("Name"));
-                            }
+            return paymentOptions.ElementAt(0);
+        }
 
-                        }
-
-                    }
-                }
-                catch (SqlException sqlEx)
-                {
-                    Console.WriteLine("There was a SQL error: {0}", sqlEx.Message);
-                }
-                catch (Exception ex)
-                {
-
-                    Console.WriteLine("There was an error: {0}", ex.Message);
-                }
-
-
-            }
-
+        public override PaymentOption GetModelFromReader(SqlDataReader reader)
+        {
+            PaymentOption paymentOption = new PaymentOption();
+            paymentOption.Id = reader.GetGuid(reader.GetOrdinal("PaymentOptionID"));
+            paymentOption.Name = reader.GetString(reader.GetOrdinal("Name"));
             return paymentOption;
         }
         #endregion
+        
     }
 }
