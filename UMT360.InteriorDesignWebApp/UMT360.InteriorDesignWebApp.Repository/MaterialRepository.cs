@@ -12,6 +12,7 @@ namespace UMT360.InteriorDesignWebApp.Repository
         #region Methods
         public List<Material> ReadAll()
         {
+            ColorRepository colorRepository = RepositoryContext.ColorRepository;
             return ReadAll("dbo.Materials_ReadAll");
 
         }
