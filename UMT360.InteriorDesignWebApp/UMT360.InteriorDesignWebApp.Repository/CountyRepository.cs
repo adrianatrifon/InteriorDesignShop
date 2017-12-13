@@ -13,46 +13,31 @@ namespace UMT360.InteriorDesignWebApp.Repository
         public List<County> ReadAll()
         {
             return ReadAll("dbo.Counties_ReadAll");
-
         }
 
         public void Insert(County county)
         {
-
-            SqlParameter[] parameters = { new SqlParameter("@CountyID", county.Id),
-                                          new SqlParameter("@CountyName", county.Name),
-                                          new SqlParameter("@CountryID", county.CountryId)
-                                        };
-
-            Operation("dbo.Counties_Create", parameters);
-
+            SqlParameter[] parameters = GetParametersFromModel(county);
+            ExecuteNonQuery("dbo.Counties_Create", parameters);
         }
         public void Update(County county)
         {
-            SqlParameter[] parameters = { new SqlParameter("@CountyID", county.Id),
-                                          new SqlParameter("@CountyName", county.Name),
-                                          new SqlParameter("@CountryID", county.CountryId)
-                                        };
-
-            Operation("dbo.Counties_Update", parameters);
-
+            SqlParameter[] parameters = GetParametersFromModel(county);
+            ExecuteNonQuery("dbo.Counties_Update", parameters);
         }
 
         public void Delete(Guid countyId)
         {
             SqlParameter[] parameters = { new SqlParameter("@CountyID", countyId) };
-            Operation("dbo.Counties_Delete", parameters);
-
+            ExecuteNonQuery("dbo.Counties_Delete", parameters);
         }
 
         public County GetById(Guid countyId)
         {
-            County county = new County();
             SqlParameter[] parameters = { new SqlParameter("@CountyID", countyId) };
             List<County> counties = new List<County>();
             counties = ReadAll("dbo.Counties_GetById", parameters);
-
-            return counties.ElementAt(0);
+            return counties.Single();
         }
 
         public override County GetModelFromReader(SqlDataReader reader)
@@ -61,10 +46,16 @@ namespace UMT360.InteriorDesignWebApp.Repository
             county.Id = reader.GetGuid(reader.GetOrdinal("CountyID"));
             county.Name = reader.GetString(reader.GetOrdinal("Name"));
             county.CountryId = reader.GetGuid(reader.GetOrdinal("CountryID"));
-
             return county;
         }
-        #endregion
-        
+        public SqlParameter[] GetParametersFromModel(County county)
+        {
+            SqlParameter[] parameters = { new SqlParameter("@CountyID", county.Id),
+                                          new SqlParameter("@CountyName", county.Name),
+                                          new SqlParameter("@CountryID", county.CountryId)
+                                        };
+            return parameters;
+        }
+        #endregion        
     }
 }

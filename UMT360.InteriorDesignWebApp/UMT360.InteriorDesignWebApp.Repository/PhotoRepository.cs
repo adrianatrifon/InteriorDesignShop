@@ -13,38 +13,31 @@ namespace UMT360.InteriorDesignWebApp.Repository
         public List<Photo> ReadAll()
         {
             return ReadAll("dbo.Photos_ReadAll");
-
         }
 
         public void Insert(Photo photo)
         {
-
-            SqlParameter[] parameters = { new SqlParameter("@PhotoID", photo.Id), new SqlParameter("@PhotoName", photo.Image)};
-            Operation("dbo.Photos_Create", parameters);
-
+            SqlParameter[] parameters = GetParametersFromModel(photo);
+            ExecuteNonQuery("dbo.Photos_Create", parameters);
         }
         public void Update(Photo photo)
         {
-            SqlParameter[] parameters = { new SqlParameter("@PhotoID", photo.Id), new SqlParameter("@PhotoName", photo.Image) };
-            Operation("dbo.Photos_Update", parameters);
-
+            SqlParameter[] parameters = GetParametersFromModel(photo);
+            ExecuteNonQuery("dbo.Photos_Update", parameters);
         }
 
         public void Delete(Guid photoId)
         {
             SqlParameter[] parameters = { new SqlParameter("@PhotoID", photoId) };
-            Operation("dbo.Photos_Delete", parameters);
-
+            ExecuteNonQuery("dbo.Photos_Delete", parameters);
         }
 
         public Photo GetById(Guid photoId)
         {
-            Photo photo = new Photo();
             SqlParameter[] parameters = { new SqlParameter("@PhotoID", photoId) };
             List<Photo> photos = new List<Photo>();
             photos = ReadAll("dbo.Photos_GetById", parameters);
-
-            return photos.ElementAt(0);
+            return photos.Single();
         }
 
         public override Photo GetModelFromReader(SqlDataReader reader)
@@ -52,10 +45,13 @@ namespace UMT360.InteriorDesignWebApp.Repository
             Photo photo = new Photo();
             photo.Id = reader.GetGuid(reader.GetOrdinal("PhotoID"));
             photo.Image = (byte[])reader["Image"];
-
             return photo;
         }
-        #endregion        
-        
+        public SqlParameter[] GetParametersFromModel(Photo photo)
+        {
+            SqlParameter[] parameters = { new SqlParameter("@PhotoID", photo.Id), new SqlParameter("@PhotoName", photo.Image) };
+            return parameters;
+        }
+        #endregion 
     }
 }

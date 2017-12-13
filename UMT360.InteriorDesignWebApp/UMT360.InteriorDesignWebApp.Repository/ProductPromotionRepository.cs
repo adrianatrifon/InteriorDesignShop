@@ -12,27 +12,18 @@ namespace UMT360.InteriorDesignWebApp.Repository
         public List<ProductPromotion> ReadAll()
         {
             return ReadAll("dbo.ProductsPromotions_ReadAll");
-
         }
 
         public void Insert(ProductPromotion productPromotion)
         {
-
-            SqlParameter[] parameters = { new SqlParameter("@PromotionID", productPromotion.PromotionId),
-                                          new SqlParameter("@ProductID", productPromotion.ProductId)};
-
-            Operation("dbo.ProductsPromotions_Create", parameters);
-
+            SqlParameter[] parameters = GetParametersFromModel(productPromotion);
+            ExecuteNonQuery("dbo.ProductsPromotions_Create", parameters);
         }
-
 
         public void Delete(ProductPromotion productPromotion)
         {
-            SqlParameter[] parameters = { new SqlParameter("@PromotionID", productPromotion.PromotionId),
-                                          new SqlParameter("@ProductID", productPromotion.ProductId)};
-
-            Operation("dbo.ProductsPromotions_Delete", parameters);
-
+            SqlParameter[] parameters = GetParametersFromModel(productPromotion);
+            ExecuteNonQuery("dbo.ProductsPromotions_Delete", parameters);
         }
 
         public override ProductPromotion GetModelFromReader(SqlDataReader reader)
@@ -42,7 +33,12 @@ namespace UMT360.InteriorDesignWebApp.Repository
             productPromotion.ProductId = reader.GetGuid(reader.GetOrdinal("ProductID"));
             return productPromotion;
         }
-        #endregion
-        
+        public SqlParameter[] GetParametersFromModel(ProductPromotion productPromotion)
+        {
+            SqlParameter[] parameters ={ new SqlParameter("@PromotionID", productPromotion.PromotionId),
+                                          new SqlParameter("@ProductID", productPromotion.ProductId)};
+            return parameters;
+        }
+        #endregion        
     }
 }

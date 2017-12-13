@@ -1,21 +1,37 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+
 
 namespace UMT360.InteriorDesignWebApp.Repository.Core
 {
-    public class RepositoryContext:IDisposable
+    public class RepositoryContext : IDisposable
     {
         #region Members
-        private static ColorRepository _colorRepository;
-        private static MaterialRepository _materialRepository;
-        private static BrandRepository _brandRepository;
-
+        private static RepositoryContext _instance;
+        private ColorRepository _colorRepository;
+        private MaterialRepository _materialRepository;
+        private BrandRepository _brandRepository;
         #endregion
+
+        #region Constructors
+        public RepositoryContext()
+        {
+            _instance = this;
+        }       
+        #endregion
+
         #region Properties
-        public static ColorRepository ColorRepository
+        public RepositoryContext Current
+        {
+            get
+            {
+                if (_instance == null)
+                {
+                    throw new Exception("No RepositoryContext instance available!");
+                }
+                return _instance;
+            }
+        }
+        public  ColorRepository ColorRepository
         {
             get
             {
@@ -24,7 +40,7 @@ namespace UMT360.InteriorDesignWebApp.Repository.Core
                 return _colorRepository;
             }
         }
-        public static MaterialRepository MaterialRepository
+        public  MaterialRepository MaterialRepository
         {
             get
             {
@@ -33,7 +49,7 @@ namespace UMT360.InteriorDesignWebApp.Repository.Core
                 return _materialRepository;
             }
         }
-        public static BrandRepository BrandRepository
+        public  BrandRepository BrandRepository
         {
             get
             {
@@ -43,6 +59,7 @@ namespace UMT360.InteriorDesignWebApp.Repository.Core
             }
         }
         #endregion
+
         #region IDisposable Implementation
         public void Dispose()
         {
@@ -56,18 +73,14 @@ namespace UMT360.InteriorDesignWebApp.Repository.Core
             {
                 if (_colorRepository != null)
                 {
-                    //_connection.Dispose();
                     _colorRepository = null;
                 }
-
                 if (_materialRepository != null)
                 {
-                    //_connection.Dispose();
                     _materialRepository = null;
                 }
                 if (_brandRepository != null)
                 {
-                    //_connection.Dispose();
                     _brandRepository = null;
                 }
             }
@@ -77,7 +90,6 @@ namespace UMT360.InteriorDesignWebApp.Repository.Core
         {
             Dispose(false);
         }
-        #endregion
-       
+        #endregion       
     }
 }

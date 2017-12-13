@@ -1,9 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Data.SqlClient;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using UMT360.InteriorDesignWebApp.Models;
 using UMT360.InteriorDesignWebApp.Repository.Core;
 
@@ -15,27 +11,18 @@ namespace UMT360.InteriorDesignWebApp.Repository
         public List<ProductPhoto> ReadAll()
         {
             return ReadAll("dbo.ProductsPhotos_ReadAll");
-
         }
 
         public void Insert(ProductPhoto productPhoto)
         {
-
-            SqlParameter[] parameters = { new SqlParameter("@PhotoID", productPhoto.PhotoId),
-                                          new SqlParameter("@ProductID", productPhoto.ProductId)};
-
-            Operation("dbo.ProductsPhotos_Create", parameters);
-
+            SqlParameter[] parameters = GetParametersFromModel(productPhoto);
+            ExecuteNonQuery("dbo.ProductsPhotos_Create", parameters);
         }
-
 
         public void Delete(ProductPhoto productPhoto)
         {
-            SqlParameter[] parameters = { new SqlParameter("@PhotoID", productPhoto.PhotoId),
-                                          new SqlParameter("@ProductID", productPhoto.ProductId)};
-
-            Operation("dbo.ProductsPhotos_Delete", parameters);
-
+            SqlParameter[] parameters = GetParametersFromModel(productPhoto);
+            ExecuteNonQuery("dbo.ProductsPhotos_Delete", parameters);
         }
 
         public override ProductPhoto GetModelFromReader(SqlDataReader reader)
@@ -45,7 +32,12 @@ namespace UMT360.InteriorDesignWebApp.Repository
             productPhoto.ProductId = reader.GetGuid(reader.GetOrdinal("ProductID"));
             return productPhoto;
         }
-        #endregion
-        
+        public SqlParameter[] GetParametersFromModel(ProductPhoto productPhoto)
+        {
+            SqlParameter[] parameters = { new SqlParameter("@PhotoID", productPhoto.PhotoId),
+                                          new SqlParameter("@ProductID", productPhoto.ProductId)};
+            return parameters;
+        }
+        #endregion        
     }
 }

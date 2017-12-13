@@ -13,9 +13,7 @@ namespace UMT360.InteriorDesignWebApp.Repository.Core
     {
         #region Members
         protected static string _connectionString = GetConnectionString();
-
         #endregion
-
 
         #region Methods
         private static string GetConnectionString()
@@ -44,11 +42,9 @@ namespace UMT360.InteriorDesignWebApp.Repository.Core
                         {
                             command.Parameters.AddRange(parameters);
                         }
-
                         connection.Open();
                         using (SqlDataReader reader = command.ExecuteReader())
                         {
-
                             while (reader.Read())
                             {                        
 
@@ -56,7 +52,6 @@ namespace UMT360.InteriorDesignWebApp.Repository.Core
                             }
                         }
                     }
-
                 }
                 catch (SqlException sqlEx)
                 {
@@ -64,16 +59,14 @@ namespace UMT360.InteriorDesignWebApp.Repository.Core
                 }
                 catch (Exception ex)
                 {
-
                     Console.WriteLine("There was an error: {0}", ex.Message);
                 }
-
             }
             return result;
         }
-        public void Operation(string stroredProcedureName, SqlParameter[] parameters)
-        {
 
+        public void ExecuteNonQuery(string stroredProcedureName, IEnumerable<SqlParameter> parameters)
+        {
             using (SqlConnection connection = new SqlConnection(_connectionString))
             {
                 try
@@ -83,11 +76,13 @@ namespace UMT360.InteriorDesignWebApp.Repository.Core
                         command.Connection = connection;
                         command.CommandText = stroredProcedureName;
                         command.CommandType = System.Data.CommandType.StoredProcedure;
-                        command.Parameters.AddRange(parameters);
+                        foreach (SqlParameter parameter in parameters)
+                        {
+                            command.Parameters.Add(parameter);
+                        }
                         connection.Open();
                         command.ExecuteNonQuery();
                     }
-
                 }
                 catch (SqlException sqlEx)
                 {
@@ -95,17 +90,11 @@ namespace UMT360.InteriorDesignWebApp.Repository.Core
                 }
                 catch (Exception ex)
                 {
-
                     Console.WriteLine("There was an error: {0}", ex.Message);
                 }
-
             }
-
         }
-        public abstract TModel GetModelFromReader(SqlDataReader reader);
-
-        
+        public abstract TModel GetModelFromReader(SqlDataReader reader);        
         #endregion
-
     }
 }

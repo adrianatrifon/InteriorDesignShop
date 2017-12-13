@@ -13,38 +13,33 @@ namespace UMT360.InteriorDesignWebApp.Repository
         public List<Brand> ReadAll()
         {
             return ReadAll("dbo.Brands_ReadAll");
-
         }
 
         public void Insert(Brand brand)
-        {
-
-            SqlParameter[] parameters = { new SqlParameter("@BrandID", brand.Id), new SqlParameter("@BrandName", brand.Name) };
-            Operation("dbo.Brands_Create", parameters);
-
+        {           
+            SqlParameter[] parameters = GetParametersFromModel(brand);
+            ExecuteNonQuery("dbo.Brands_Create", parameters);
         }
+
         public void Update(Brand brand)
         {
-            SqlParameter[] parameters = { new SqlParameter("@BrandID", brand.Id), new SqlParameter("@BrandName", brand.Name) };
-            Operation("dbo.Brands_Update", parameters);
-
+            SqlParameter[] parameters = GetParametersFromModel(brand);
+            ExecuteNonQuery("dbo.Brands_Update", parameters);
         }
 
         public void Delete(Guid brandId)
         {
             SqlParameter[] parameters = { new SqlParameter("@BrandID", brandId) };
-            Operation("dbo.Brands_Delete", parameters);
-
+            ExecuteNonQuery("dbo.Brands_Delete", parameters);
         }
 
         public Brand GetById(Guid brandId)
         {
-            Brand brand = new Brand();
             SqlParameter[] parameters = { new SqlParameter("@BrandID", brandId) };
             List<Brand> brands = new List<Brand>();
             brands = ReadAll("dbo.Brands_GetById", parameters);
 
-            return brands.ElementAt(0);
+            return brands.Single();
         }
 
         public override Brand GetModelFromReader(SqlDataReader reader)
@@ -53,6 +48,12 @@ namespace UMT360.InteriorDesignWebApp.Repository
             brand.Id = reader.GetGuid(reader.GetOrdinal("BrandID"));
             brand.Name = reader.GetString(reader.GetOrdinal("Name"));
             return brand;
+        }
+
+        public SqlParameter[] GetParametersFromModel(Brand brand)
+        {
+            SqlParameter[] parameters ={ new SqlParameter("@BrandID", brand.Id), new SqlParameter("@BrandName", brand.Name) };
+            return parameters;
         }
         #endregion
     }

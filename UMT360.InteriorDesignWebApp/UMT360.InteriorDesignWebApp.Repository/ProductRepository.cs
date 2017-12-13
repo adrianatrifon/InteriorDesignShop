@@ -13,62 +13,31 @@ namespace UMT360.InteriorDesignWebApp.Repository
         public List<Product> ReadAll()
         {
             return ReadAll("dbo.Products_ReadAll");
-
         }
 
         public void Insert(Product product)
         {
-
-            SqlParameter[] parameters = { new SqlParameter("@ProductID", product.Id),
-                                          new SqlParameter("@ProductName", product.Name),
-                                          new SqlParameter("@Price", product.Price),
-                                          new SqlParameter("@CurrencyID", product.CurrencyId),
-                                          new SqlParameter("@Stock", product.Stock),
-                                          new SqlParameter("@Dimensions", product.Dimensions),
-                                          new SqlParameter("@Weight", product.Weight),
-                                          new SqlParameter("@Guarantee", product.Guarantee),
-                                          new SqlParameter("@Description", product.Description),
-                                          new SqlParameter("@BrandID", product.BrandId),
-                                          new SqlParameter("@CategoryID", product.CategoryId)
-                                        };
-
-            Operation("dbo.Products_Create", parameters);
-
+            SqlParameter[] parameters = GetParametersFromModel(product);
+            ExecuteNonQuery("dbo.Products_Create", parameters);
         }
         public void Update(Product product)
         {
-            SqlParameter[] parameters = { new SqlParameter("@ProductID", product.Id),
-                                          new SqlParameter("@ProductName", product.Name),
-                                          new SqlParameter("@Price", product.Price),
-                                          new SqlParameter("@CurrencyID", product.CurrencyId),
-                                          new SqlParameter("@Stock", product.Stock),
-                                          new SqlParameter("@Dimensions", product.Dimensions),
-                                          new SqlParameter("@Weight", product.Weight),
-                                          new SqlParameter("@Guarantee", product.Guarantee),
-                                          new SqlParameter("@Description", product.Description),
-                                          new SqlParameter("@BrandID", product.BrandId),
-                                          new SqlParameter("@CategoryID", product.CategoryId)
-                                        };
-
-            Operation("dbo.Products_Update", parameters);
-
+            SqlParameter[] parameters = GetParametersFromModel(product);
+            ExecuteNonQuery("dbo.Products_Update", parameters);
         }
 
         public void Delete(Guid productId)
         {
             SqlParameter[] parameters = { new SqlParameter("@ProductID", productId) };
-            Operation("dbo.Products_Delete", parameters);
-
+            ExecuteNonQuery("dbo.Products_Delete", parameters);
         }
 
         public Product GetById(Guid productId)
         {
-            Product product = new Product();
             SqlParameter[] parameters = { new SqlParameter("@ProductID", productId) };
             List<Product> products = new List<Product>();
             products = ReadAll("dbo.Products_GetById", parameters);
-
-            return products.ElementAt(0);
+            return products.Single();
         }
 
         public override Product GetModelFromReader(SqlDataReader reader)
@@ -85,10 +54,24 @@ namespace UMT360.InteriorDesignWebApp.Repository
             product.Description = reader.GetString(reader.GetOrdinal("Description"));
             product.BrandId = reader.GetGuid(reader.GetOrdinal("BrandID"));
             product.CategoryId = reader.GetGuid(reader.GetOrdinal("CategoryID"));
-
             return product;
         }
-        #endregion       
-        
+        public SqlParameter[] GetParametersFromModel(Product product)
+        {
+            SqlParameter[] parameters = { new SqlParameter("@ProductID", product.Id),
+                                          new SqlParameter("@ProductName", product.Name),
+                                          new SqlParameter("@Price", product.Price),
+                                          new SqlParameter("@CurrencyID", product.CurrencyId),
+                                          new SqlParameter("@Stock", product.Stock),
+                                          new SqlParameter("@Dimensions", product.Dimensions),
+                                          new SqlParameter("@Weight", product.Weight),
+                                          new SqlParameter("@Guarantee", product.Guarantee),
+                                          new SqlParameter("@Description", product.Description),
+                                          new SqlParameter("@BrandID", product.BrandId),
+                                          new SqlParameter("@CategoryID", product.CategoryId)
+                                        };
+            return parameters;
+        }
+        #endregion        
     }
 }

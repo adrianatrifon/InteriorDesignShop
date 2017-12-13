@@ -13,46 +13,31 @@ namespace UMT360.InteriorDesignWebApp.Repository
         public List<OrderProduct> ReadAll()
         {
             return ReadAll("dbo.OrdersProducts_ReadAll");
-
         }
 
         public void Insert(OrderProduct orderProduct)
         {
-
-            SqlParameter[] parameters = { new SqlParameter("@OrderID", orderProduct.OrderId),
-                                          new SqlParameter("@ProductID", orderProduct.ProductId),
-                                          new SqlParameter("@Quantity", orderProduct.Quantity)
-                                        };
-
-            Operation("dbo.OrdersProducts_Create", parameters);
-
+            SqlParameter[] parameters = GetParametersFromModel(orderProduct);
+            ExecuteNonQuery("dbo.OrdersProducts_Create", parameters);
         }
         public void Update(OrderProduct orderProduct)
         {
-            SqlParameter[] parameters = { new SqlParameter("@OrderID", orderProduct.OrderId),
-                                          new SqlParameter("@ProductID", orderProduct.ProductId),
-                                          new SqlParameter("@Quantity", orderProduct.Quantity)
-                                        };
-
-            Operation("dbo.OrdersProducts_Update", parameters);
-
+            SqlParameter[] parameters = GetParametersFromModel(orderProduct);
+            ExecuteNonQuery("dbo.OrdersProducts_Update", parameters);
         }
 
         public void Delete(Guid orderId, Guid productId)
         {
             SqlParameter[] parameters = {new SqlParameter("@OrderID", orderId),new SqlParameter("@ProductID", productId)};
-            Operation("dbo.OrdersProducts_Delete", parameters);
-
+            ExecuteNonQuery("dbo.OrdersProducts_Delete", parameters);
         }
 
         public OrderProduct GetById(Guid orderId, Guid productId )
         {
-            OrderProduct orderProduct = new OrderProduct();
             SqlParameter[] parameters = { new SqlParameter("@OrderID", orderId), new SqlParameter("@ProductID", productId) };
             List<OrderProduct> ordersProducts = new List<OrderProduct>();
             ordersProducts = ReadAll("dbo.OrdersProducts_GetById", parameters);
-
-            return ordersProducts.ElementAt(0);
+            return ordersProducts.Single();
         }
 
         public override OrderProduct GetModelFromReader(SqlDataReader reader)
@@ -63,7 +48,14 @@ namespace UMT360.InteriorDesignWebApp.Repository
             orderProduct.Quantity = reader.GetInt32(reader.GetOrdinal("Quantity"));
             return orderProduct;
         }
-        #endregion
-        
+        public SqlParameter[] GetParametersFromModel(OrderProduct orderProduct)
+        {
+            SqlParameter[] parameters = { new SqlParameter("@OrderID", orderProduct.OrderId),
+                                          new SqlParameter("@ProductID", orderProduct.ProductId),
+                                          new SqlParameter("@Quantity", orderProduct.Quantity)
+                                        };
+            return parameters;
+        }
+        #endregion        
     }
 }

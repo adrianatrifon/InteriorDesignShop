@@ -13,58 +13,31 @@ namespace UMT360.InteriorDesignWebApp.Repository
         public List<Person> ReadAll()
         {
             return ReadAll("dbo.Persons_ReadAll");
-
         }
 
         public void Insert(Person person)
         {
-
-            SqlParameter[] parameters = { new SqlParameter("@PersonID", person.Id),
-                                          new SqlParameter("@FirstName", person.FirstName),
-                                          new SqlParameter("@LastName", person.LastName),
-                                          new SqlParameter("@Street", person.Street),
-                                          new SqlParameter("@Number", person.Number),
-                                          new SqlParameter("@BirthDay", person.BirthDay),
-                                          new SqlParameter("@PhoneNumber", person.PhoneNumber),
-                                          new SqlParameter("@CityID", person.CityId),
-                                          new SqlParameter("@AccountID", person.AccountId)
-                                         };
-
-            Operation("dbo.Persons_Create", parameters);
-
+            SqlParameter[] parameters = GetParametersFromModel(person);
+            ExecuteNonQuery("dbo.Persons_Create", parameters);
         }
         public void Update(Person person)
         {
-            SqlParameter[] parameters = { new SqlParameter("@PersonID", person.Id),
-                                          new SqlParameter("@FirstName", person.FirstName),
-                                          new SqlParameter("@LastName", person.LastName),
-                                          new SqlParameter("@Street", person.Street),
-                                          new SqlParameter("@Number", person.Number),
-                                          new SqlParameter("@BirthDay", person.BirthDay),
-                                          new SqlParameter("@PhoneNumber", person.PhoneNumber),
-                                          new SqlParameter("@CityID", person.CityId),
-                                          new SqlParameter("@AccountID", person.AccountId)
-                                         };
-
-            Operation("dbo.Persons_Update", parameters);
-
+            SqlParameter[] parameters = GetParametersFromModel(person);
+            ExecuteNonQuery("dbo.Persons_Update", parameters);
         }
 
         public void Delete(Guid personId)
         {
             SqlParameter[] parameters = { new SqlParameter("@PersonID", personId) };
-            Operation("dbo.Persons_Delete", parameters);
-
+            ExecuteNonQuery("dbo.Persons_Delete", parameters);
         }
 
         public Person GetById(Guid personId)
         {
-            Person person = new Person();
             SqlParameter[] parameters = { new SqlParameter("@PersonID", personId) };
             List<Person> persons = new List<Person>();
             persons = ReadAll("dbo.Persons_GetById", parameters);
-
-            return persons.ElementAt(0);
+            return persons.Single();
         }
 
         public override Person GetModelFromReader(SqlDataReader reader)
@@ -79,8 +52,21 @@ namespace UMT360.InteriorDesignWebApp.Repository
             person.PhoneNumber = reader.GetString(reader.GetOrdinal("PhoneNumber"));
             person.CityId = reader.GetGuid(reader.GetOrdinal("CityID"));
             person.AccountId = reader.GetGuid(reader.GetOrdinal("AccountID"));
-
             return person;
+        }
+        public SqlParameter[] GetParametersFromModel(Person person)
+        {
+            SqlParameter[] parameters = { new SqlParameter("@PersonID", person.Id),
+                                          new SqlParameter("@FirstName", person.FirstName),
+                                          new SqlParameter("@LastName", person.LastName),
+                                          new SqlParameter("@Street", person.Street),
+                                          new SqlParameter("@Number", person.Number),
+                                          new SqlParameter("@BirthDay", person.BirthDay),
+                                          new SqlParameter("@PhoneNumber", person.PhoneNumber),
+                                          new SqlParameter("@CityID", person.CityId),
+                                          new SqlParameter("@AccountID", person.AccountId)
+                                         };
+            return parameters;
         }
         #endregion        
     }

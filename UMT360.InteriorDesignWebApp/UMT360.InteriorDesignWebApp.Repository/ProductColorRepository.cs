@@ -1,9 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Data.SqlClient;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using UMT360.InteriorDesignWebApp.Models;
 using UMT360.InteriorDesignWebApp.Repository.Core;
 
@@ -15,27 +11,18 @@ namespace UMT360.InteriorDesignWebApp.Repository
         public List<ProductColor> ReadAll()
         {
             return ReadAll("dbo.ProductsColors_ReadAll");
-
         }
 
         public void Insert(ProductColor productColor)
         {
-
-            SqlParameter[] parameters = { new SqlParameter("@ColorID", productColor.ColorId),
-                                          new SqlParameter("@ProductID", productColor.ProductId)};
-
-            Operation("dbo.ProductsColors_Create", parameters);
-
-        }
-        
+            SqlParameter[] parameters = GetParametersFromModel(productColor);
+            ExecuteNonQuery("dbo.ProductsColors_Create", parameters);
+        }        
 
         public void Delete(ProductColor productColor)
         {
-            SqlParameter[] parameters = { new SqlParameter("@ColorID", productColor.ColorId),
-                                          new SqlParameter("@ProductID", productColor.ProductId) };
-
-            Operation("dbo.ProductsColors_Delete", parameters);
-
+            SqlParameter[] parameters = GetParametersFromModel(productColor);
+            ExecuteNonQuery("dbo.ProductsColors_Delete", parameters);
         }       
 
         public override ProductColor GetModelFromReader(SqlDataReader reader)
@@ -45,7 +32,12 @@ namespace UMT360.InteriorDesignWebApp.Repository
             productColor.ProductId = reader.GetGuid(reader.GetOrdinal("ProductID"));
             return productColor;
         }
-        #endregion
-        
+        public SqlParameter[] GetParametersFromModel(ProductColor productColor)
+        {
+            SqlParameter[] parameters = { new SqlParameter("@ColorID", productColor.ColorId),
+                                          new SqlParameter("@ProductID", productColor.ProductId)};
+            return parameters;
+        }
+        #endregion        
     }
 }

@@ -13,48 +13,33 @@ namespace UMT360.InteriorDesignWebApp.Repository
         public List<Account> ReadAll()
         {
             return ReadAll("dbo.Accounts_ReadAll");
-
         }
 
         public void Insert(Account account)
         {
-
-            SqlParameter[] parameters = { new SqlParameter("@AccountID", account.Id),
-                                          new SqlParameter("@EmailAddress", account.EmailAddress),
-                                          new SqlParameter("@Password", account.Password),
-                                          new SqlParameter("@RoleID", account.RoleId),
-                                          new SqlParameter("@PhotoID", account.PhotoId)};
-
-            Operation("dbo.Accounts_Create", parameters);
-
+            SqlParameter[] parameters = GetParametersFromModel(account);
+            ExecuteNonQuery("dbo.Accounts_Create", parameters);
         }
+
         public void Update(Account account)
         {
-            SqlParameter[] parameters = { new SqlParameter("@AccountID", account.Id),
-                                          new SqlParameter("@EmailAddress", account.EmailAddress),
-                                          new SqlParameter("@Password", account.Password),
-                                          new SqlParameter("@RoleID", account.RoleId),
-                                          new SqlParameter("@PhotoID", account.PhotoId)};
-
-            Operation("dbo.Accounts_Update", parameters);
-
+            SqlParameter[] parameters = GetParametersFromModel(account);
+            ExecuteNonQuery("dbo.Accounts_Update", parameters);
         }
 
         public void Delete(Guid accountId)
         {
             SqlParameter[] parameters = { new SqlParameter("@AccountID", accountId) };
-            Operation("dbo.Accounts_Delete", parameters);
-
+            ExecuteNonQuery("dbo.Accounts_Delete", parameters);
         }
 
         public Account GetById(Guid accountId)
         {
-            Account account = new Account();
             SqlParameter[] parameters = { new SqlParameter("@AccountID", accountId) };
             List<Account> accounts = new List<Account>();
             accounts = ReadAll("dbo.Accounts_GetById", parameters);
 
-            return accounts.ElementAt(0);
+            return accounts.Single();
         }
 
         public override Account GetModelFromReader(SqlDataReader reader)
@@ -67,7 +52,16 @@ namespace UMT360.InteriorDesignWebApp.Repository
             account.PhotoId = reader.GetGuid(reader.GetOrdinal("PhotoID"));
             return account;
         }
+        public SqlParameter[] GetParametersFromModel(Account account)
+        {
+            SqlParameter[] parameters = { new SqlParameter("@AccountID", account.Id),
+                                          new SqlParameter("@EmailAddress", account.EmailAddress),
+                                          new SqlParameter("@Password", account.Password),
+                                          new SqlParameter("@RoleID", account.RoleId),
+                                          new SqlParameter("@PhotoID", account.PhotoId)};
+            return parameters;
+        }
         #endregion
-        
+
     }
 }

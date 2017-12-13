@@ -13,38 +13,32 @@ namespace UMT360.InteriorDesignWebApp.Repository
         public List<Country> ReadAll()
         {
             return ReadAll("dbo.Countries_ReadAll");
-
         }
 
         public void Insert(Country country)
         {
-
-            SqlParameter[] parameters = { new SqlParameter("@CountryID", country.Id), new SqlParameter("@CountryName", country.Name) };
-            Operation("dbo.Countries_Create", parameters);
-
+            SqlParameter[] parameters = GetParametersFromModel(country);
+            ExecuteNonQuery("dbo.Countries_Create", parameters);
         }
         public void Update(Country country)
         {
-            SqlParameter[] parameters = { new SqlParameter("@CountryID", country.Id), new SqlParameter("@CountryName", country.Name) };
-            Operation("dbo.Countries_Update", parameters);
-
+            SqlParameter[] parameters = GetParametersFromModel(country);
+            ExecuteNonQuery("dbo.Countries_Update", parameters);
         }
 
         public void Delete(Guid countryId)
         {
             SqlParameter[] parameters = { new SqlParameter("@CountryID", countryId) };
-            Operation("dbo.Countries_Delete", parameters);
-
+            ExecuteNonQuery("dbo.Countries_Delete", parameters);
         }
 
         public Country GetById(Guid countryId)
         {
-            Country country = new Country();
             SqlParameter[] parameters = { new SqlParameter("@CountryID", countryId) };
             List<Country> countries = new List<Country>();
             countries = ReadAll("dbo.Countries_GetById", parameters);
 
-            return countries.ElementAt(0);
+            return countries.Single();
         }
 
         public override Country GetModelFromReader(SqlDataReader reader)
@@ -53,6 +47,11 @@ namespace UMT360.InteriorDesignWebApp.Repository
             country.Id = reader.GetGuid(reader.GetOrdinal("CountryID"));
             country.Name = reader.GetString(reader.GetOrdinal("Name"));
             return country;
+        }
+        public SqlParameter[] GetParametersFromModel(Country country)
+        {
+            SqlParameter[] parameters = { new SqlParameter("@CountryID", country.Id), new SqlParameter("@CountryName", country.Name) };
+            return parameters;
         }
         #endregion
     }

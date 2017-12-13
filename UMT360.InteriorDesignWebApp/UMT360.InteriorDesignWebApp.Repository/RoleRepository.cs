@@ -13,38 +13,30 @@ namespace UMT360.InteriorDesignWebApp.Repository
         public List<Role> ReadAll()
         {
             return ReadAll("dbo.Roles_ReadAll");
-
         }
 
         public void Insert(Role role)
         {
-
-            SqlParameter[] parameters = { new SqlParameter("@RoleID", role.Id), new SqlParameter("@RoleName", role.Description) };
-            Operation("dbo.Roles_Create", parameters);
-
+            SqlParameter[] parameters = GetParametersFromModel(role);
+            ExecuteNonQuery("dbo.Roles_Create", parameters);
         }
         public void Update(Role role)
         {
-            SqlParameter[] parameters = { new SqlParameter("@RoleID", role.Id), new SqlParameter("@RoleName", role.Description) };
-            Operation("dbo.Roles_Update", parameters);
-
+            SqlParameter[] parameters = GetParametersFromModel(role);
         }
 
         public void Delete(Guid roleId)
         {
             SqlParameter[] parameters = { new SqlParameter("@RoleID", roleId) };
-            Operation("dbo.Roles_Delete", parameters);
-
+            ExecuteNonQuery("dbo.Roles_Delete", parameters);
         }
 
         public Role GetById(Guid roleId)
         {
-            Role role = new Role();
             SqlParameter[] parameters = { new SqlParameter("@RoleID", roleId) };
             List<Role> roles = new List<Role>();
             roles = ReadAll("dbo.Roles_GetById", parameters);
-
-            return roles.ElementAt(0);
+            return roles.Single();
         }
 
         public override Role GetModelFromReader(SqlDataReader reader)
@@ -52,8 +44,12 @@ namespace UMT360.InteriorDesignWebApp.Repository
             Role role = new Role();
             role.Id = reader.GetGuid(reader.GetOrdinal("RoleID"));
             role.Description = reader.GetString(reader.GetOrdinal("Description"));
-
             return role;
+        }
+        public SqlParameter[] GetParametersFromModel(Role role)
+        {
+            SqlParameter[] parameters = { new SqlParameter("@RoleID", role.Id), new SqlParameter("@RoleName", role.Description) };
+            return parameters;
         }
         #endregion        
     }

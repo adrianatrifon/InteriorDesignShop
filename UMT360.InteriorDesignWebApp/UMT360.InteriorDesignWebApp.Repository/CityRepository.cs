@@ -13,40 +13,33 @@ namespace UMT360.InteriorDesignWebApp.Repository
         public List<City> ReadAll()
         {
             return ReadAll("dbo.Cities_ReadAll");
-
         }
 
         public void Insert(City city)
         {
-
-            SqlParameter[] parameters = { new SqlParameter("@CityID", city.Id), new SqlParameter("@CityName", city.Name),
-                                          new SqlParameter("@CountyID", city.CountyId) };
-            Operation("dbo.Cities_Create", parameters);
-
+            SqlParameter[] parameters = GetParametersFromModel(city);
+            ExecuteNonQuery("dbo.Cities_Create", parameters);
         }
+
         public void Update(City city)
         {
-            SqlParameter[] parameters = { new SqlParameter("@CityID", city.Id), new SqlParameter("@CityName", city.Name),
-                                          new SqlParameter("@CountyID", city.CountyId) };
-            Operation("dbo.Cities_Update", parameters);
-
+            SqlParameter[] parameters = GetParametersFromModel(city);
+            ExecuteNonQuery("dbo.Cities_Update", parameters);
         }
 
         public void Delete(Guid cityId)
         {
             SqlParameter[] parameters = { new SqlParameter("@CityID", cityId) };
-            Operation("dbo.Cities_Delete", parameters);
-
+            ExecuteNonQuery("dbo.Cities_Delete", parameters);
         }
 
         public City GetById(Guid cityId)
         {
-            City city = new City();
             SqlParameter[] parameters = { new SqlParameter("@CityID", cityId) };
             List<City> cities = new List<City>();
             cities = ReadAll("dbo.Cities_GetById", parameters);
 
-            return cities.ElementAt(0);
+            return cities.Single();
         }
 
         public override City GetModelFromReader(SqlDataReader reader)
@@ -57,7 +50,12 @@ namespace UMT360.InteriorDesignWebApp.Repository
             city.CountyId = reader.GetGuid(reader.GetOrdinal("CountyID"));
             return city;
         }
-        #endregion
-        
+        public SqlParameter[] GetParametersFromModel(City city)
+        {
+            SqlParameter[] parameters = { new SqlParameter("@CityID", city.Id), new SqlParameter("@CityName", city.Name),
+                                          new SqlParameter("@CountyID", city.CountyId) };
+            return parameters;
+        }
+        #endregion        
     }
 }

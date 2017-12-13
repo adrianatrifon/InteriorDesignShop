@@ -13,46 +13,33 @@ namespace UMT360.InteriorDesignWebApp.Repository
         public List<Category> ReadAll()
         {
             return ReadAll("dbo.Categories_ReadAll");
-
         }
 
         public void Insert(Category category)
         {
-
-            SqlParameter[] parameters = { new SqlParameter("@CategoryID", category.Id),
-                                          new SqlParameter("@ParentCategory", category.ParentCategoryId),
-                                          new SqlParameter("@CategoryName", category.Name)
-                                        };
-
-            Operation("dbo.Categories_Create", parameters);
-
+            SqlParameter[] parameters = GetParametersFromModel(category);
+            ExecuteNonQuery("dbo.Categories_Create", parameters);
         }
+
         public void Update(Category category)
         {
-            SqlParameter[] parameters = { new SqlParameter("@CategoryID", category.Id),
-                                          new SqlParameter("@ParentCategory", category.ParentCategoryId),
-                                          new SqlParameter("@CategoryName", category.Name)
-                                        };
-
-            Operation("dbo.Categories_Update", parameters);
-
+            SqlParameter[] parameters = GetParametersFromModel(category);
+            ExecuteNonQuery("dbo.Categories_Update", parameters);
         }
 
         public void Delete(Guid categoryId)
         {
             SqlParameter[] parameters = { new SqlParameter("@CategoryID", categoryId) };
-            Operation("dbo.Categories_Delete", parameters);
-
+            ExecuteNonQuery("dbo.Categories_Delete", parameters);
         }
 
         public Category GetById(Guid categoryId)
         {
-            Category category = new Category();
             SqlParameter[] parameters = { new SqlParameter("@CategoryID", categoryId) };
             List<Category> categories = new List<Category>();
             categories = ReadAll("dbo.Categories_GetById", parameters);
 
-            return categories.ElementAt(0);
+            return categories.Single();
         }
 
         public override Category GetModelFromReader(SqlDataReader reader)
@@ -63,7 +50,14 @@ namespace UMT360.InteriorDesignWebApp.Repository
             category.Name = reader.GetString(reader.GetOrdinal("Name"));
             return category;
         }
-        #endregion
-        
+        public SqlParameter[] GetParametersFromModel(Category category)
+        {
+            SqlParameter[] parameters = { new SqlParameter("@CategoryID", category.Id),
+                                          new SqlParameter("@ParentCategory", category.ParentCategoryId),
+                                          new SqlParameter("@CategoryName", category.Name)
+                                        };
+            return parameters;
+        }
+        #endregion        
     }
 }
