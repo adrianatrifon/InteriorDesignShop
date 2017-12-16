@@ -7,6 +7,6 @@ namespace UMT360.InteriorDesignWebApp.RepositoryAbstraction
     {
         List<ProductPromotion> ReadAll();
         void Insert(ProductPromotion productPromotion);
-        void Delete(ProductPromotion productPromotion);  
+        void Delete(ProductPromotion productPromotion);
     }
 }

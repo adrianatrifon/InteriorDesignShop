@@ -4,7 +4,7 @@ using UMT360.InteriorDesignWebApp.Models;
 
 namespace UMT360.InteriorDesignWebApp.RepositoryAbstraction
 {
-   public interface ICountryRepository
+    public interface ICountryRepository
     {
         List<Country> ReadAll();
         void Insert(Country country);

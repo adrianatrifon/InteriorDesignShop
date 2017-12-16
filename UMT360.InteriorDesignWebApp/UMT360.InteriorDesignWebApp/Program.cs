@@ -92,7 +92,8 @@ namespace UMT360.InteriorDesignWebApp
             //List<Brand> brands = new List<Brand>();
             using (BusinessContext businessContext = new BusinessContext())
             {
-                BrandBusiness brandBusiness = new BrandBusiness();
+                ShowBrands(businessContext);
+                //BrandBusiness brandBusiness = new BrandBusiness();
                 Brand brand = new Brand();
                 Guid id2 = Guid.NewGuid();
                 brand.Id = id2;
@@ -100,31 +101,32 @@ namespace UMT360.InteriorDesignWebApp
                 Brand brand1 = new Brand() { Id = id2, Name = "TestBrand1" };
 
                 Console.WriteLine("---------Insert------------");
-                brandBusiness.Insert(brand);
+                businessContext.BrandBusiness.Insert(brand);
+
                 ShowBrands(businessContext);
 
 
                 Console.WriteLine("---------Update------------");
-                brandBusiness.Update(brand1);
+                businessContext.BrandBusiness.Update(brand1);
 
                 ShowBrands(businessContext);
 
 
                 Console.WriteLine("---------Delete------------");
-                brandBusiness.Delete(brand.Id);
+                businessContext.BrandBusiness.Delete(brand.Id);
 
                 ShowBrands(businessContext);
 
 
                 Console.WriteLine("---------GetById------------");
                 Brand brand2 = new Brand() { Id = id2, Name = "TestBrand2" };
-                brandBusiness.Insert(brand2);
+                businessContext.BrandBusiness.Insert(brand2);
                 ShowBrands(businessContext);
 
                 Console.WriteLine("-------------------------------------------------");
-                Brand brand3 = brandBusiness.GetById(brand2.Id);
+                Brand brand3 = businessContext.BrandBusiness.GetById(brand2.Id);
                 Console.WriteLine("{0}  {1}", brand3.Id, brand3.Name);
-                brandBusiness.Delete(brand3.Id);
+                businessContext.BrandBusiness.Delete(brand3.Id);
 
             }
             /*

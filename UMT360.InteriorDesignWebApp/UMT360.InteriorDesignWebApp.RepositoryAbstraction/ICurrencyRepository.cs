@@ -10,6 +10,6 @@ namespace UMT360.InteriorDesignWebApp.RepositoryAbstraction
         void Insert(Currency currency);
         void Update(Currency currency);
         void Delete(Guid currencyId);
-        Currency GetById(Guid currencyId);   
+        Currency GetById(Guid currencyId);
     }
 }

@@ -10,6 +10,6 @@ namespace UMT360.InteriorDesignWebApp.RepositoryAbstraction
         void Insert(Brand brand);
         void Update(Brand brand);
         void Delete(Guid brandId);
-        Brand GetById(Guid brandId);    
+        Brand GetById(Guid brandId);
     }
 }

@@ -49,10 +49,6 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\UMT360.InteriorDesignWebApp.RepositoryAbstraction\UMT360.InteriorDesignWebApp.RpositoryAbstraction.csproj">
-      <Project>{3d041339-53a5-422d-99ff-6f5e3e82ac3f}</Project>
-      <Name>UMT360.InteriorDesignWebApp.RpositoryAbstraction</Name>
-    </ProjectReference>
     <ProjectReference Include="..\UMT360.InteriorDesignWebApp.Repository\UMT360.InteriorDesignWebApp.Repository.csproj">
       <Project>{da6ee371-3872-4e37-9424-287b7538971b}</Project>
       <Name>UMT360.InteriorDesignWebApp.Repository</Name>

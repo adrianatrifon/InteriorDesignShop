@@ -10,6 +10,6 @@ namespace UMT360.InteriorDesignWebApp.RepositoryAbstraction
         void Insert(Category category);
         void Update(Category category);
         void Delete(Guid categoryId);
-        Category GetById(Guid categoryId);        
+        Category GetById(Guid categoryId);
     }
 }
