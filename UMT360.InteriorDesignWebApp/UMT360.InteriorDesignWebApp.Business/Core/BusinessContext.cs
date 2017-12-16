@@ -1,5 +1,6 @@
 ﻿using System;
 using UMT360.InteriorDesignWebApp.RepositoryAbstraction.Core;
+using UMT360.InteriorDesignWebApp.RepositoryFactory;
 
 namespace UMT360.InteriorDesignWebApp.Business.Core
 {
@@ -35,6 +36,7 @@ namespace UMT360.InteriorDesignWebApp.Business.Core
         public BusinessContext()
         {
             _instance = this;
+            _repositoryContext = Getter.GetRepository();
         }
         #endregion
 
