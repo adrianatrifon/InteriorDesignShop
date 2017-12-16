@@ -2,10 +2,11 @@
 using System.Data.SqlClient;
 using UMT360.InteriorDesignWebApp.Models;
 using UMT360.InteriorDesignWebApp.Repository.Core;
+using UMT360.InteriorDesignWebApp.RepositoryAbstraction;
 
 namespace UMT360.InteriorDesignWebApp.Repository
 {
-    public class ProductPhotoRepository : BaseRepository<ProductPhoto>
+    public class ProductPhotoRepository : BaseRepository<ProductPhoto>,IProductPhotoRepository
     {
         #region Methods
         public List<ProductPhoto> ReadAll()
@@ -25,14 +26,14 @@ namespace UMT360.InteriorDesignWebApp.Repository
             ExecuteNonQuery("dbo.ProductsPhotos_Delete", parameters);
         }
 
-        public override ProductPhoto GetModelFromReader(SqlDataReader reader)
+        protected override ProductPhoto GetModelFromReader(SqlDataReader reader)
         {
             ProductPhoto productPhoto = new ProductPhoto();
             productPhoto.PhotoId = reader.GetGuid(reader.GetOrdinal("PhotoID"));
             productPhoto.ProductId = reader.GetGuid(reader.GetOrdinal("ProductID"));
             return productPhoto;
         }
-        public SqlParameter[] GetParametersFromModel(ProductPhoto productPhoto)
+        internal SqlParameter[] GetParametersFromModel(ProductPhoto productPhoto)
         {
             SqlParameter[] parameters = { new SqlParameter("@PhotoID", productPhoto.PhotoId),
                                           new SqlParameter("@ProductID", productPhoto.ProductId)};

@@ -4,10 +4,11 @@ using System.Data.SqlClient;
 using System.Linq;
 using UMT360.InteriorDesignWebApp.Models;
 using UMT360.InteriorDesignWebApp.Repository.Core;
+using UMT360.InteriorDesignWebApp.RepositoryAbstraction;
 
 namespace UMT360.InteriorDesignWebApp.Repository
 {
-    public class CurrencyRepository:BaseRepository<Currency>
+    public class CurrencyRepository:BaseRepository<Currency>,ICurrencyRepository
     {
         #region Methods
         public List<Currency> ReadAll()
@@ -40,14 +41,14 @@ namespace UMT360.InteriorDesignWebApp.Repository
             return currencies.Single();
         }
 
-        public override Currency GetModelFromReader(SqlDataReader reader)
+        protected override Currency GetModelFromReader(SqlDataReader reader)
         {
             Currency currency = new Currency();
             currency.Id = reader.GetGuid(reader.GetOrdinal("CurrencyID"));
             currency.Name = reader.GetString(reader.GetOrdinal("Currency"));
             return currency;
         }
-        public SqlParameter[] GetParametersFromModel(Currency currency)
+        internal SqlParameter[] GetParametersFromModel(Currency currency)
         {
             SqlParameter[] parameters = { new SqlParameter("@CurrencyID", currency.Id), new SqlParameter("@CurrencyName", currency.Name) };
             return parameters;

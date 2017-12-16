@@ -4,10 +4,11 @@ using System.Data.SqlClient;
 using System.Linq;
 using UMT360.InteriorDesignWebApp.Models;
 using UMT360.InteriorDesignWebApp.Repository.Core;
+using UMT360.InteriorDesignWebApp.RepositoryAbstraction;
 
 namespace UMT360.InteriorDesignWebApp.Repository
 {
-    public class MaterialRepository:BaseRepository<Material>
+    public class MaterialRepository:BaseRepository<Material>, IMaterialRepository
     {
         #region Methods
         public List<Material> ReadAll()
@@ -40,14 +41,14 @@ namespace UMT360.InteriorDesignWebApp.Repository
             return materials.Single();
         }
 
-        public override Material GetModelFromReader(SqlDataReader reader)
+        protected override Material GetModelFromReader(SqlDataReader reader)
         {
             Material material = new Material();
             material.Id = reader.GetGuid(reader.GetOrdinal("MaterialID"));
             material.Name = reader.GetString(reader.GetOrdinal("Name"));
             return material;
         }
-        public SqlParameter[] GetParametersFromModel(Material material)
+        internal SqlParameter[] GetParametersFromModel(Material material)
         {
             SqlParameter[] parameters = { new SqlParameter("@MaterialID", material.Id), new SqlParameter("@MaterialName", material.Name) };
             return parameters;

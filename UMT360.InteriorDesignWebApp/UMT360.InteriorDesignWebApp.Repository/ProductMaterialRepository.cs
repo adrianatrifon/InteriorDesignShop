@@ -2,10 +2,11 @@
 using System.Data.SqlClient;
 using UMT360.InteriorDesignWebApp.Models;
 using UMT360.InteriorDesignWebApp.Repository.Core;
+using UMT360.InteriorDesignWebApp.RepositoryAbstraction;
 
 namespace UMT360.InteriorDesignWebApp.Repository
 {
-    public class ProductMaterialRepository : BaseRepository<ProductMaterial>
+    public class ProductMaterialRepository : BaseRepository<ProductMaterial>,IProductMaterialRepository
     {
         #region Methods
         public List<ProductMaterial> ReadAll()
@@ -23,14 +24,14 @@ namespace UMT360.InteriorDesignWebApp.Repository
             SqlParameter[] parameters = GetParametersFromModel(productMaterial);
             ExecuteNonQuery("dbo.ProductsMaterials_Delete", parameters);
         }
-        public override ProductMaterial GetModelFromReader(SqlDataReader reader)
+        protected override ProductMaterial GetModelFromReader(SqlDataReader reader)
         {
             ProductMaterial productMaterial = new ProductMaterial();
             productMaterial.MaterialId = reader.GetGuid(reader.GetOrdinal("MaterialID"));
             productMaterial.ProductId = reader.GetGuid(reader.GetOrdinal("ProductID"));
             return productMaterial;
         }
-        public SqlParameter[] GetParametersFromModel(ProductMaterial productMaterial)
+        internal SqlParameter[] GetParametersFromModel(ProductMaterial productMaterial)
         {
             SqlParameter[] parameters = { new SqlParameter("@MaterialID", productMaterial.MaterialId),
                                           new SqlParameter("@ProductID", productMaterial.ProductId)};

@@ -4,10 +4,11 @@ using System.Data.SqlClient;
 using System.Linq;
 using UMT360.InteriorDesignWebApp.Models;
 using UMT360.InteriorDesignWebApp.Repository.Core;
+using UMT360.InteriorDesignWebApp.RepositoryAbstraction;
 
 namespace UMT360.InteriorDesignWebApp.Repository
 {
-    public class RoleRepository:BaseRepository<Role>
+    public class RoleRepository:BaseRepository<Role>, IRoleRepository
     {
         #region Methods
         public List<Role> ReadAll()
@@ -39,14 +40,14 @@ namespace UMT360.InteriorDesignWebApp.Repository
             return roles.Single();
         }
 
-        public override Role GetModelFromReader(SqlDataReader reader)
+        protected override Role GetModelFromReader(SqlDataReader reader)
         {
             Role role = new Role();
             role.Id = reader.GetGuid(reader.GetOrdinal("RoleID"));
             role.Description = reader.GetString(reader.GetOrdinal("Description"));
             return role;
         }
-        public SqlParameter[] GetParametersFromModel(Role role)
+        internal SqlParameter[] GetParametersFromModel(Role role)
         {
             SqlParameter[] parameters = { new SqlParameter("@RoleID", role.Id), new SqlParameter("@RoleName", role.Description) };
             return parameters;

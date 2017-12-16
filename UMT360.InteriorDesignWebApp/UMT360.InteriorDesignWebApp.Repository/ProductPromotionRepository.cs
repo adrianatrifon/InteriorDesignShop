@@ -1,12 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Data.SqlClient;
 using UMT360.InteriorDesignWebApp.Models;
 using UMT360.InteriorDesignWebApp.Repository.Core;
+using UMT360.InteriorDesignWebApp.RepositoryAbstraction;
 
 namespace UMT360.InteriorDesignWebApp.Repository
 {
-    public class ProductPromotionRepository : BaseRepository<ProductPromotion>
+    public class ProductPromotionRepository : BaseRepository<ProductPromotion>,IProductPromotionRepository
     {
         #region Methods
         public List<ProductPromotion> ReadAll()
@@ -26,14 +26,14 @@ namespace UMT360.InteriorDesignWebApp.Repository
             ExecuteNonQuery("dbo.ProductsPromotions_Delete", parameters);
         }
 
-        public override ProductPromotion GetModelFromReader(SqlDataReader reader)
+        protected override ProductPromotion GetModelFromReader(SqlDataReader reader)
         {
             ProductPromotion productPromotion = new ProductPromotion();
             productPromotion.PromotionId = reader.GetGuid(reader.GetOrdinal("PromotionID"));
             productPromotion.ProductId = reader.GetGuid(reader.GetOrdinal("ProductID"));
             return productPromotion;
         }
-        public SqlParameter[] GetParametersFromModel(ProductPromotion productPromotion)
+        internal SqlParameter[] GetParametersFromModel(ProductPromotion productPromotion)
         {
             SqlParameter[] parameters ={ new SqlParameter("@PromotionID", productPromotion.PromotionId),
                                           new SqlParameter("@ProductID", productPromotion.ProductId)};

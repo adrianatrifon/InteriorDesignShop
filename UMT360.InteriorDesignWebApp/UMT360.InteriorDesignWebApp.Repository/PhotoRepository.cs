@@ -4,10 +4,11 @@ using System.Data.SqlClient;
 using System.Linq;
 using UMT360.InteriorDesignWebApp.Models;
 using UMT360.InteriorDesignWebApp.Repository.Core;
+using UMT360.InteriorDesignWebApp.RepositoryAbstraction;
 
 namespace UMT360.InteriorDesignWebApp.Repository
 {
-    public class PhotoRepository:BaseRepository<Photo>
+    public class PhotoRepository:BaseRepository<Photo>,IPhotoRepository
     {
         #region Methods
         public List<Photo> ReadAll()
@@ -40,14 +41,14 @@ namespace UMT360.InteriorDesignWebApp.Repository
             return photos.Single();
         }
 
-        public override Photo GetModelFromReader(SqlDataReader reader)
+        protected override Photo GetModelFromReader(SqlDataReader reader)
         {
             Photo photo = new Photo();
             photo.Id = reader.GetGuid(reader.GetOrdinal("PhotoID"));
             photo.Image = (byte[])reader["Image"];
             return photo;
         }
-        public SqlParameter[] GetParametersFromModel(Photo photo)
+        internal SqlParameter[] GetParametersFromModel(Photo photo)
         {
             SqlParameter[] parameters = { new SqlParameter("@PhotoID", photo.Id), new SqlParameter("@PhotoName", photo.Image) };
             return parameters;

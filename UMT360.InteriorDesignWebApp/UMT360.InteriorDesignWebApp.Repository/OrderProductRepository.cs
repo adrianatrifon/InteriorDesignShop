@@ -4,10 +4,11 @@ using System.Data.SqlClient;
 using System.Linq;
 using UMT360.InteriorDesignWebApp.Models;
 using UMT360.InteriorDesignWebApp.Repository.Core;
+using UMT360.InteriorDesignWebApp.RepositoryAbstraction;
 
 namespace UMT360.InteriorDesignWebApp.Repository
 {
-    public class OrderProductRepository:BaseRepository<OrderProduct>
+    public class OrderProductRepository:BaseRepository<OrderProduct>,IOrderProductRepository
     {
         #region Methods
         public List<OrderProduct> ReadAll()
@@ -40,7 +41,7 @@ namespace UMT360.InteriorDesignWebApp.Repository
             return ordersProducts.Single();
         }
 
-        public override OrderProduct GetModelFromReader(SqlDataReader reader)
+        protected override OrderProduct GetModelFromReader(SqlDataReader reader)
         {
             OrderProduct orderProduct = new OrderProduct();
             orderProduct.OrderId = reader.GetGuid(reader.GetOrdinal("OrderID"));
@@ -48,7 +49,7 @@ namespace UMT360.InteriorDesignWebApp.Repository
             orderProduct.Quantity = reader.GetInt32(reader.GetOrdinal("Quantity"));
             return orderProduct;
         }
-        public SqlParameter[] GetParametersFromModel(OrderProduct orderProduct)
+        internal SqlParameter[] GetParametersFromModel(OrderProduct orderProduct)
         {
             SqlParameter[] parameters = { new SqlParameter("@OrderID", orderProduct.OrderId),
                                           new SqlParameter("@ProductID", orderProduct.ProductId),

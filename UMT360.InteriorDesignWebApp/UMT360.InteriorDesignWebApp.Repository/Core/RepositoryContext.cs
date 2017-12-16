@@ -1,33 +1,34 @@
 ﻿using System;
-
+using UMT360.InteriorDesignWebApp.RepositoryAbstraction;
+using UMT360.InteriorDesignWebApp.RepositoryAbstraction.Core;
 
 namespace UMT360.InteriorDesignWebApp.Repository.Core
 {
-    public class RepositoryContext : IDisposable
+    public class RepositoryContext :IRepositoryContext
     {
         #region Members
-        private static RepositoryContext _instance;
-        private ColorRepository _colorRepository;
-        private MaterialRepository _materialRepository;
-        private AccountRepository _accountRepository;
-        private BrandRepository _brandRepository;
-        private CategoryRepository _categoryRepository;
-        private CityRepository _cityRepository;
-        private CountryRepository _countryRepository;
-        private CountyRepository _countyRepository;
-        private CurrencyRepository _currencyRepository;
-        private OrderProductRepository _orderProductRepository;
-        private OrderRepository _orderRepository;
-        private PaymentOptionRepository _paymentOptionRepository;
-        private PersonRepository _personRepository;
-        private PhotoRepository _photoRepository;
-        private ProductColorRepository _productColorRepository;
-        private ProductMaterialRepository _productMaterialRepository;
-        private ProductPhotoRepository _productPhotoRepository;
-        private ProductPromotionRepository _productPromotionRepository;
-        private ProductRepository _productRepository;
-        private PromotionRepository _promotionRepository;
-        private RoleRepository _roleRepository;
+        private static IRepositoryContext _instance;
+        private IColorRepository _colorRepository;
+        private IMaterialRepository _materialRepository;
+        private IAccountRepository _accountRepository;
+        private IBrandRepository _brandRepository;
+        private ICategoryRepository _categoryRepository;
+        private ICityRepository _cityRepository;
+        private ICountryRepository _countryRepository;
+        private ICountyRepository _countyRepository;
+        private ICurrencyRepository _currencyRepository;
+        private IOrderProductRepository _orderProductRepository;
+        private IOrderRepository _orderRepository;
+        private IPaymentOptionRepository _paymentOptionRepository;
+        private IPersonRepository _personRepository;
+        private IPhotoRepository _photoRepository;
+        private IProductColorRepository _productColorRepository;
+        private IProductMaterialRepository _productMaterialRepository;
+        private IProductPhotoRepository _productPhotoRepository;
+        private IProductPromotionRepository _productPromotionRepository;
+        private IProductRepository _productRepository;
+        private IPromotionRepository _promotionRepository;
+        private IRoleRepository _roleRepository;
         #endregion
 
         #region Constructors
@@ -38,7 +39,7 @@ namespace UMT360.InteriorDesignWebApp.Repository.Core
         #endregion
 
         #region Properties
-        public RepositoryContext Current
+        internal static IRepositoryContext Current
         {
             get
             {
@@ -49,7 +50,7 @@ namespace UMT360.InteriorDesignWebApp.Repository.Core
                 return _instance;
             }
         }
-        public ColorRepository ColorRepository
+        public IColorRepository ColorRepository
         {
             get
             {
@@ -58,7 +59,7 @@ namespace UMT360.InteriorDesignWebApp.Repository.Core
                 return _colorRepository;
             }
         }
-        public MaterialRepository MaterialRepository
+        public IMaterialRepository MaterialRepository
         {
             get
             {
@@ -67,7 +68,7 @@ namespace UMT360.InteriorDesignWebApp.Repository.Core
                 return _materialRepository;
             }
         }
-        public BrandRepository BrandRepository
+        public IBrandRepository BrandRepository
         {
             get
             {
@@ -76,7 +77,7 @@ namespace UMT360.InteriorDesignWebApp.Repository.Core
                 return _brandRepository;
             }
         }
-        private AccountRepository AccountRepository
+        public IAccountRepository AccountRepository
         {
             get
             {
@@ -85,7 +86,7 @@ namespace UMT360.InteriorDesignWebApp.Repository.Core
                 return _accountRepository;
             }
         }
-        private CategoryRepository CategoryRepository
+        public ICategoryRepository CategoryRepository
         {
             get
             {
@@ -94,7 +95,7 @@ namespace UMT360.InteriorDesignWebApp.Repository.Core
                 return _categoryRepository;
             }
         }
-        private CityRepository CityRepository
+        public ICityRepository CityRepository
         {
             get
             {
@@ -103,7 +104,7 @@ namespace UMT360.InteriorDesignWebApp.Repository.Core
                 return _cityRepository;
             }
         }
-        private CountryRepository CountryRepository
+        public ICountryRepository CountryRepository
         {
             get
             {
@@ -112,7 +113,7 @@ namespace UMT360.InteriorDesignWebApp.Repository.Core
                 return _countryRepository;
             }
         }
-        private CountyRepository CountyRepository
+        public ICountyRepository CountyRepository
         {
             get
             {
@@ -121,7 +122,8 @@ namespace UMT360.InteriorDesignWebApp.Repository.Core
                 return _countyRepository;
             }
         }
-        private CurrencyRepository CurrencyRepository
+
+        public ICurrencyRepository CurrencyRepository
         {
             get
             {
@@ -130,7 +132,7 @@ namespace UMT360.InteriorDesignWebApp.Repository.Core
                 return _currencyRepository;
             }
         }
-        private OrderProductRepository OrderProductRepository
+        public IOrderProductRepository OrderProductRepository
         {
             get
             {
@@ -139,7 +141,7 @@ namespace UMT360.InteriorDesignWebApp.Repository.Core
                 return _orderProductRepository;
             }
         }
-        private OrderRepository OrderRepository
+        public IOrderRepository OrderRepository
         {
             get
             {
@@ -148,7 +150,7 @@ namespace UMT360.InteriorDesignWebApp.Repository.Core
                 return _orderRepository;
             }
         }
-        private PaymentOptionRepository PaymentOptionRepository
+        public IPaymentOptionRepository PaymentOptionRepository
         {
             get
             {
@@ -157,7 +159,7 @@ namespace UMT360.InteriorDesignWebApp.Repository.Core
                 return _paymentOptionRepository;
             }
         }
-        private PersonRepository PersonRepository
+        public IPersonRepository PersonRepository
         {
             get
             {
@@ -166,7 +168,7 @@ namespace UMT360.InteriorDesignWebApp.Repository.Core
                 return _personRepository;
             }
         }
-        private PhotoRepository PhotoRepository
+        public IPhotoRepository PhotoRepository
         {
             get
             {
@@ -175,7 +177,7 @@ namespace UMT360.InteriorDesignWebApp.Repository.Core
                 return _photoRepository;
             }
         }
-        private ProductColorRepository ProductColorRepository
+        public IProductColorRepository ProductColorRepository
         {
             get
             {
@@ -184,7 +186,7 @@ namespace UMT360.InteriorDesignWebApp.Repository.Core
                 return _productColorRepository;
             }
         }
-        private ProductMaterialRepository ProductMaterialRepository
+        public IProductMaterialRepository ProductMaterialRepository
         {
             get
             {
@@ -193,7 +195,7 @@ namespace UMT360.InteriorDesignWebApp.Repository.Core
                 return _productMaterialRepository;
             }
         }
-        private ProductPhotoRepository ProductPhotoRepository
+        public IProductPhotoRepository ProductPhotoRepository
         {
             get
             {
@@ -202,7 +204,7 @@ namespace UMT360.InteriorDesignWebApp.Repository.Core
                 return _productPhotoRepository;
             }
         }
-        private ProductPromotionRepository ProductPromotionRepository
+        public IProductPromotionRepository ProductPromotionRepository
         {
             get
             {
@@ -211,7 +213,7 @@ namespace UMT360.InteriorDesignWebApp.Repository.Core
                 return _productPromotionRepository;
             }
         }
-        private ProductRepository ProductRepository
+        public IProductRepository ProductRepository
         {
             get
             {
@@ -220,7 +222,7 @@ namespace UMT360.InteriorDesignWebApp.Repository.Core
                 return _productRepository;
             }
         }
-        private PromotionRepository PromotionRepository
+        public IPromotionRepository PromotionRepository
         {
             get
             {
@@ -229,7 +231,7 @@ namespace UMT360.InteriorDesignWebApp.Repository.Core
                 return _promotionRepository;
             }
         }
-        private RoleRepository RoleRepository
+        public IRoleRepository RoleRepository
         {
             get
             {
@@ -334,7 +336,11 @@ namespace UMT360.InteriorDesignWebApp.Repository.Core
                 if (_roleRepository != null)
                 {
                     _roleRepository = null;
-                }                
+                }
+                if (_instance != null)
+                {
+                    _instance = null;
+                }
             }
         }
 

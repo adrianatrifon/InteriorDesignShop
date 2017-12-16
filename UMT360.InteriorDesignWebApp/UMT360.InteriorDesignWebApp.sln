@@ -15,6 +15,12 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SQL", "SQL", "{1C85FC4C-3E8
 		InteriorDesignDB.sql = InteriorDesignDB.sql
 	EndProjectSection
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UMT360.InteriorDesignWebApp.RpositoryAbstraction", "UMT360.InteriorDesignWebApp.RepositoryAbstraction\UMT360.InteriorDesignWebApp.RpositoryAbstraction.csproj", "{3D041339-53A5-422D-99FF-6F5E3E82AC3F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UMT360.InteriorDesignWebApp.RepositoryFactory", "UMT360.InteriorDesignWebApp.RepositoryFactory\UMT360.InteriorDesignWebApp.RepositoryFactory.csproj", "{D677FFB9-2612-4552-A1BB-4B2489B55F6A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UMT360.InteriorDesignWebApp.Business", "UMT360.InteriorDesignWebApp.Business\UMT360.InteriorDesignWebApp.Business.csproj", "{77A64546-3F56-4FAF-AF2F-AA621FB8FB7B}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +39,18 @@ Global
 		{17CED89A-F36E-4D4C-ADE7-85E94C51B8F9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{17CED89A-F36E-4D4C-ADE7-85E94C51B8F9}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{17CED89A-F36E-4D4C-ADE7-85E94C51B8F9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3D041339-53A5-422D-99FF-6F5E3E82AC3F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3D041339-53A5-422D-99FF-6F5E3E82AC3F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3D041339-53A5-422D-99FF-6F5E3E82AC3F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3D041339-53A5-422D-99FF-6F5E3E82AC3F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D677FFB9-2612-4552-A1BB-4B2489B55F6A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D677FFB9-2612-4552-A1BB-4B2489B55F6A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D677FFB9-2612-4552-A1BB-4B2489B55F6A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D677FFB9-2612-4552-A1BB-4B2489B55F6A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{77A64546-3F56-4FAF-AF2F-AA621FB8FB7B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{77A64546-3F56-4FAF-AF2F-AA621FB8FB7B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{77A64546-3F56-4FAF-AF2F-AA621FB8FB7B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{77A64546-3F56-4FAF-AF2F-AA621FB8FB7B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

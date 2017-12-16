@@ -4,10 +4,11 @@ using System.Data.SqlClient;
 using System.Linq;
 using UMT360.InteriorDesignWebApp.Models;
 using UMT360.InteriorDesignWebApp.Repository.Core;
+using UMT360.InteriorDesignWebApp.RepositoryAbstraction;
 
 namespace UMT360.InteriorDesignWebApp.Repository
 {
-    public class CategoryRepository:BaseRepository<Category>
+    public class CategoryRepository:BaseRepository<Category>,ICategoryRepository
     {
         #region Methods
         public List<Category> ReadAll()
@@ -42,7 +43,7 @@ namespace UMT360.InteriorDesignWebApp.Repository
             return categories.Single();
         }
 
-        public override Category GetModelFromReader(SqlDataReader reader)
+        protected override Category GetModelFromReader(SqlDataReader reader)
         {
             Category category = new Category();
             category.Id = reader.GetGuid(reader.GetOrdinal("CategoryID"));
@@ -50,7 +51,7 @@ namespace UMT360.InteriorDesignWebApp.Repository
             category.Name = reader.GetString(reader.GetOrdinal("Name"));
             return category;
         }
-        public SqlParameter[] GetParametersFromModel(Category category)
+        internal SqlParameter[] GetParametersFromModel(Category category)
         {
             SqlParameter[] parameters = { new SqlParameter("@CategoryID", category.Id),
                                           new SqlParameter("@ParentCategory", category.ParentCategoryId),

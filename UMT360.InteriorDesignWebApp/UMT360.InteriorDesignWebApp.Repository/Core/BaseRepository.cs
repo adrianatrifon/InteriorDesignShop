@@ -94,7 +94,7 @@ namespace UMT360.InteriorDesignWebApp.Repository.Core
                 }
             }
         }
-        public abstract TModel GetModelFromReader(SqlDataReader reader);        
+        protected abstract TModel GetModelFromReader(SqlDataReader reader);        
         #endregion
     }
 }

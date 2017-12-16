@@ -4,10 +4,11 @@ using System.Data.SqlClient;
 using System.Linq;
 using UMT360.InteriorDesignWebApp.Models;
 using UMT360.InteriorDesignWebApp.Repository.Core;
+using UMT360.InteriorDesignWebApp.RepositoryAbstraction;
 
 namespace UMT360.InteriorDesignWebApp.Repository
 {
-    public class BrandRepository:BaseRepository<Brand>
+    public class BrandRepository:BaseRepository<Brand>,IBrandRepository
     {
         #region Methods
         public List<Brand> ReadAll()
@@ -42,7 +43,7 @@ namespace UMT360.InteriorDesignWebApp.Repository
             return brands.Single();
         }
 
-        public override Brand GetModelFromReader(SqlDataReader reader)
+        protected override Brand GetModelFromReader(SqlDataReader reader)
         {
             Brand brand = new Brand();
             brand.Id = reader.GetGuid(reader.GetOrdinal("BrandID"));
@@ -50,7 +51,7 @@ namespace UMT360.InteriorDesignWebApp.Repository
             return brand;
         }
 
-        public SqlParameter[] GetParametersFromModel(Brand brand)
+        internal SqlParameter[] GetParametersFromModel(Brand brand)
         {
             SqlParameter[] parameters ={ new SqlParameter("@BrandID", brand.Id), new SqlParameter("@BrandName", brand.Name) };
             return parameters;

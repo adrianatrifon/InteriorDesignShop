@@ -4,10 +4,11 @@ using System.Data.SqlClient;
 using System.Linq;
 using UMT360.InteriorDesignWebApp.Models;
 using UMT360.InteriorDesignWebApp.Repository.Core;
+using UMT360.InteriorDesignWebApp.RepositoryAbstraction;
 
 namespace UMT360.InteriorDesignWebApp.Repository
 {
-    public class PromotionRepository : BaseRepository<Promotion>
+    public class PromotionRepository : BaseRepository<Promotion>, IPromotionRepository
     {
         #region Methods
         public List<Promotion> ReadAll()
@@ -40,7 +41,7 @@ namespace UMT360.InteriorDesignWebApp.Repository
             return promotions.Single();
         }
 
-        public override Promotion GetModelFromReader(SqlDataReader reader)
+        protected override Promotion GetModelFromReader(SqlDataReader reader)
         {
             Promotion promotion = new Promotion();
             promotion.Id = reader.GetGuid(reader.GetOrdinal("PromotionID"));
@@ -50,7 +51,7 @@ namespace UMT360.InteriorDesignWebApp.Repository
             promotion.Description = reader.GetString(reader.GetOrdinal("Description"));
             return promotion;
         }
-        public SqlParameter[] GetParametersFromModel(Promotion promotion)
+        internal SqlParameter[] GetParametersFromModel(Promotion promotion)
         {
             SqlParameter[] parameters = { new SqlParameter("@PromotionID", promotion.Id),
                                           new SqlParameter("@PromotionName", promotion.Name),

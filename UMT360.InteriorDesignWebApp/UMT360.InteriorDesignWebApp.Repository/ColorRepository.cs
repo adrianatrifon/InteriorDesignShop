@@ -4,10 +4,11 @@ using System.Data.SqlClient;
 using System.Linq;
 using UMT360.InteriorDesignWebApp.Models;
 using UMT360.InteriorDesignWebApp.Repository.Core;
+using UMT360.InteriorDesignWebApp.RepositoryAbstraction;
 
 namespace UMT360.InteriorDesignWebApp.Repository
 {
-    public class ColorRepository:BaseRepository<Color>
+    public class ColorRepository:BaseRepository<Color>,IColorRepository
     {
         #region Methods
         public List<Color> ReadAll()
@@ -41,14 +42,14 @@ namespace UMT360.InteriorDesignWebApp.Repository
             return colors.Single();        
         }
 
-        public override Color GetModelFromReader(SqlDataReader reader)
+        protected override Color GetModelFromReader(SqlDataReader reader)
         {
             Color color = new Color();
             color.Id = reader.GetGuid(reader.GetOrdinal("ColorID"));
             color.Name = reader.GetString(reader.GetOrdinal("Name"));
             return color;
         }
-        public SqlParameter[] GetParametersFromModel(Color color)
+        internal SqlParameter[] GetParametersFromModel(Color color)
         {
             SqlParameter[] parameters = { new SqlParameter("@ColorID", color.Id), new SqlParameter("@ColorName", color.Name) };
             return parameters;

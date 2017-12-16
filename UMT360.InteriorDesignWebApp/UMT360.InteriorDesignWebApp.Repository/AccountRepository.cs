@@ -4,10 +4,11 @@ using System.Data.SqlClient;
 using System.Linq;
 using UMT360.InteriorDesignWebApp.Models;
 using UMT360.InteriorDesignWebApp.Repository.Core;
+using UMT360.InteriorDesignWebApp.RepositoryAbstraction;
 
 namespace UMT360.InteriorDesignWebApp.Repository
 {
-    public class AccountRepository:BaseRepository<Account>
+    public class AccountRepository:BaseRepository<Account>,IAccountRepository
     {
         #region Methods
         public List<Account> ReadAll()
@@ -42,7 +43,7 @@ namespace UMT360.InteriorDesignWebApp.Repository
             return accounts.Single();
         }
 
-        public override Account GetModelFromReader(SqlDataReader reader)
+        protected override Account GetModelFromReader(SqlDataReader reader)
         {
             Account account = new Account();
             account.Id = reader.GetGuid(reader.GetOrdinal("AccountID"));
@@ -52,7 +53,7 @@ namespace UMT360.InteriorDesignWebApp.Repository
             account.PhotoId = reader.GetGuid(reader.GetOrdinal("PhotoID"));
             return account;
         }
-        public SqlParameter[] GetParametersFromModel(Account account)
+        internal SqlParameter[] GetParametersFromModel(Account account)
         {
             SqlParameter[] parameters = { new SqlParameter("@AccountID", account.Id),
                                           new SqlParameter("@EmailAddress", account.EmailAddress),

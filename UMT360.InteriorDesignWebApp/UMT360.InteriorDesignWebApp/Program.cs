@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using UMT360.InteriorDesignWebApp.Business;
+using UMT360.InteriorDesignWebApp.Business.Core;
 using UMT360.InteriorDesignWebApp.Models;
-using UMT360.InteriorDesignWebApp.Repository;
-using UMT360.InteriorDesignWebApp.Repository.Core;
 
 namespace UMT360.InteriorDesignWebApp
 {
@@ -89,8 +89,10 @@ namespace UMT360.InteriorDesignWebApp
                 materialRepository.Delete(material3.Id);
                 */
                 Console.WriteLine("---------------------Brand Repository TEST----------------------------\n");
-                //List<Brand> brands = new List<Brand>();
-                BrandRepository brandRepository = RepositoryContext.BrandRepository;
+            //List<Brand> brands = new List<Brand>();
+            using (BusinessContext businessContext = new BusinessContext())
+            {
+                BrandBusiness brandBusiness = new BrandBusiness();
                 Brand brand = new Brand();
                 Guid id2 = Guid.NewGuid();
                 brand.Id = id2;
@@ -98,33 +100,33 @@ namespace UMT360.InteriorDesignWebApp
                 Brand brand1 = new Brand() { Id = id2, Name = "TestBrand1" };
 
                 Console.WriteLine("---------Insert------------");
-                brandRepository.Insert(brand);
-                ShowBrands();
+                brandBusiness.Insert(brand);
+                ShowBrands(businessContext);
 
 
                 Console.WriteLine("---------Update------------");
-                brandRepository.Update(brand1);
+                brandBusiness.Update(brand1);
 
-                ShowBrands();
+                ShowBrands(businessContext);
 
 
                 Console.WriteLine("---------Delete------------");
-                brandRepository.Delete(brand.Id);
+                brandBusiness.Delete(brand.Id);
 
-                ShowBrands();
+                ShowBrands(businessContext);
 
 
                 Console.WriteLine("---------GetById------------");
                 Brand brand2 = new Brand() { Id = id2, Name = "TestBrand2" };
-                brandRepository.Insert(brand2);
-                ShowBrands();
+                brandBusiness.Insert(brand2);
+                ShowBrands(businessContext);
 
                 Console.WriteLine("-------------------------------------------------");
-                Brand brand3 = brandRepository.GetById(brand2.Id);
+                Brand brand3 = brandBusiness.GetById(brand2.Id);
                 Console.WriteLine("{0}  {1}", brand3.Id, brand3.Name);
-                brandRepository.Delete(brand3.Id);
-            
+                brandBusiness.Delete(brand3.Id);
 
+            }
             /*
               List<Photo> photos = new List<Photo>();
               PhotoRepository photoRepository = new PhotoRepository();         
@@ -140,6 +142,7 @@ namespace UMT360.InteriorDesignWebApp
             Console.ReadLine();
 
         }
+        /*
         public static void ShowColors()
         {
             List<Color> colors = RepositoryContext.ColorRepository.ReadAll();
@@ -162,10 +165,11 @@ namespace UMT360.InteriorDesignWebApp
             }
 
         }
-        public static void ShowBrands()
+        */
+        public static void ShowBrands(BusinessContext businessContext)
         {
-            List<Brand> brands = RepositoryContext.BrandRepository.ReadAll();
-            //colors = colorRepository.ReadAll();
+            List<Brand> brands = businessContext.BrandBusiness.ReadAll();
+                //colors = colorRepository.ReadAll();
 
             foreach (Brand brand in brands)
             {

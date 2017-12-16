@@ -4,10 +4,11 @@ using System.Data.SqlClient;
 using System.Linq;
 using UMT360.InteriorDesignWebApp.Models;
 using UMT360.InteriorDesignWebApp.Repository.Core;
+using UMT360.InteriorDesignWebApp.RepositoryAbstraction;
 
 namespace UMT360.InteriorDesignWebApp.Repository
 {
-    public class CountyRepository:BaseRepository<County>
+    public class CountyRepository:BaseRepository<County>,ICountyRepository
     {
         #region Methods
         public List<County> ReadAll()
@@ -40,7 +41,7 @@ namespace UMT360.InteriorDesignWebApp.Repository
             return counties.Single();
         }
 
-        public override County GetModelFromReader(SqlDataReader reader)
+        protected override County GetModelFromReader(SqlDataReader reader)
         {
             County county = new County();
             county.Id = reader.GetGuid(reader.GetOrdinal("CountyID"));
@@ -48,7 +49,7 @@ namespace UMT360.InteriorDesignWebApp.Repository
             county.CountryId = reader.GetGuid(reader.GetOrdinal("CountryID"));
             return county;
         }
-        public SqlParameter[] GetParametersFromModel(County county)
+        internal SqlParameter[] GetParametersFromModel(County county)
         {
             SqlParameter[] parameters = { new SqlParameter("@CountyID", county.Id),
                                           new SqlParameter("@CountyName", county.Name),

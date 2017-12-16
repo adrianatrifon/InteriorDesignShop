@@ -49,13 +49,13 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\UMT360.InteriorDesignWebApp.Business\UMT360.InteriorDesignWebApp.Business.csproj">
+      <Project>{77a64546-3f56-4faf-af2f-aa621fb8fb7b}</Project>
+      <Name>UMT360.InteriorDesignWebApp.Business</Name>
+    </ProjectReference>
     <ProjectReference Include="..\UMT360.InteriorDesignWebApp.Models\UMT360.InteriorDesignWebApp.Models.csproj">
       <Project>{bfc6d468-f040-493a-b81a-3274df43fd96}</Project>
       <Name>UMT360.InteriorDesignWebApp.Models</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\UMT360.InteriorDesignWebApp.Repository\UMT360.InteriorDesignWebApp.Repository.csproj">
-      <Project>{da6ee371-3872-4e37-9424-287b7538971b}</Project>
-      <Name>UMT360.InteriorDesignWebApp.Repository</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

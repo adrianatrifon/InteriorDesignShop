@@ -4,10 +4,11 @@ using System.Data.SqlClient;
 using System.Linq;
 using UMT360.InteriorDesignWebApp.Models;
 using UMT360.InteriorDesignWebApp.Repository.Core;
+using UMT360.InteriorDesignWebApp.RepositoryAbstraction;
 
 namespace UMT360.InteriorDesignWebApp.Repository
 {
-    public class CountryRepository:BaseRepository<Country>
+    public class CountryRepository:BaseRepository<Country>,ICountryRepository
     {
         #region Methods
         public List<Country> ReadAll()
@@ -41,14 +42,14 @@ namespace UMT360.InteriorDesignWebApp.Repository
             return countries.Single();
         }
 
-        public override Country GetModelFromReader(SqlDataReader reader)
+        protected override Country GetModelFromReader(SqlDataReader reader)
         {
             Country country = new Country();
             country.Id = reader.GetGuid(reader.GetOrdinal("CountryID"));
             country.Name = reader.GetString(reader.GetOrdinal("Name"));
             return country;
         }
-        public SqlParameter[] GetParametersFromModel(Country country)
+        internal SqlParameter[] GetParametersFromModel(Country country)
         {
             SqlParameter[] parameters = { new SqlParameter("@CountryID", country.Id), new SqlParameter("@CountryName", country.Name) };
             return parameters;
