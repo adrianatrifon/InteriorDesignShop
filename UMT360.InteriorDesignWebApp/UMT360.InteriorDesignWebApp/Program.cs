@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using UMT360.InteriorDesignWebApp.Business;
 using UMT360.InteriorDesignWebApp.Business.Core;
 using UMT360.InteriorDesignWebApp.Models;
 
@@ -9,15 +8,11 @@ namespace UMT360.InteriorDesignWebApp
     class Program
     {
         static void Main(string[] args)
-        {     
-           
-            Console.Clear();
-            /*
+        {             
+            Console.Clear();            
             Console.WriteLine("---------------------ColorRepository TEST----------------------------\n");
-
-            using (RepositoryContext repositoryContext = new RepositoryContext())
-            {                
-                ColorRepository colorRepository = RepositoryContext.ColorRepository;
+            using (BusinessContext businessContext = new BusinessContext())
+            {
                 Color color = new Color();
                 Guid id = Guid.NewGuid();
                 color.Id = id;
@@ -25,36 +20,28 @@ namespace UMT360.InteriorDesignWebApp
                 Color color1 = new Color() { Id = id, Name = "TestColor1" };
 
                 Console.WriteLine("---------Insert------------");
-                colorRepository.Insert(color);
-                ShowColors();
-
-
+                businessContext.ColorBusiness.Insert(color);
+                ShowColors(businessContext);
 
                 Console.WriteLine("---------Update------------");
-                colorRepository.Update(color1);
-
-                ShowColors();
-
+                businessContext.ColorBusiness.Update(color1);
+                ShowColors(businessContext);
 
                 Console.WriteLine("---------Delete------------");
-                colorRepository.Delete(color.Id);
-
-                ShowColors();
-
+                businessContext.ColorBusiness.Delete(color.Id);
+                ShowColors(businessContext);
 
                 Console.WriteLine("---------GetById------------");
                 Color color2 = new Color() { Id = id, Name = "TestColor2" };
-                colorRepository.Insert(color2);
-                ShowColors();
+                businessContext.ColorBusiness.Insert(color2);
+                ShowColors(businessContext);
 
                 Console.WriteLine("-------------------------------------------------");
-                Color color3 = colorRepository.GetById(color2.Id);
+                Color color3 = businessContext.ColorBusiness.GetById(color2.Id);
                 Console.WriteLine("{0}  {1}", color3.Id, color3.Name);
-                colorRepository.Delete(color3.Id);
+                businessContext.ColorBusiness.Delete(color3.Id);
 
                 Console.WriteLine("---------------------MaterialRepository TEST----------------------------\n");
-                //List<Material> materials = new List<Material>();
-                MaterialRepository materialRepository = RepositoryContext.MaterialRepository;
                 Material material = new Material();
                 Guid id1 = Guid.NewGuid();
                 material.Id = id1;
@@ -62,38 +49,29 @@ namespace UMT360.InteriorDesignWebApp
                 Material material1 = new Material() { Id = id1, Name = "TestMaterial1" };
 
                 Console.WriteLine("---------Insert------------");
-                materialRepository.Insert(material);
-                ShowMaterials();
+                businessContext.MaterialBusiness.Insert(material);
+                ShowMaterials(businessContext);
 
 
                 Console.WriteLine("---------Update------------");
-                materialRepository.Update(material1);
-                ShowMaterials();
-
+                businessContext.MaterialBusiness.Update(material1);
+                ShowMaterials(businessContext);
 
                 Console.WriteLine("---------Delete------------");
-                materialRepository.Delete(material.Id);
-
-                ShowMaterials();
-
+                businessContext.MaterialBusiness.Delete(material.Id);
+                ShowMaterials(businessContext);
 
                 Console.WriteLine("---------GetById------------");
                 Material material2 = new Material() { Id = id, Name = "TestMaterial2" };
-                materialRepository.Insert(material2);
-
-                ShowMaterials();
+                businessContext.MaterialBusiness.Insert(material2);
+                ShowMaterials(businessContext);
 
                 Console.WriteLine("-------------------------------------------------");
-                Material material3 = materialRepository.GetById(material2.Id);
+                Material material3 = businessContext.MaterialBusiness.GetById(material2.Id);
                 Console.WriteLine("{0}  {1}", material3.Id, material3.Name);
-                materialRepository.Delete(material3.Id);
-                */
-                Console.WriteLine("---------------------Brand Repository TEST----------------------------\n");
-            //List<Brand> brands = new List<Brand>();
-            using (BusinessContext businessContext = new BusinessContext())
-            {
-                ShowBrands(businessContext);
-                //BrandBusiness brandBusiness = new BrandBusiness();
+                businessContext.MaterialBusiness.Delete(material3.Id);
+                
+                Console.WriteLine("---------------------Brand Repository TEST----------------------------\n");           
                 Brand brand = new Brand();
                 Guid id2 = Guid.NewGuid();
                 brand.Id = id2;
@@ -102,21 +80,15 @@ namespace UMT360.InteriorDesignWebApp
 
                 Console.WriteLine("---------Insert------------");
                 businessContext.BrandBusiness.Insert(brand);
-
                 ShowBrands(businessContext);
-
 
                 Console.WriteLine("---------Update------------");
                 businessContext.BrandBusiness.Update(brand1);
-
                 ShowBrands(businessContext);
-
 
                 Console.WriteLine("---------Delete------------");
                 businessContext.BrandBusiness.Delete(brand.Id);
-
                 ShowBrands(businessContext);
-
 
                 Console.WriteLine("---------GetById------------");
                 Brand brand2 = new Brand() { Id = id2, Name = "TestBrand2" };
@@ -144,42 +116,32 @@ namespace UMT360.InteriorDesignWebApp
             Console.ReadLine();
 
         }
-        /*
-        public static void ShowColors()
+        
+        public static void ShowColors(BusinessContext businessContext)
         {
-            List<Color> colors = RepositoryContext.ColorRepository.ReadAll();
-            //colors = colorRepository.ReadAll();
-
+            List<Color> colors = businessContext.ColorBusiness.ReadAll();
             foreach (Color col in colors)
             {
                 Console.WriteLine("{0} ---- {1}", col.Id, col.Name);
             }
-
         }
-        public static void ShowMaterials()
+        public static void ShowMaterials(BusinessContext businessContext)
         {
-            List<Material> materials = RepositoryContext.MaterialRepository.ReadAll();
-            //colors = colorRepository.ReadAll();
-
+            List<Material> materials = businessContext.MaterialBusiness.ReadAll();
             foreach (Material material in materials)
             {
                 Console.WriteLine("{0} ---- {1}", material.Id, material.Name);
             }
 
         }
-        */
+        
         public static void ShowBrands(BusinessContext businessContext)
         {
             List<Brand> brands = businessContext.BrandBusiness.ReadAll();
-                //colors = colorRepository.ReadAll();
-
             foreach (Brand brand in brands)
             {
                 Console.WriteLine("{0} ---- {1}", brand.Id, brand.Name);
             }
-
         }
-
-
     }
 }
