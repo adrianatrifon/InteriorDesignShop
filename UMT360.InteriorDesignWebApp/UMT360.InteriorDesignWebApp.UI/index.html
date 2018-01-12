@@ -1,0 +1,70 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title>Home Design</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href="Assets/favicon.ico" type="image/x-icon">
+    <link rel="icon" href="Assets/favicon.ico" type="image/x-icon">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">     
+    
+    <script src="Scripts/jquery-3.2.1.slim.min.js"></script>
+    <script src="Scripts/bootstrap.js"></script>
+    <link href="Content/bootstrap.min.css" rel="stylesheet" />     
+    <meta charset="utf-8" />
+
+    <script src="Scripts/Services/categoryService.js"></script>
+    <script src="Scripts/Services/designPhotoService.js"></script>
+    <script src="Scripts/Services/designService.js"></script>
+    <script src="Scripts/Services/photoService.js"></script>
+    <script src="Scripts/Services/serviceContext.js"></script>
+    <script src="Scripts/Controllers/cardController.js"></script>
+    <script src="Scripts/Controllers/designsController.js"></script>
+    <script src="Scripts/menuController.js"></script>
+    <script src="Scripts/appController.js"></script>
+    <link href="index.css" rel="stylesheet" />   
+</head>
+<body>
+    <header id="pageheader" class="clearfix">
+        <navbar class="pagenavbar">
+            <img class="pull-left" src="Resources/2.png">
+            <p class="title pull-left">Home design</p>
+            <div class="search pull-left">
+                <form action="#">
+                    <input type="text" name="search" placeholder="Search">
+                    <!-- <button class="searchbutton"type="submit">
+                        <div class="fa fa-search"></div>
+                    </button> -->
+                </form>
+            </div>
+            <button class="pull-right" type="submit">
+                <i class="fa fa-shopping-cart fa-3x" aria-hidden="true"></i>
+            </button>
+            <button class=" login pull-right" type="submit">
+                <p> Login </p>
+            </button>
+        </navbar>
+    </header>
+    <div class="maincontainer">
+        <nav id="navBarContainer" class="nav flex-column pull-left">
+        </nav>
+        <main role="main" class="clearfix">
+            <div id="kitchenContainer" class="container pull-right" style="display: none;">
+            </div>
+            <div id="bedroomContainer" class="container pull-right" style="display: none;">
+            </div>
+            <div id="livingroomContainer" class="container pull-right" style="display: none;">
+            </div>
+            <div id="bathroomContainer" class="container pull-right" style="display: none;">
+            </div>
+            <div id="officeContainer" class="container pull-right" style="display: none;">
+            </div>
+            <div id="dressingContainer" class="container pull-right" style="display: none;">
+            </div>
+            <div id="libraryContainer" class="container pull-right" style="display: none;">
+            </div>
+        </main>       
+    </div>
+
+</body>
+</html>

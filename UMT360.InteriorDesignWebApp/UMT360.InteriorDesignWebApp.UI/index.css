@@ -1,0 +1,194 @@
+﻿* {
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    min-width: auto;
+}
+
+.pull-left {
+    float: left;
+}
+
+.pull-right {
+    float: right;
+}
+
+.clearfix::after {
+    clear: both;
+    display: block;
+    content: ' ';
+}
+
+#pageheader img {
+    width: 120px;
+    height: 70px;
+    margin: 6 0 8 60;
+}
+
+.maincontainer {
+    position: relative;
+}
+
+.promo {
+    position: absolute;
+    top: 20px;
+    left: 500px;
+    background-color: #003333;
+    width: 500px;
+    height: 270px;
+}
+
+    .promo img {
+        margin-left: 50px;
+    }
+
+#pageheader .title {
+    color: white;
+    margin: 20px 0px 20px 10px;
+    font-size: 25px;
+    font-family: 'Sofadi One', cursive;
+}
+
+.container {
+    margin-top: 70px;
+}
+
+#pageheader {
+    min-width: 100%;
+    z-index: 1;
+    background-color: rgba(0, 160, 120, 0.5);
+    position: fixed;
+    width: 100%;
+    height: 80px;
+}
+
+.pagenavbar button {
+    background: none;
+    border: none;
+    height: 30%;
+    color: white;
+}
+
+    .pagenavbar button p {
+        margin: 20px 15px 20px 10px;
+        font-size: 20px;
+    }
+
+.search input {
+    height: 30px;
+    width: 100%;
+    border-radius: 20px;
+    border-color: transparent;
+    min-width: 30px;
+    margin: 25px 0px 0px 190px;
+    padding: 3px 0px 5px 10px;
+}
+
+.search {
+    position: relative;
+}
+
+.searchbutton {
+    position: absolute;
+    top: 10px;
+    left: 20px;
+    background-color: black;
+}
+
+.fa-search {
+    color: black;
+    position: absolute;
+    top: 30px;
+    right: -180px;
+}
+
+.fa-shopping-cart {
+    padding-left: 30px;
+    margin: 15px 20px;
+    color: white;
+    border-left: solid #e0e0d1 2px;
+}
+
+.flex-column {
+    background-color: #eaeafa;
+    height: 80%;
+    padding-top: 20;
+    border-right: solid 1px lightgrey;
+    width: 15.4%;
+}
+
+    .flex-column .nav-link {
+        color: #003333;
+        font-size: 20px;
+        border-bottom: solid lightgrey 2px;
+    }
+
+#navBarContainer {
+    width: 15%;
+    height: 100%;
+    background: rgba(0, 90, 60, 0.3);
+    min-width: 120px;
+    position: fixed;
+    margin-top: 80px;
+}
+
+    #navBarContainer a {
+        min-width: 18%;
+        background: grey,0.1;
+        color: black;
+        font-size: 20px;
+        display: block;
+        padding: 12px;
+        text-decoration: none;
+        border-bottom: solid rgba(0, 90, 60, 0.2) 2px;
+    }
+
+        #navBarContainer a:hover {
+            color: white;
+            background: rgba(0,160,120);
+        }
+
+        #navBarContainer a:active {
+            color: black;
+            font-size: 25px;
+        }
+
+.pull-left {
+    float: left;
+}
+
+.pull-right {
+    float: right;
+}
+
+.card {
+    width: 45%;
+    height: 80%;
+    margin: 20px;
+    background-color: #f5f5f0;
+    border-radius: 100px;
+    position: absolute;
+    min-width: 20%;
+    min-height: 50%;
+}
+/*#bathroomContainer {
+	width: 70%;
+	margin-top: 40px;
+}*/
+.card-body {
+    height: 300px;
+    position: relative;
+}
+
+.card-img-top {
+    height: 400px
+}
+
+.btn-primary {
+    position: absolute;
+    float: right;
+    bottom: 50px;
+    right: 20px;
+}
