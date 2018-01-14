@@ -63,7 +63,8 @@
         if (!selectedContainerId)
             return;
         var mainContainers = $("main > div");
-        $(mainContainers).empty();
+        var mainContainersof = $("main > div > div");
+        $(mainContainersof).empty();
         for (i = 0; i < mainContainers.length; i++) {
             if (mainContainers[i].id !== selectedContainerId) {
                 $(mainContainers[i]).hide();
