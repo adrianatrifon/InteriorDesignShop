@@ -1,16 +1,15 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace UMT360.InteriorDesignWebApp.Models
 {
-    public class PaymentOption
+    public class Design
     {
         #region Properties
         public Guid Id { set; get; }
         public string Name { set; get; }
+        public string Description { set; get; }
+        public Guid CategoryId { set; get; }
+        public Guid StyleId { set; get; }
         #endregion
     }
 }

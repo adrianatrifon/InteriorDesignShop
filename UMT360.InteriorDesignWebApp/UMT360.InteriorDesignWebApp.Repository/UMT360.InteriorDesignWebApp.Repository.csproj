@@ -42,27 +42,16 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AccountRepository.cs" />
-    <Compile Include="BrandRepository.cs" />
+    <Compile Include="DesignerRepository.cs" />
     <Compile Include="CategoryRepository.cs" />
-    <Compile Include="CityRepository.cs" />
-    <Compile Include="ColorRepository.cs" />
+    <Compile Include="StyleRepository.cs" />
+    <Compile Include="DesignRepository.cs" />
     <Compile Include="Core\BaseRepository.cs" />
     <Compile Include="Core\RepositoryContext.cs" />
-    <Compile Include="CountryRepository.cs" />
-    <Compile Include="CountyRepository.cs" />
-    <Compile Include="CurrencyRepository.cs" />
-    <Compile Include="MaterialRepository.cs" />
-    <Compile Include="OrderProductRepository.cs" />
-    <Compile Include="OrderRepository.cs" />
-    <Compile Include="PaymentOptionRepository.cs" />
-    <Compile Include="PersonRepository.cs" />
+    <Compile Include="DesignerDesignRepository.cs" />
     <Compile Include="PhotoRepository.cs" />
-    <Compile Include="ProductColorRepository.cs" />
-    <Compile Include="ProductMaterialRepository.cs" />
-    <Compile Include="ProductPhotoRepository.cs" />
-    <Compile Include="ProductPromotionRepository.cs" />
-    <Compile Include="ProductRepository.cs" />
-    <Compile Include="PromotionRepository.cs" />
+    <Compile Include="DesignerPhotoRepository.cs" />
+    <Compile Include="DesignPhotoRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RoleRepository.cs" />
   </ItemGroup>

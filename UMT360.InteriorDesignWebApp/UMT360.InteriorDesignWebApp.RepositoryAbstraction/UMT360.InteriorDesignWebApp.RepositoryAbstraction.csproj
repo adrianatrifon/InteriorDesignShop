@@ -42,25 +42,14 @@
   <ItemGroup>
     <Compile Include="Core\IRepositoryContext.cs" />
     <Compile Include="IAccountRepository.cs" />
-    <Compile Include="IBrandRepository.cs" />
+    <Compile Include="IDesignerRepository.cs" />
     <Compile Include="ICategoryRepository.cs" />
-    <Compile Include="ICityRepository.cs" />
-    <Compile Include="IColorRepository.cs" />
-    <Compile Include="ICountryRepository.cs" />
-    <Compile Include="ICountyRepository.cs" />
-    <Compile Include="ICurrencyRepository.cs" />
-    <Compile Include="IMaterialRepository.cs" />
-    <Compile Include="IOrderProductRepository.cs" />
-    <Compile Include="IOrderRepository.cs" />
-    <Compile Include="IPaymentOptionRepository.cs" />
-    <Compile Include="IPersonRepository.cs" />
+    <Compile Include="IStyleRepository.cs" />
+    <Compile Include="IDesignRepository.cs" />
     <Compile Include="IPhotoRepository.cs" />
-    <Compile Include="IProductColorRepository.cs" />
-    <Compile Include="IProductMaterialRepository.cs" />
-    <Compile Include="IProductPhotoRepository.cs" />
-    <Compile Include="IProductPromotionRepository.cs" />
-    <Compile Include="IProductRepository.cs" />
-    <Compile Include="IPromotionRepository.cs" />
+    <Compile Include="IDesignPhotoRepository.cs" />
+    <Compile Include="IDesignerPhotoRepository.cs" />
+    <Compile Include="IDesignerDesignRepository.cs" />
     <Compile Include="IRoleRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

@@ -8,16 +8,16 @@ namespace UMT360.InteriorDesignWebApp.Business
     public class OrderProductBusiness
     {
         #region Methods
-        public List<OrderProduct> ReadAll()
+        public List<DesignerDesign> ReadAll()
         {
             return BusinessContext.Current.RepositoryContext.OrderProductRepository.ReadAll();
         }
 
-        public void Insert(OrderProduct orderProduct)
+        public void Insert(DesignerDesign orderProduct)
         {
             BusinessContext.Current.RepositoryContext.OrderProductRepository.Insert(orderProduct);
         }
-        public void Update(OrderProduct orderProduct)
+        public void Update(DesignerDesign orderProduct)
         {
             BusinessContext.Current.RepositoryContext.OrderProductRepository.Update(orderProduct);
         }
@@ -27,7 +27,7 @@ namespace UMT360.InteriorDesignWebApp.Business
             BusinessContext.Current.RepositoryContext.OrderProductRepository.Delete(orderId,productId);
         }
 
-        public OrderProduct GetById(Guid orderId, Guid productId)
+        public DesignerDesign GetById(Guid orderId, Guid productId)
         {
             return BusinessContext.Current.RepositoryContext.OrderProductRepository.GetById(orderId, productId);
         }

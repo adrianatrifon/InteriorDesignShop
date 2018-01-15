@@ -7,16 +7,16 @@ namespace UMT360.InteriorDesignWebApp.Business
     public class ProductMaterialBusiness
     {
         #region Methods
-        public List<ProductMaterial> ReadAll()
+        public List<DesignPhoto> ReadAll()
         {
             return BusinessContext.Current.RepositoryContext.ProductMaterialRepository.ReadAll();
         }
 
-        public void Insert(ProductMaterial productMaterial)
+        public void Insert(DesignPhoto productMaterial)
         {
             BusinessContext.Current.RepositoryContext.ProductMaterialRepository.Insert(productMaterial);
         }
-        public void Delete(ProductMaterial productMaterial)
+        public void Delete(DesignPhoto productMaterial)
         {
             BusinessContext.Current.RepositoryContext.ProductMaterialRepository.Delete(productMaterial);
         }

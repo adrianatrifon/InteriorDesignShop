@@ -8,16 +8,16 @@ namespace UMT360.InteriorDesignWebApp.Business
     public class PromotionBusiness
     {
         #region Methods
-        public List<Promotion> ReadAll()
+        public List<Design> ReadAll()
         {
             return BusinessContext.Current.RepositoryContext.PromotionRepository.ReadAll();
         }
 
-        public void Insert(Promotion promotion)
+        public void Insert(Design promotion)
         {
             BusinessContext.Current.RepositoryContext.PromotionRepository.Insert(promotion);
         }
-        public void Update(Promotion promotion)
+        public void Update(Design promotion)
         {
             BusinessContext.Current.RepositoryContext.PromotionRepository.Update(promotion);
         }
@@ -27,7 +27,7 @@ namespace UMT360.InteriorDesignWebApp.Business
             BusinessContext.Current.RepositoryContext.PromotionRepository.Delete(promotionId);
         }
 
-        public Promotion GetById(Guid promotionId)
+        public Design GetById(Guid promotionId)
         {
             return BusinessContext.Current.RepositoryContext.PromotionRepository.GetById(promotionId);
         }

@@ -8,27 +8,16 @@ namespace UMT360.InteriorDesignWebApp.Repository.Core
     {
         #region Members
         private static IRepositoryContext _instance;
-        private IColorRepository _colorRepository;
-        private IMaterialRepository _materialRepository;
         private IAccountRepository _accountRepository;
-        private IBrandRepository _brandRepository;
         private ICategoryRepository _categoryRepository;
-        private ICityRepository _cityRepository;
-        private ICountryRepository _countryRepository;
-        private ICountyRepository _countyRepository;
-        private ICurrencyRepository _currencyRepository;
-        private IOrderProductRepository _orderProductRepository;
-        private IOrderRepository _orderRepository;
-        private IPaymentOptionRepository _paymentOptionRepository;
-        private IPersonRepository _personRepository;
+        private IDesignRepository _designRepository;
+        private IDesignerRepository _designerRepository;
+        private IDesignerDesignRepository _designerDesignRepository;
+        private IDesignerPhotoRepository _designerPhotoRepository;
+        private IDesignPhotoRepository _designPhotoRepository;
         private IPhotoRepository _photoRepository;
-        private IProductColorRepository _productColorRepository;
-        private IProductMaterialRepository _productMaterialRepository;
-        private IProductPhotoRepository _productPhotoRepository;
-        private IProductPromotionRepository _productPromotionRepository;
-        private IProductRepository _productRepository;
-        private IPromotionRepository _promotionRepository;
         private IRoleRepository _roleRepository;
+        private IStyleRepository _styleRepository;
         #endregion
 
         #region Constructors
@@ -50,31 +39,22 @@ namespace UMT360.InteriorDesignWebApp.Repository.Core
                 return _instance;
             }
         }
-        public IColorRepository ColorRepository
+        public IDesignRepository DesignRepository
         {
             get
             {
-                if (_colorRepository == null)
-                    _colorRepository = new ColorRepository();
-                return _colorRepository;
+                if (_designRepository == null)
+                    _designRepository = new DesignRepository();
+                return _designRepository;
             }
         }
-        public IMaterialRepository MaterialRepository
+        public IDesignerRepository DesignerRepository
         {
             get
             {
-                if (_materialRepository == null)
-                    _materialRepository = new MaterialRepository();
-                return _materialRepository;
-            }
-        }
-        public IBrandRepository BrandRepository
-        {
-            get
-            {
-                if (_brandRepository == null)
-                    _brandRepository = new BrandRepository();
-                return _brandRepository;
+                if (_designerRepository == null)
+                    _designerRepository = new DesignerRepository();
+                return _designerRepository;
             }
         }
         public IAccountRepository AccountRepository
@@ -95,77 +75,13 @@ namespace UMT360.InteriorDesignWebApp.Repository.Core
                 return _categoryRepository;
             }
         }
-        public ICityRepository CityRepository
+        public IStyleRepository StyleRepository
         {
             get
             {
-                if (_cityRepository == null)
-                    _cityRepository = new CityRepository();
-                return _cityRepository;
-            }
-        }
-        public ICountryRepository CountryRepository
-        {
-            get
-            {
-                if (_countryRepository == null)
-                    _countryRepository = new CountryRepository();
-                return _countryRepository;
-            }
-        }
-        public ICountyRepository CountyRepository
-        {
-            get
-            {
-                if (_countyRepository == null)
-                    _countyRepository = new CountyRepository();
-                return _countyRepository;
-            }
-        }
-
-        public ICurrencyRepository CurrencyRepository
-        {
-            get
-            {
-                if (_currencyRepository == null)
-                    _currencyRepository = new CurrencyRepository();
-                return _currencyRepository;
-            }
-        }
-        public IOrderProductRepository OrderProductRepository
-        {
-            get
-            {
-                if (_orderProductRepository == null)
-                    _orderProductRepository = new OrderProductRepository();
-                return _orderProductRepository;
-            }
-        }
-        public IOrderRepository OrderRepository
-        {
-            get
-            {
-                if (_orderRepository == null)
-                    _orderRepository = new OrderRepository();
-                return _orderRepository;
-            }
-        }
-        public IPaymentOptionRepository PaymentOptionRepository
-        {
-            get
-            {
-                if (_paymentOptionRepository == null)
-                    _paymentOptionRepository = new PaymentOptionRepository();
-                return _paymentOptionRepository;
-            }
-        }
-        public IPersonRepository PersonRepository
-        {
-            get
-            {
-                if (_personRepository == null)
-                    _personRepository = new PersonRepository();
-                return _personRepository;
+                if (_styleRepository == null)
+                    _styleRepository = new StyleRepository();
+                return _styleRepository;
             }
         }
         public IPhotoRepository PhotoRepository
@@ -177,58 +93,31 @@ namespace UMT360.InteriorDesignWebApp.Repository.Core
                 return _photoRepository;
             }
         }
-        public IProductColorRepository ProductColorRepository
+        public IDesignerDesignRepository DesignerDesignRepository
         {
             get
             {
-                if (_productColorRepository == null)
-                    _productColorRepository = new ProductColorRepository();
-                return _productColorRepository;
+                if (_designerDesignRepository == null)
+                    _designerDesignRepository = new DesignerDesignRepository();
+                return _designerDesignRepository;
             }
         }
-        public IProductMaterialRepository ProductMaterialRepository
+        public IDesignPhotoRepository DesignPhotoRepository
         {
             get
             {
-                if (_productMaterialRepository == null)
-                    _productMaterialRepository = new ProductMaterialRepository();
-                return _productMaterialRepository;
+                if (_designPhotoRepository == null)
+                    _designPhotoRepository = new DesignPhotoRepository();
+                return _designPhotoRepository;
             }
         }
-        public IProductPhotoRepository ProductPhotoRepository
+        public IDesignerPhotoRepository DesignerPhotoRepository
         {
             get
             {
-                if (_productPhotoRepository == null)
-                    _productPhotoRepository = new ProductPhotoRepository();
-                return _productPhotoRepository;
-            }
-        }
-        public IProductPromotionRepository ProductPromotionRepository
-        {
-            get
-            {
-                if (_productPromotionRepository == null)
-                    _productPromotionRepository = new ProductPromotionRepository();
-                return _productPromotionRepository;
-            }
-        }
-        public IProductRepository ProductRepository
-        {
-            get
-            {
-                if (_productRepository == null)
-                    _productRepository = new ProductRepository();
-                return _productRepository;
-            }
-        }
-        public IPromotionRepository PromotionRepository
-        {
-            get
-            {
-                if (_promotionRepository == null)
-                    _promotionRepository = new PromotionRepository();
-                return _promotionRepository;
+                if (_designerPhotoRepository == null)
+                    _designerPhotoRepository = new DesignerPhotoRepository();
+                return _designerPhotoRepository;
             }
         }
         public IRoleRepository RoleRepository
@@ -253,17 +142,13 @@ namespace UMT360.InteriorDesignWebApp.Repository.Core
         {
             if (dispose)
             {
-                if (_colorRepository != null)
+                if (_designRepository != null)
                 {
-                    _colorRepository = null;
+                    _designRepository = null;
                 }
-                if (_materialRepository != null)
+                if (_designerRepository != null)
                 {
-                    _materialRepository = null;
-                }
-                if (_brandRepository != null)
-                {
-                    _brandRepository = null;
+                    _designerRepository = null;
                 }
                 if (_accountRepository != null)
                 {
@@ -273,65 +158,25 @@ namespace UMT360.InteriorDesignWebApp.Repository.Core
                 {
                     _categoryRepository = null;
                 }
-                if (_cityRepository != null)
+                if (_styleRepository != null)
                 {
-                    _cityRepository = null;
-                }
-                if (_countryRepository != null)
-                {
-                    _countryRepository = null;
-                }
-                if (_countyRepository != null)
-                {
-                    _countyRepository = null;
-                }
-                if (_currencyRepository != null)
-                {
-                    _currencyRepository = null;
-                }
-                if (_orderProductRepository != null)
-                {
-                    _orderProductRepository = null;
-                }
-                if (_orderRepository != null)
-                {
-                    _orderRepository = null;
-                }
-                if (_paymentOptionRepository != null)
-                {
-                    _paymentOptionRepository = null;
-                }
-                if (_personRepository != null)
-                {
-                    _personRepository = null;
+                    _styleRepository = null;
                 }
                 if (_photoRepository != null)
                 {
                     _photoRepository = null;
                 }
-                if (_productColorRepository != null)
+                if (_designerDesignRepository != null)
                 {
-                    _productColorRepository = null;
+                    _designerDesignRepository = null;
                 }
-                if (_productMaterialRepository != null)
+                if (_designPhotoRepository != null)
                 {
-                    _productMaterialRepository = null;
+                    _designPhotoRepository = null;
                 }
-                if (_productPhotoRepository != null)
+                if (_designerPhotoRepository != null)
                 {
-                    _productPhotoRepository = null;
-                }
-                if (_productPromotionRepository != null)
-                {
-                    _productPromotionRepository = null;
-                }
-                if (_productRepository != null)
-                {
-                    _productRepository = null;
-                }
-                if (_promotionRepository != null)
-                {
-                    _promotionRepository = null;
+                    _designerPhotoRepository = null;
                 }
                 if (_roleRepository != null)
                 {

@@ -72,11 +72,11 @@ namespace UMT360.InteriorDesignWebApp
                 businessContext.MaterialBusiness.Delete(material3.Id);
                 
                 Console.WriteLine("---------------------Brand Repository TEST----------------------------\n");           
-                Brand brand = new Brand();
+                Designer brand = new Designer();
                 Guid id2 = Guid.NewGuid();
                 brand.Id = id2;
                 brand.Name = "TestBrand";
-                Brand brand1 = new Brand() { Id = id2, Name = "TestBrand1" };
+                Designer brand1 = new Designer() { Id = id2, Name = "TestBrand1" };
 
                 Console.WriteLine("---------Insert------------");
                 businessContext.BrandBusiness.Insert(brand);
@@ -91,12 +91,12 @@ namespace UMT360.InteriorDesignWebApp
                 ShowBrands(businessContext);
 
                 Console.WriteLine("---------GetById------------");
-                Brand brand2 = new Brand() { Id = id2, Name = "TestBrand2" };
+                Designer brand2 = new Designer() { Id = id2, Name = "TestBrand2" };
                 businessContext.BrandBusiness.Insert(brand2);
                 ShowBrands(businessContext);
 
                 Console.WriteLine("-------------------------------------------------");
-                Brand brand3 = businessContext.BrandBusiness.GetById(brand2.Id);
+                Designer brand3 = businessContext.BrandBusiness.GetById(brand2.Id);
                 Console.WriteLine("{0}  {1}", brand3.Id, brand3.Name);
                 businessContext.BrandBusiness.Delete(brand3.Id);
 
@@ -137,8 +137,8 @@ namespace UMT360.InteriorDesignWebApp
         
         public static void ShowBrands(BusinessContext businessContext)
         {
-            List<Brand> brands = businessContext.BrandBusiness.ReadAll();
-            foreach (Brand brand in brands)
+            List<Designer> brands = businessContext.BrandBusiness.ReadAll();
+            foreach (Designer brand in brands)
             {
                 Console.WriteLine("{0} ---- {1}", brand.Id, brand.Name);
             }

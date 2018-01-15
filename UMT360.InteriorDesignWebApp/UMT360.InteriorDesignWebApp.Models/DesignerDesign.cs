@@ -2,11 +2,11 @@
 
 namespace UMT360.InteriorDesignWebApp.Models
 {
-    public class Photo
+    public class DesignerDesign
     {
         #region Properties
-        public Guid Id { set; get; }
-        public byte[] Image { set; get; }
+        public Guid DesignerId { set; get; }
+        public Guid DesignId { set; get; }
         #endregion
     }
 }

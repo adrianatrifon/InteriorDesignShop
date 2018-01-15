@@ -1,6 +1,5 @@
 ﻿using System;
 
-
 namespace UMT360.InteriorDesignWebApp.Models
 {
     public class Account

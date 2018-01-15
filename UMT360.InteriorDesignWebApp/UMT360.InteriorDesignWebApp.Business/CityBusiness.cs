@@ -8,17 +8,17 @@ namespace UMT360.InteriorDesignWebApp.Business
     public class CityBusiness
     {
         #region Methods
-        public List<City> ReadAll()
+        public List<Style> ReadAll()
         {
             return BusinessContext.Current.RepositoryContext.CityRepository.ReadAll();
         }
 
-        public void Insert(City city)
+        public void Insert(Style city)
         {
             BusinessContext.Current.RepositoryContext.CityRepository.Insert(city);
         }
 
-        public void Update(City city)
+        public void Update(Style city)
         {
             BusinessContext.Current.RepositoryContext.CityRepository.Update(city);
         }
@@ -28,7 +28,7 @@ namespace UMT360.InteriorDesignWebApp.Business
             BusinessContext.Current.RepositoryContext.CityRepository.Delete(cityId);
         }
 
-        public City GetById(Guid cityId)
+        public Style GetById(Guid cityId)
         {
             return BusinessContext.Current.RepositoryContext.CityRepository.GetById(cityId);
         }

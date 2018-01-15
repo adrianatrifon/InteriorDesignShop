@@ -8,17 +8,17 @@ namespace UMT360.InteriorDesignWebApp.Business
     public class BrandBusiness
     {
         #region Methods
-        public List<Brand> ReadAll()
+        public List<Designer> ReadAll()
         {
             return BusinessContext.Current.RepositoryContext.BrandRepository.ReadAll();
         }
 
-        public void Insert(Brand brand)
+        public void Insert(Designer brand)
         {
             BusinessContext.Current.RepositoryContext.BrandRepository.Insert(brand);
         }
 
-        public void Update(Brand brand)
+        public void Update(Designer brand)
         {
             BusinessContext.Current.RepositoryContext.BrandRepository.Update(brand);
         }
@@ -28,7 +28,7 @@ namespace UMT360.InteriorDesignWebApp.Business
             BusinessContext.Current.RepositoryContext.BrandRepository.Delete(brandId);
         }
 
-        public Brand GetById(Guid brandId)
+        public Designer GetById(Guid brandId)
         {
             return BusinessContext.Current.RepositoryContext.BrandRepository.GetById(brandId);
         }

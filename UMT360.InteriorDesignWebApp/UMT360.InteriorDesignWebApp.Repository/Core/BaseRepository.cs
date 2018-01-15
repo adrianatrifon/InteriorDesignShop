@@ -2,10 +2,6 @@
 using System.Collections.Generic;
 using System.Configuration;
 using System.Data.SqlClient;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using UMT360.InteriorDesignWebApp.Models;
 
 namespace UMT360.InteriorDesignWebApp.Repository.Core
 {
