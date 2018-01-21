@@ -41,26 +41,16 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AccountBusiness.cs" />
-    <Compile Include="BrandBusiness.cs" />
+    <Compile Include="DesignerBusiness.cs" />
     <Compile Include="CategoryBusiness.cs" />
-    <Compile Include="CityBusiness.cs" />
-    <Compile Include="ColorBusiness.cs" />
+    <Compile Include="DesignViewBusiness.cs" />
+    <Compile Include="StyleBusiness.cs" />
     <Compile Include="Core\BusinessContext.cs" />
-    <Compile Include="CountryBusiness.cs" />
-    <Compile Include="CountyBusiness.cs" />
-    <Compile Include="CurrencyBusiness.cs" />
-    <Compile Include="MaterialBusiness.cs" />
-    <Compile Include="OrderBusiness.cs" />
-    <Compile Include="OrderProductBusiness.cs" />
-    <Compile Include="PaymentOptionBusiness.cs" />
-    <Compile Include="PersonBusiness.cs" />
+    <Compile Include="DesignerDesignBusiness.cs" />
     <Compile Include="PhotoBusiness.cs" />
-    <Compile Include="ProductBusiness.cs" />
-    <Compile Include="ProductColorBusiness.cs" />
-    <Compile Include="ProductMaterialBusiness.cs" />
-    <Compile Include="ProductPhotoBusiness.cs" />
-    <Compile Include="ProductPromotionBusiness.cs" />
-    <Compile Include="PromotionBusiness.cs" />
+    <Compile Include="DesignerPhotoBusiness.cs" />
+    <Compile Include="DesignPhotoBusiness.cs" />
+    <Compile Include="DesignBusiness.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RoleBusiness.cs" />
   </ItemGroup>

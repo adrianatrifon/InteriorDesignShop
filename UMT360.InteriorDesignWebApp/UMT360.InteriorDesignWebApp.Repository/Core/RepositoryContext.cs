@@ -18,6 +18,7 @@ namespace UMT360.InteriorDesignWebApp.Repository.Core
         private IPhotoRepository _photoRepository;
         private IRoleRepository _roleRepository;
         private IStyleRepository _styleRepository;
+        private IDesignViewRepository _designViewRepository;
         #endregion
 
         #region Constructors
@@ -46,6 +47,15 @@ namespace UMT360.InteriorDesignWebApp.Repository.Core
                 if (_designRepository == null)
                     _designRepository = new DesignRepository();
                 return _designRepository;
+            }
+        }
+        public IDesignViewRepository DesignViewRepository
+        {
+            get
+            {
+                if (_designViewRepository == null)
+                    _designViewRepository = new DesignViewRepository();
+                return _designViewRepository;
             }
         }
         public IDesignerRepository DesignerRepository
@@ -145,6 +155,10 @@ namespace UMT360.InteriorDesignWebApp.Repository.Core
                 if (_designRepository != null)
                 {
                     _designRepository = null;
+                }
+                if (_designViewRepository != null)
+                {
+                    _designViewRepository = null;
                 }
                 if (_designerRepository != null)
                 {

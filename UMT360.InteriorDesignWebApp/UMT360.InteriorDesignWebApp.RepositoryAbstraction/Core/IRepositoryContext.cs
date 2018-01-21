@@ -14,5 +14,6 @@ namespace UMT360.InteriorDesignWebApp.RepositoryAbstraction.Core
         IDesignerPhotoRepository DesignerPhotoRepository { get; }
         IDesignerDesignRepository DesignerDesignRepository { get; }
         IRoleRepository RoleRepository { get; }
+        IDesignViewRepository DesignViewRepository { get; }
     }
 }

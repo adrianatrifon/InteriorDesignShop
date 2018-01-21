@@ -1,210 +1,58 @@
-﻿USE InteriorDesignShopDB
-/*
-DECLARE @Photo uniqueidentifier  
-SET @Photo= NEWID()
-INSERT INTO Photos ([PhotoID],[Image]) 
-SELECT @Photo,BulkColumn 
-FROM Openrowset( Bulk 'C:\Users\Adriana\source\repos\imagini\Pat-Viena-800x600.jpg', Single_Blob) AS ProductImage
-*/
+﻿USE HomeDesignDB
 
-DECLARE @Color uniqueidentifier  
-SET @Color = NEWID()
-INSERT INTO Colors ([ColorID],[Name]) VALUES (@Color,'Maro');
-
-DECLARE @Material uniqueidentifier  
-SET @Material = NEWID()
-INSERT INTO Materials([MaterialID],[Name]) VALUES (@Material,'wood');
-
-DECLARE @Brand uniqueidentifier  
-SET @Brand = NEWID()
-INSERT INTO Brands ([BrandID],[Name]) VALUES (@Brand,'Kalatzerka');
-
-DECLARE @ParentCategory uniqueidentifier  
-SET @ParentCategory= NEWID()
-INSERT INTO Categories ([CategoryID],[Name],[ParentCategoryID]) VALUES (@ParentCategory,'Bedroom',NULL);
-
-DECLARE @SubCategory uniqueidentifier  
-SET @SubCategory= NEWID()
-
-INSERT INTO Categories ([CategoryID],[Name],[ParentCategoryID]) VALUES (@SubCategory,'Beds',@ParentCategory);
-
-DECLARE @Currency uniqueidentifier
-SET @Currency=NEWID()
-INSERT INTO Currencies([CurrencyID],[Currency]) VALUES (@Currency,'RON');
-
-INSERT INTO Currencies([CurrencyID],[Currency]) VALUES (NEWID(),'EURO');
-INSERT INTO Currencies([CurrencyID],[Currency]) VALUES (NEWID(),'USD');
+DECLARE @DesignId uniqueidentifier  
+DECLARE @CategoryId uniqueidentifier
+DECLARE @StyleId uniqueidentifier
+DECLARE @DesignerId uniqueidentifier
+DECLARE @PhotoId uniqueidentifier
 
 
-DECLARE @Product uniqueidentifier  
-SET @Product = NEWID()
-INSERT INTO Products([ProductID],[Name],[Price],[CurrencyID],[Stock],[Dimensions],[Weight],[Description],[Guarantee],[BrandID],[CategoryID]) 
-VALUES (@Product,'Pat Piele Grandiose',500,@Currency,25,'lungime 200 cm/latime 180 cm','20 Kg',NULL,'5 ani',@Brand,@SubCategory);
-INSERT INTO ProductsColors([ProductID],[ColorID]) VALUES (@Product,@Color);
+SET @StyleId=NEWID()
+EXECUTE dbo.Styles_Create @StyleID=@StyleId,@StyleName='Modern'
+--EXECUTE dbo.Styles_Delete @StyleID='C108982A-2101-4145-84B1-CE733D7A245F'
 
---INSERT INTO ProductsPhotos([ProductID],[PhotoID]) VALUES(@Product,@Photo);
-INSERT INTO ProductsMaterials([ProductID],[MaterialID]) VALUES(@Product,@Material);
-
-/*
-SET @Photo= NEWID()
-INSERT INTO Photos ([PhotoID],[Image]) 
-SELECT @Photo,BulkColumn 
-FROM Openrowset( Bulk 'C:\Users\Adriana\source\repos\imagini\pat.jpg', Single_Blob) AS ProductImage
-*/
-
-SET @Color = NEWID()
-INSERT INTO Colors ([ColorID],[Name]) VALUES (@Color,'Gri'); 
-SET @Material = NEWID()
-INSERT INTO Materials([MaterialID],[Name]) VALUES (@Material,'lether');
-SET @Brand = NEWID()
-INSERT INTO Brands ([BrandID],[Name]) VALUES (@Brand,'Karup');
-SET @Product = NEWID()
-INSERT INTO Products([ProductID],[Name],[Price],[CurrencyID],[Stock],[Dimensions],[Weight],[Description],[Guarantee],[BrandID],[CategoryID]) 
-VALUES (@Product,'Pat Piele Inspiration',450,@Currency,30,'lungime 209 cm/latime 98 cm/inaltime 78 cm','22.6 Kg',NULL,'5 ani',@Brand,@SubCategory);
-INSERT INTO ProductsColors([ProductID],[ColorID]) VALUES (@Product,@Color);
-
---INSERT INTO ProductsPhotos([ProductID],[PhotoID]) VALUES(@Product,@Photo);
-INSERT INTO ProductsMaterials([ProductID],[MaterialID]) VALUES(@Product,@Material);
+SET @CategoryId=NEWID()
+EXECUTE dbo.Categories_Create @CategoryID=@CategoryId, @ParentCategory=NULL,@CategoryName='Bathroom'
+--EXECUTE dbo.Categories_Delete @CAtegoryID='224329B5-9137-42F0-ACEF-9F30991CF1C3'
+SET @DesignId = NEWID()
+EXECUTE dbo.Designs_Create @DesignID=@DesignId, @DesignName='Bathroom1', @DesignDescription='A bathroom decorated with black exudes elegance and refinement. This Outlet tile and tile design project is complemented by Mallorca''s bathroom furniture. The shower cabin in Outlet keeps the contemporary note of the decor.',@CategoryID=@CategoryId,@StyleID=@StyleId
+--EXECUTE dbo.Designs_Delete @DesignID='224329B5-9137-42F0-ACEF-9F30991CF1C3'
+SET @DesignId = NEWID()
+EXECUTE dbo.Designs_Create @DesignID=@DesignId, @DesignName='Bathroom2', @DesignDescription='A modern-style bathroom with a natural color palette. A decorative tile from the Outlet Tile and Tile was chosen to suit the shower area and the washroom. The gray porcelain sandstone used for the floor is successfully combined with the sand-colored tile used for the other three walls.',@CategoryID=@CategoryId,@StyleID=@StyleId
+SET @DesignId = NEWID()
+EXECUTE dbo.Designs_Create @DesignID=@DesignId, @DesignName='Bathroom3', @DesignDescription='The entire concept of this modern apartment in Eforie Nord has gone from the idea of composing an open, airy, sea-vibratory space. We chose a neutral but warm chromatic, with geometric textile accents, painted metal and lighting that highlight the furniture. The result is a relaxing holiday atmosphere that leads to \"home\"',@CategoryID=@CategoryId,@StyleID=@StyleId
+SET @DesignId = NEWID()
+EXECUTE dbo.Designs_Create @DesignID=@DesignId, @DesignName='Bathroom4', @DesignDescription='Individual project for a villa in Cosmopolis. For the matrimonial bath, Mirage Dark ceramic tile collection from Venis Porcelanosa was proposed, along with the Bombay Silver mosaic and the Tuscan Stone gritstone.s.',@CategoryID=@CategoryId,@StyleID=@StyleId
 
 
 
+SET @CategoryId=NEWID()
+EXECUTE dbo.Categories_Create @CategoryID=@CategoryId, @ParentCategory=NULL,@CategoryName='Bedroom'
+SET @DesignId = NEWID()
+EXECUTE dbo.Designs_Create @DesignID=@DesignId, @DesignName='Bedroom1', @DesignDescription='A bedroom in restful shades, which uses natural materials and finishes to create a pleasant atmosphere.',@CategoryID=@CategoryId,@StyleID=@StyleId
+SET @DesignId = NEWID()
+EXECUTE dbo.Designs_Create @DesignID=@DesignId, @DesignName='Bedroom2', @DesignDescription='For this bedroom was chosen a simple and warm theme, with white and purple, uniquely decorated by the abstract paintings that offer the continuity of the two colors. The entire décor of the night area is worth the black curtains.',@CategoryID=@CategoryId,@StyleID=@StyleId
+SET @DesignId = NEWID()
+EXECUTE dbo.Designs_Create @DesignID=@DesignId, @DesignName='Bedroom3', @DesignDescription='For customizing the bedroom, we choose decorations with geometric, floral or marine themes. A modern bedroom that is essentially characterized by Formmat furniture, personalized, with simple and low shapes, with delicate materials and a neutral chromatic gamut, animated by small intense color accents.',@CategoryID=@CategoryId,@StyleID=@StyleId
+SET @DesignId = NEWID()
+EXECUTE dbo.Designs_Create @DesignID=@DesignId, @DesignName='Bedroom4', @DesignDescription='A modern bedroom with Formmat furniture, bed and bedding from Samoa, pallet bed made of oak veneer.',@CategoryID=@CategoryId,@StyleID=@StyleId
 
+SET @CategoryId=NEWID()
+EXECUTE dbo.Categories_Create @CategoryID=@CategoryId, @ParentCategory=NULL,@CategoryName='Kitchen'
+SET @DesignId = NEWID()
+EXECUTE dbo.Designs_Create @DesignID=@DesignId, @DesignName='Kitchen1', @DesignDescription='In fashion designer Jenni Kayne’s Los Angeles home, the family can sit along a central island. The vintage French pendant fixtures are from Obsolete, and the stools are by DM/DM.',@CategoryID=@CategoryId,@StyleID=@StyleId
+SET @DesignId = NEWID()
+EXECUTE dbo.Designs_Create @DesignID=@DesignId, @DesignName='Kitchen2', @DesignDescription='The mahogany-veneer cabinetry and laminate counters are original to this Malibu, California, house, restored by BoydDesign. The eat-in kitchen allows the whole family to be together while dinner is being prepared.',@CategoryID=@CategoryId,@StyleID=@StyleId
+SET @DesignId = NEWID()
+EXECUTE dbo.Designs_Create @DesignID=@DesignId, @DesignName='Kitchen3', @DesignDescription='A Takashi Murakami work brightens the breakfast area of a Manhattan kitchen designed by David Kleinberg. The space has stainless-steel-and-milk-glass cabinetry and Calacatta gold marble counters and backsplashes. The pendant lights are by Poul Henningsen, and the sink fittings are by KWC.',@CategoryID=@CategoryId,@StyleID=@StyleId
 
-INSERT INTO Colors ([ColorID],[Name]) VALUES (NEWID(),'Verde');
-INSERT INTO Colors ([ColorID],[Name]) VALUES (NEWID(),'Albastru');
-INSERT INTO Colors ([ColorID],[Name]) VALUES (NEWID(),'Galben');
-INSERT INTO Colors ([ColorID],[Name]) VALUES (NEWID(),'Maro');
-INSERT INTO Colors ([ColorID],[Name]) VALUES (NEWID(),'Portocaliu');
-INSERT INTO Colors ([ColorID],[Name]) VALUES (NEWID(),'Crem');
-INSERT INTO Colors ([ColorID],[Name]) VALUES (NEWID(),'Visiniu');
-INSERT INTO Colors ([ColorID],[Name]) VALUES (NEWID(),'Alb');
-
-
-
-
-INSERT INTO Materials([MaterialID],[Name]) VALUES (NEWID(),'glass');
-INSERT INTO Materials([MaterialID],[Name]) VALUES (NEWID(),'plywood');
-INSERT INTO Materials([MaterialID],[Name]) VALUES (NEWID(),'plastic');
-INSERT INTO Materials([MaterialID],[Name]) VALUES (NEWID(),'papier mache');
-INSERT INTO Materials([MaterialID],[Name]) VALUES (NEWID(),'painted steel');
-INSERT INTO Materials([MaterialID],[Name]) VALUES (NEWID(),'polyester');
-
-
-
-INSERT INTO Brands ([BrandID],[Name]) VALUES (NEWID(),'Ixia');
-INSERT INTO Brands ([BrandID],[Name]) VALUES (NEWID(),'CIMC');
-INSERT INTO Brands ([BrandID],[Name]) VALUES (NEWID(),'Pierre Cardin');
-INSERT INTO Brands ([BrandID],[Name]) VALUES (NEWID(),'Victoria');
-INSERT INTO Brands ([BrandID],[Name]) VALUES (NEWID(),'Santiago');
-INSERT INTO Brands ([BrandID],[Name]) VALUES (NEWID(),'Tomasucci');
-INSERT INTO Brands ([BrandID],[Name]) VALUES (NEWID(),'Axentia');
-INSERT INTO Brands ([BrandID],[Name]) VALUES (NEWID(),' B Home');
-
-
-
-INSERT INTO Categories ([CategoryID],[Name],[ParentCategoryID]) VALUES (NEWID(),'Library',NULL);
-INSERT INTO Categories ([CategoryID],[Name],[ParentCategoryID]) VALUES (NEWID(),'Livingroom',NULL);
-INSERT INTO Categories ([CategoryID],[Name],[ParentCategoryID]) VALUES (NEWID(),'Bathroom',NULL);
-INSERT INTO Categories ([CategoryID],[Name],[ParentCategoryID]) VALUES (NEWID(),'Kitchen',NULL);
-INSERT INTO Categories ([CategoryID],[Name],[ParentCategoryID]) VALUES (NEWID(),'Office',NULL);
-INSERT INTO Categories ([CategoryID],[Name],[ParentCategoryID]) VALUES (NEWID(),'Dressing',NULL);
-
-
-
-
-
-
-DECLARE @Country uniqueidentifier  
-SET @Country = NEWID()
-INSERT INTO Countries([CountryID],[Name]) VALUES (@Country,'Romania');
-
-DECLARE @County uniqueidentifier  
-SET @County = NEWID()
-INSERT INTO Counties ([CountyID],[Name],[CountryID]) VALUES (@County,'Cluj',@Country);
-
-DECLARE @City uniqueidentifier  
-SET @City = NEWID()
-INSERT INTO Cities([CityID],[Name],[CountyID]) VALUES (@City,'Cluj Napoca',@County);
-
-DECLARE @Role uniqueidentifier  
-SET @Role = NEWID()
-INSERT INTO Roles([RoleID],[Description]) VALUES (@Role,'Administrator');
-
-DECLARE @Account uniqueidentifier  
-SET @Account= NEWID()
-INSERT INTO Accounts([AccountID],[EmailAddress],[Password],[PhotoID],[RoleID]) 
-	VALUES (@Account,'adrianatrifon@yahoo.com','test1',NULL,@Role);
-
-DECLARE @Person uniqueidentifier  
-SET @Person= NEWID()
-INSERT INTO Persons([PersonID],[FirstName],[LastName],[Street],[Number],[BirthDay],[PhoneNumber],[CityID],[AccountID]) 
-VALUES (@Person,'Adriana','Trifon','Str. Izvorului', 'Nr.49','1995-08-28','0747060741',@City,@Account);
-
-
-SET @County = NEWID()
-INSERT INTO Counties ([CountyID],[Name],[CountryID]) VALUES (@County,'Alba',@Country);
-SET @City = NEWID()
-INSERT INTO Cities([CityID],[Name],[CountyID]) VALUES (@City,'Alba Iulia',@County);
-DECLARE @Role1 uniqueidentifier
-SET @Role1 = NEWID()
-INSERT INTO Roles([RoleID],[Description]) VALUES (@Role1,'User');
-SET @Account= NEWID()
-INSERT INTO Accounts([AccountID],[EmailAddress],[Password],[PhotoID],[RoleID]) 
-	VALUES (@Account,'alexserban@yahoo.com','test2',NULL,@Role1);
-SET @Person= NEWID()
-INSERT INTO Persons([PersonID],[FirstName],[LastName],[Street],[Number],[BirthDay],[PhoneNumber],[CityID],[AccountID]) 
-VALUES (@Person,'Alexandru','Serban','Str. Bucium', 'Nr.28','1992-01-26','0728883043',@City,@Account);
-
-SET @Person=NEWID();
-SET @Account= NEWID()
-INSERT INTO Accounts([AccountID],[EmailAddress],[Password],[PhotoID],[RoleID]) 
-	VALUES (@Account,'ana1234n@yahoo.com','test3',NULL,@Role1);
-INSERT INTO Persons([PersonID],[FirstName],[LastName],[Street],[Number],[BirthDay],[PhoneNumber],[CityID],[AccountID]) 
-VALUES (@Person,'Ana Maria','Lazar','Str. Lalelelor', 'Bl. P1A','1994-04-14','0745591021',@City,@Account);
-
-SET @Person=NEWID();
-SET @Account= NEWID()
-INSERT INTO Accounts([AccountID],[EmailAddress],[Password],[PhotoID],[RoleID]) 
-	VALUES (@Account,'miha_28@yahoo.com','test4',NULL,@Role1);
-INSERT INTO Persons([PersonID],[FirstName],[LastName],[Street],[Number],[BirthDay],[PhoneNumber],[CityID],[AccountID]) 
-VALUES (@Person,'Mihaela','Varga','Str. Macesului', 'Bl. 3B','1994-07-14','0745391021',@City,@Account);
-
-DECLARE @Pay uniqueidentifier  
-SET @Pay= NEWID()
-INSERT INTO PaymentOptions([PaymentOptionID],[Name]) VALUES (@Pay,'On delivery');
-
-DECLARE @Pay1 uniqueidentifier  
-SET @Pay1= NEWID()
-INSERT INTO PaymentOptions([PaymentOptionID],[Name]) VALUES (@Pay1,'Credit Card');
-
-
-DECLARE @Order uniqueidentifier  
-SET @Order= NEWID()
-
-
-INSERT INTO Orders([OrderID],[Date],[DeliveryAddress],[PersonID],[PaymentOptionID]) 
-	VALUES (@Order,'2017-11-05','adfbgndhmrjjrdsa',@Person,@Pay);
-INSERT INTO OrdersProducts([OrderID],[ProductID],[Quantity]) 
-	VALUES (@Order,@Product,1);
-
-INSERT INTO Counties ([CountyID],[Name],[CountryID]) VALUES (NEWID(),'Constanta',@Country);
-INSERT INTO Counties ([CountyID],[Name],[CountryID]) VALUES (NEWID(),'Satu Mare',@Country);
-INSERT INTO Counties ([CountyID],[Name],[CountryID]) VALUES (NEWID(),'Maramures',@Country);
-INSERT INTO Counties ([CountyID],[Name],[CountryID]) VALUES (NEWID(),'Calarasi',@Country);
-INSERT INTO Counties ([CountyID],[Name],[CountryID]) VALUES (NEWID(),'Arad',@Country);
-INSERT INTO Counties ([CountyID],[Name],[CountryID]) VALUES (NEWID(),'Bacau',@Country);
-INSERT INTO Counties ([CountyID],[Name],[CountryID]) VALUES (NEWID(),'Bihor',@Country);
-
-INSERT INTO Countries([CountryID],[Name]) VALUES (NEWID(),'Italy');
-INSERT INTO Countries([CountryID],[Name]) VALUES (NEWID(),'Spain');
-INSERT INTO Countries([CountryID],[Name]) VALUES (NEWID(),'Hungary');
-INSERT INTO Countries([CountryID],[Name]) VALUES (NEWID(),'Bulgaria');
-INSERT INTO Countries([CountryID],[Name]) VALUES (NEWID(),'Denmark');
-INSERT INTO Countries([CountryID],[Name]) VALUES (NEWID(),'Germany');
-
-INSERT INTO Promotions([PromotionID],[Name],[StartDate],[EndDate],[Description]) 
-	VALUES (NEWID(),'Home Decorations for Christmas','2017-05-11','2017-05-13','xghcfhjkfhgf');
-
-
-
-
+SET @CategoryId=NEWID()
+EXECUTE dbo.Categories_Create @CategoryID=@CategoryId, @ParentCategory=NULL,@CategoryName='Livingroom'
+SET @DesignId = NEWID()
+EXECUTE dbo.Designs_Create @DesignID=@DesignId, @DesignName='Livingroom1', @DesignDescription='A transitional living room features a grand marble fireplace, high ceilings and a staircase. A white sectional and a pair of ottomans that can double as seating provide room for entertaining.',@CategoryID=@CategoryId,@StyleID=@StyleId
+SET @DesignId = NEWID()
+EXECUTE dbo.Designs_Create @DesignID=@DesignId, @DesignName='Livingroom2', @DesignDescription='In designing this space the designer has managed to combine delicate yet modern materials and shades, making the most of the natural light abundant. The chromatic line of the entire arrangement is the perfect background for small interventions that personalize the home.',@CategoryID=@CategoryId,@StyleID=@StyleId
+SET @DesignId = NEWID()
+EXECUTE dbo.Designs_Create @DesignID=@DesignId, @DesignName='Livingroom3', @DesignDescription='A contemporary-style living and dining room featuring personalized items: wall cladding and decorative panels on the ceiling. Vegetable elements bring a refreshing note of space. In the dining area, Wall & Deco wallpaper is noticeable.',@CategoryID=@CategoryId,@StyleID=@StyleId
+SET @DesignId = NEWID()
+EXECUTE dbo.Designs_Create @DesignID=@DesignId, @DesignName='Livingroom4', @DesignDescription='A bedroom in restful shades, which uses natural materials and finishes to create a pleasant atmosphere.',@CategoryID=@CategoryId,@StyleID=@StyleId

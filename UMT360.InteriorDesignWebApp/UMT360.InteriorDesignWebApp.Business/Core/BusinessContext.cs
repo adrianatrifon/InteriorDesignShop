@@ -9,27 +9,17 @@ namespace UMT360.InteriorDesignWebApp.Business.Core
         #region Members
         private static BusinessContext _instance;
         private IRepositoryContext _repositoryContext;
-        private ColorBusiness _colorBusiness;
-        private MaterialBusiness _materialBusiness;
         private AccountBusiness _accountBusiness;
-        private BrandBusiness _brandBusiness;
+        private DesignerBusiness _designerBusiness;
         private CategoryBusiness _categoryBusiness;
-        private CityBusiness _cityBusiness;
-        private CountryBusiness _countryBusiness;
-        private CountyBusiness _countyBusiness;
-        private CurrencyBusiness _currencyBusiness;
-        private OrderProductBusiness _orderProductBusiness;
-        private OrderBusiness _orderBusiness;
-        private PaymentOptionBusiness _paymentOptionBusiness;
-        private PersonBusiness _personBusiness;
+        private StyleBusiness _styleBusiness;
+        private DesignerDesignBusiness _designerDesignBusiness;
         private PhotoBusiness _photoBusiness;
-        private ProductColorBusiness _productColorBusiness;
-        private ProductMaterialBusiness _productMaterialBusiness;
-        private ProductPhotoBusiness _productPhotoBusiness;
-        private ProductPromotionBusiness _productPromotionBusiness;
-        private ProductBusiness _productBusiness;
-        private PromotionBusiness _promotionBusiness;
+        private DesignerPhotoBusiness _designerPhotoBusiness;
+        private DesignPhotoBusiness _designPhotoBusiness;
+        private DesignBusiness _designBusiness;
         private RoleBusiness _roleBusiness;
+        private DesignViewBusiness _designViewBusiness;
         #endregion
 
         #region Constructors
@@ -52,31 +42,22 @@ namespace UMT360.InteriorDesignWebApp.Business.Core
                 return _instance;
             }
         }
-        public ColorBusiness ColorBusiness
+        public DesignerBusiness DesignerBusiness
         {
             get
             {
-                if (_colorBusiness == null)
-                    _colorBusiness = new ColorBusiness();
-                return _colorBusiness;
+                if (_designerBusiness == null)
+                    _designerBusiness = new DesignerBusiness();
+                return _designerBusiness;
             }
         }
-        public MaterialBusiness MaterialBusiness
+        public DesignViewBusiness DesignViewBusiness
         {
             get
             {
-                if (_materialBusiness == null)
-                    _materialBusiness = new MaterialBusiness();
-                return _materialBusiness;
-            }
-        }
-        public BrandBusiness BrandBusiness
-        {
-            get
-            {
-                if (_brandBusiness == null)
-                    _brandBusiness = new BrandBusiness();
-                return _brandBusiness;
+                if (_designViewBusiness == null)
+                    _designViewBusiness = new DesignViewBusiness();
+                return _designViewBusiness;
             }
         }
         public AccountBusiness AccountBusiness
@@ -97,77 +78,22 @@ namespace UMT360.InteriorDesignWebApp.Business.Core
                 return _categoryBusiness;
             }
         }
-        public CityBusiness CityBusiness
+        public StyleBusiness StyleBusiness
         {
             get
             {
-                if (_cityBusiness == null)
-                    _cityBusiness = new CityBusiness();
-                return _cityBusiness;
+                if (_styleBusiness == null)
+                    _styleBusiness = new StyleBusiness();
+                return _styleBusiness;
             }
         }
-        public CountryBusiness CountryBusiness
+        public DesignerDesignBusiness DesignerDesignBusiness
         {
             get
             {
-                if (_countryBusiness == null)
-                    _countryBusiness = new CountryBusiness();
-                return _countryBusiness;
-            }
-        }
-        public CountyBusiness CountyBusiness
-        {
-            get
-            {
-                if (_countyBusiness == null)
-                    _countyBusiness = new CountyBusiness();
-                return _countyBusiness;
-            }
-        }
-
-        public CurrencyBusiness CurrencyBusiness
-        {
-            get
-            {
-                if (_currencyBusiness == null)
-                    _currencyBusiness = new CurrencyBusiness();
-                return _currencyBusiness;
-            }
-        }
-        public OrderProductBusiness OrderProductBusiness
-        {
-            get
-            {
-                if (_orderProductBusiness == null)
-                    _orderProductBusiness = new OrderProductBusiness();
-                return _orderProductBusiness;
-            }
-        }
-        public OrderBusiness OrderBusiness
-        {
-            get
-            {
-                if (_orderBusiness == null)
-                    _orderBusiness = new OrderBusiness();
-                return _orderBusiness;
-            }
-        }
-        public PaymentOptionBusiness PaymentOptionBusiness
-        {
-            get
-            {
-                if (_paymentOptionBusiness == null)
-                    _paymentOptionBusiness = new PaymentOptionBusiness();
-                return _paymentOptionBusiness;
-            }
-        }
-        public PersonBusiness PersonBusiness
-        {
-            get
-            {
-                if (_personBusiness == null)
-                    _personBusiness = new PersonBusiness();
-                return _personBusiness;
+                if (_designerDesignBusiness == null)
+                    _designerDesignBusiness = new DesignerDesignBusiness();
+                return _designerDesignBusiness;
             }
         }
         public PhotoBusiness PhotoBusiness
@@ -179,58 +105,31 @@ namespace UMT360.InteriorDesignWebApp.Business.Core
                 return _photoBusiness;
             }
         }
-        public ProductColorBusiness ProductColorBusiness
+        public DesignerPhotoBusiness DesignerPhotoBusiness
         {
             get
             {
-                if (_productColorBusiness == null)
-                    _productColorBusiness = new ProductColorBusiness();
-                return _productColorBusiness;
+                if (_designerPhotoBusiness == null)
+                    _designerPhotoBusiness = new DesignerPhotoBusiness();
+                return _designerPhotoBusiness;
             }
         }
-        public ProductMaterialBusiness ProductMaterialBusiness
+        public DesignPhotoBusiness DesignPhotoBusiness
         {
             get
             {
-                if (_productMaterialBusiness == null)
-                    _productMaterialBusiness = new ProductMaterialBusiness();
-                return _productMaterialBusiness;
+                if (_designPhotoBusiness == null)
+                    _designPhotoBusiness = new DesignPhotoBusiness();
+                return _designPhotoBusiness;
             }
         }
-        public ProductPhotoBusiness ProductPhotoBusiness
+        public DesignBusiness DesignBusiness
         {
             get
             {
-                if (_productPhotoBusiness == null)
-                    _productPhotoBusiness = new ProductPhotoBusiness();
-                return _productPhotoBusiness;
-            }
-        }
-        public ProductPromotionBusiness ProductPromotionBusiness
-        {
-            get
-            {
-                if (_productPromotionBusiness == null)
-                    _productPromotionBusiness = new ProductPromotionBusiness();
-                return _productPromotionBusiness;
-            }
-        }
-        public ProductBusiness ProductBusiness
-        {
-            get
-            {
-                if (_productBusiness == null)
-                    _productBusiness = new ProductBusiness();
-                return _productBusiness;
-            }
-        }
-        public PromotionBusiness PromotionBusiness
-        {
-            get
-            {
-                if (_promotionBusiness == null)
-                    _promotionBusiness = new PromotionBusiness();
-                return _promotionBusiness;
+                if (_designBusiness == null)
+                    _designBusiness = new DesignBusiness();
+                return _designBusiness;
             }
         }
         public RoleBusiness RoleBusiness
@@ -258,18 +157,14 @@ namespace UMT360.InteriorDesignWebApp.Business.Core
         private void Dispose(bool dispose)
         {
             if (dispose)
-            {
-                if (_colorBusiness != null)
+            {  
+                if (_designerBusiness != null)
                 {
-                    _colorBusiness = null;
+                    _designerBusiness = null;
                 }
-                if (_materialBusiness != null)
+                if (_designViewBusiness != null)
                 {
-                    _materialBusiness = null;
-                }
-                if (_brandBusiness != null)
-                {
-                    _brandBusiness = null;
+                    _designViewBusiness = null;
                 }
                 if (_accountBusiness != null)
                 {
@@ -279,65 +174,29 @@ namespace UMT360.InteriorDesignWebApp.Business.Core
                 {
                     _categoryBusiness = null;
                 }
-                if (_cityBusiness != null)
+                if (_styleBusiness != null)
                 {
-                    _cityBusiness = null;
+                    _styleBusiness = null;
                 }
-                if (_countryBusiness != null)
+                if (_designerDesignBusiness != null)
                 {
-                    _countryBusiness = null;
-                }
-                if (_countyBusiness != null)
-                {
-                    _countyBusiness = null;
-                }
-                if (_currencyBusiness != null)
-                {
-                    _currencyBusiness = null;
-                }
-                if (_orderProductBusiness != null)
-                {
-                    _orderProductBusiness = null;
-                }
-                if (_orderBusiness != null)
-                {
-                    _orderBusiness = null;
-                }
-                if (_paymentOptionBusiness != null)
-                {
-                    _paymentOptionBusiness = null;
-                }
-                if (_personBusiness != null)
-                {
-                    _personBusiness = null;
+                    _designerDesignBusiness = null;
                 }
                 if (_photoBusiness != null)
                 {
                     _photoBusiness = null;
                 }
-                if (_productColorBusiness != null)
+                if (_designerPhotoBusiness != null)
                 {
-                    _productColorBusiness = null;
+                    _designerPhotoBusiness = null;
                 }
-                if (_productMaterialBusiness != null)
+                if (_designPhotoBusiness != null)
                 {
-                    _productMaterialBusiness = null;
+                    _designPhotoBusiness = null;
                 }
-                if (_productPhotoBusiness != null)
+                if (_designBusiness != null)
                 {
-                    _productPhotoBusiness = null;
-                }
-                if (_productPromotionBusiness != null)
-                {
-                    _productPromotionBusiness = null;
-                }
-                if (_productBusiness != null)
-                {
-                    _productBusiness = null;
-                }
-                if (_promotionBusiness != null)
-                {
-                    _promotionBusiness = null;
+                    _designBusiness = null;
                 }
                 if (_roleBusiness != null)
                 {

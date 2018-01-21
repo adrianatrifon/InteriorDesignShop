@@ -43,6 +43,7 @@
     <Compile Include="Account.cs" />
     <Compile Include="Designer.cs" />
     <Compile Include="Category.cs" />
+    <Compile Include="DesignView.cs" />
     <Compile Include="Style.cs" />
     <Compile Include="DesignerDesign.cs" />
     <Compile Include="Photo.cs" />

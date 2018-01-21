@@ -44,6 +44,7 @@
     <Compile Include="IAccountRepository.cs" />
     <Compile Include="IDesignerRepository.cs" />
     <Compile Include="ICategoryRepository.cs" />
+    <Compile Include="IDesignViewRepository.cs" />
     <Compile Include="IStyleRepository.cs" />
     <Compile Include="IDesignRepository.cs" />
     <Compile Include="IPhotoRepository.cs" />

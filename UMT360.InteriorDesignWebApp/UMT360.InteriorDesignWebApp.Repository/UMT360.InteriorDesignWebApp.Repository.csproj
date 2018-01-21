@@ -44,6 +44,7 @@
     <Compile Include="AccountRepository.cs" />
     <Compile Include="DesignerRepository.cs" />
     <Compile Include="CategoryRepository.cs" />
+    <Compile Include="DesignViewRepository.cs" />
     <Compile Include="StyleRepository.cs" />
     <Compile Include="DesignRepository.cs" />
     <Compile Include="Core\BaseRepository.cs" />
