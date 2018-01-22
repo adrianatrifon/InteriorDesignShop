@@ -56,3 +56,96 @@ SET @DesignId = NEWID()
 EXECUTE dbo.Designs_Create @DesignID=@DesignId, @DesignName='Livingroom3', @DesignDescription='A contemporary-style living and dining room featuring personalized items: wall cladding and decorative panels on the ceiling. Vegetable elements bring a refreshing note of space. In the dining area, Wall & Deco wallpaper is noticeable.',@CategoryID=@CategoryId,@StyleID=@StyleId
 SET @DesignId = NEWID()
 EXECUTE dbo.Designs_Create @DesignID=@DesignId, @DesignName='Livingroom4', @DesignDescription='A bedroom in restful shades, which uses natural materials and finishes to create a pleasant atmosphere.',@CategoryID=@CategoryId,@StyleID=@StyleId
+
+
+DECLARE @Photo uniqueidentifier  
+
+SET @Photo= NEWID()
+INSERT INTO Photos ([PhotoID],[Image]) 
+SELECT @Photo,BulkColumn 
+FROM Openrowset( Bulk 'C:\Users\Adriana\source\repos\InteriorDesignShop\UMT360.InteriorDesignWebApp\UMT360.InteriorDesignWebApp.UI\Resources\bathroom\baie1.png', Single_Blob) AS Image
+EXECUTE dbo.DesignsPhotos_Create @DesignID='7A1D0A70-E325-46EA-AA16-DD37F830E638',@PhotoID=@Photo;
+
+SET @Photo= NEWID()
+INSERT INTO Photos ([PhotoID],[Image]) 
+SELECT @Photo,BulkColumn 
+FROM Openrowset( Bulk 'C:\Users\Adriana\source\repos\InteriorDesignShop\UMT360.InteriorDesignWebApp\UMT360.InteriorDesignWebApp.UI\Resources\bathroom\baie2.png', Single_Blob) AS Image
+EXECUTE dbo.DesignsPhotos_Create @DesignID='D0A21702-37B3-4D76-A96C-26DCFC9D9EDF',@PhotoID=@Photo;
+
+SET @Photo= NEWID()
+INSERT INTO Photos ([PhotoID],[Image]) 
+SELECT @Photo,BulkColumn 
+FROM Openrowset( Bulk 'C:\Users\Adriana\source\repos\InteriorDesignShop\UMT360.InteriorDesignWebApp\UMT360.InteriorDesignWebApp.UI\Resources\bathroom\baie3.png', Single_Blob) AS Image
+EXECUTE dbo.DesignsPhotos_Create @DesignID='9BA2A3D9-5B2B-4DAB-9DA7-01DCCB48F564',@PhotoID=@Photo;
+
+SET @Photo= NEWID()
+INSERT INTO Photos ([PhotoID],[Image]) 
+SELECT @Photo,BulkColumn 
+FROM Openrowset( Bulk 'C:\Users\Adriana\source\repos\InteriorDesignShop\UMT360.InteriorDesignWebApp\UMT360.InteriorDesignWebApp.UI\Resources\bathroom\baie4.png', Single_Blob) AS Image
+EXECUTE dbo.DesignsPhotos_Create @DesignID='8CA89DEB-E77C-4152-A495-F90373566942',@PhotoID=@Photo;
+
+SET @Photo= NEWID()
+INSERT INTO Photos ([PhotoID],[Image]) 
+SELECT @Photo,BulkColumn 
+FROM Openrowset( Bulk 'C:\Users\Adriana\source\repos\InteriorDesignShop\UMT360.InteriorDesignWebApp\UMT360.InteriorDesignWebApp.UI\Resources\bedroom\dor11.png', Single_Blob) AS Image
+EXECUTE dbo.DesignsPhotos_Create @DesignID='E9D0A61C-CB5F-49D3-A49F-0228EC860A52',@PhotoID=@Photo;
+
+SET @Photo= NEWID()
+INSERT INTO Photos ([PhotoID],[Image]) 
+SELECT @Photo,BulkColumn 
+FROM Openrowset( Bulk 'C:\Users\Adriana\source\repos\InteriorDesignShop\UMT360.InteriorDesignWebApp\UMT360.InteriorDesignWebApp.UI\Resources\bedroom\dor21.png', Single_Blob) AS Image
+EXECUTE dbo.DesignsPhotos_Create @DesignID='B484475F-D142-463B-B8F1-3723B906DAC3',@PhotoID=@Photo;
+
+SET @Photo= NEWID()
+INSERT INTO Photos ([PhotoID],[Image]) 
+SELECT @Photo,BulkColumn 
+FROM Openrowset( Bulk 'C:\Users\Adriana\source\repos\InteriorDesignShop\UMT360.InteriorDesignWebApp\UMT360.InteriorDesignWebApp.UI\Resources\bedroom\dor31.png', Single_Blob) AS Image
+EXECUTE dbo.DesignsPhotos_Create @DesignID='7F1178D0-10C6-4F0C-A404-7452635E3AA7',@PhotoID=@Photo;
+
+SET @Photo= NEWID()
+INSERT INTO Photos ([PhotoID],[Image]) 
+SELECT @Photo,BulkColumn 
+FROM Openrowset( Bulk 'C:\Users\Adriana\source\repos\InteriorDesignShop\UMT360.InteriorDesignWebApp\UMT360.InteriorDesignWebApp.UI\Resources\bedroom\dor41.png', Single_Blob) AS Image
+EXECUTE dbo.DesignsPhotos_Create @DesignID='FF5E0DED-CCC3-4903-8712-9A91588F5900',@PhotoID=@Photo;
+
+SET @Photo= NEWID()
+INSERT INTO Photos ([PhotoID],[Image]) 
+SELECT @Photo,BulkColumn 
+FROM Openrowset( Bulk 'C:\Users\Adriana\source\repos\InteriorDesignShop\UMT360.InteriorDesignWebApp\UMT360.InteriorDesignWebApp.UI\Resources\kitchen\kit1.png', Single_Blob) AS Image
+EXECUTE dbo.DesignsPhotos_Create @DesignID='91A50D67-A67A-47D8-B764-7FEC707A2A55',@PhotoID=@Photo;
+
+SET @Photo= NEWID()
+INSERT INTO Photos ([PhotoID],[Image]) 
+SELECT @Photo,BulkColumn 
+FROM Openrowset( Bulk 'C:\Users\Adriana\source\repos\InteriorDesignShop\UMT360.InteriorDesignWebApp\UMT360.InteriorDesignWebApp.UI\Resources\kitchen\kit2.png', Single_Blob) AS Image
+EXECUTE dbo.DesignsPhotos_Create @DesignID='4D7BC98C-D2BD-4F7A-8DE4-32279138424E',@PhotoID=@Photo;
+
+SET @Photo= NEWID()
+INSERT INTO Photos ([PhotoID],[Image]) 
+SELECT @Photo,BulkColumn 
+FROM Openrowset( Bulk 'C:\Users\Adriana\source\repos\InteriorDesignShop\UMT360.InteriorDesignWebApp\UMT360.InteriorDesignWebApp.UI\Resources\kitchen\kit3.png', Single_Blob) AS Image
+EXECUTE dbo.DesignsPhotos_Create @DesignID='8ACCDACD-BAA4-4A1A-8B03-7443BFC5B84F',@PhotoID=@Photo;
+
+SET @Photo= NEWID()
+INSERT INTO Photos ([PhotoID],[Image]) 
+SELECT @Photo,BulkColumn 
+FROM Openrowset( Bulk 'C:\Users\Adriana\source\repos\InteriorDesignShop\UMT360.InteriorDesignWebApp\UMT360.InteriorDesignWebApp.UI\Resources\livingroom\liv1.png', Single_Blob) AS Image
+EXECUTE dbo.DesignsPhotos_Create @DesignID='8D631FDF-F928-48D2-839F-B904A52F4EE3',@PhotoID=@Photo;
+
+SET @Photo= NEWID()
+INSERT INTO Photos ([PhotoID],[Image]) 
+SELECT @Photo,BulkColumn 
+FROM Openrowset( Bulk 'C:\Users\Adriana\source\repos\InteriorDesignShop\UMT360.InteriorDesignWebApp\UMT360.InteriorDesignWebApp.UI\Resources\livingroom\liv3.png', Single_Blob) AS Image
+EXECUTE dbo.DesignsPhotos_Create @DesignID='D6117045-EA63-4AFA-B2C9-763353049A7A',@PhotoID=@Photo;
+
+SET @Photo= NEWID()
+INSERT INTO Photos ([PhotoID],[Image]) 
+SELECT @Photo,BulkColumn 
+FROM Openrowset( Bulk 'C:\Users\Adriana\source\repos\InteriorDesignShop\UMT360.InteriorDesignWebApp\UMT360.InteriorDesignWebApp.UI\Resources\livingroom\liv5.png', Single_Blob) AS Image
+EXECUTE dbo.DesignsPhotos_Create @DesignID='97B5A5C7-40D0-4181-8974-8062D0334010',@PhotoID=@Photo;
+
+SET @Photo= NEWID()
+INSERT INTO Photos ([PhotoID],[Image]) 
+SELECT @Photo,BulkColumn 
+FROM Openrowset( Bulk 'C:\Users\Adriana\source\repos\InteriorDesignShop\UMT360.InteriorDesignWebApp\UMT360.InteriorDesignWebApp.UI\Resources\livingroom\liv71.png', Single_Blob) AS Image
+EXECUTE dbo.DesignsPhotos_Create @DesignID='60EB9DBF-390F-4B3F-B8E9-9073AF348B5F',@PhotoID=@Photo;

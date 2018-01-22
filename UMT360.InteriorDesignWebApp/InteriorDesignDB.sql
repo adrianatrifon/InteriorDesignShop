@@ -26,7 +26,7 @@ GO
 
 CREATE TABLE [Photos](
 	[PhotoID] uniqueidentifier NOT NULL,
-	[Photo] varbinary(MAX) NOT NULL,	
+	[Image] varbinary(MAX) NOT NULL,	
 
 	CONSTRAINT [PK_Photos] PRIMARY KEY ([PhotoID])		
 	);
@@ -262,7 +262,7 @@ BEGIN
 	INSERT INTO dbo.Photos
 	(
 		PhotoID,
-		Photo
+		Image
 	)
 	VALUES
 	(
@@ -454,7 +454,7 @@ BEGIN
 	SET NOCOUNT ON
 
 	UPDATE dbo.Photos
-	SET Photo=@Photo
+	SET Image=@Photo
 	WHERE PhotoID=@PhotoID
 
 END
@@ -757,7 +757,7 @@ BEGIN
 	
 	SELECT
 		PhotoID,
-		Photo
+		Image
 	FROM dbo.Photos
 	WHERE PhotoID=@PhotoID
 		
@@ -875,7 +875,7 @@ BEGIN
 	
 	SELECT
 		PhotoID,
-		Photo
+		Image
 	FROM dbo.Photos
 END
 GO
@@ -957,3 +957,24 @@ BEGIN
 	FROM dbo.DesignsPhotos
 END
 GO
+
+CREATE PROCEDURE dbo.DesignView_ReadAll
+AS
+BEGIN
+	SET NOCOUNT ON	
+	
+	SELECT 
+		d.DesignID,
+		d.Name,
+		d.Description,
+		c.Name AS Category,
+		s.Name AS Style,
+		p.Image AS Photo
+	FROM dbo.Designs d LEFT JOIN dbo. DesignsPhotos ds ON d.DesignID=ds.DesignID RIGHT JOIN dbo.Photos p ON ds.PhotoID=p.PhotoID
+			INNER JOIN dbo.Categories c ON d.CategoryID=c.CategoryID
+			INNER JOIN dbo.Styles s ON d.StyleID=s.StyleID
+	ORDER BY d.Name
+END
+GO
+--DROP PROCEDURE dbo.DesignView_ReadAll;
+--EXECUTE dbo.DesignView_ReadAll;
