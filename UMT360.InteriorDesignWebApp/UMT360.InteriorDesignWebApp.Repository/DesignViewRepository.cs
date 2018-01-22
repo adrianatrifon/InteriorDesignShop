@@ -21,7 +21,7 @@ namespace UMT360.InteriorDesignWebApp.Repository
             designView.Description = reader.GetString(reader.GetOrdinal("Description"));
             designView.Category = reader.GetString(reader.GetOrdinal("Category"));
             designView.Style = reader.GetString(reader.GetOrdinal("Style"));
-            designView.Photos= reader.GetString(reader.GetOrdinal("Image")); 
+            designView.Photos= reader.GetString(reader.GetOrdinal("Photo")); 
             return designView;
         }
         #endregion
