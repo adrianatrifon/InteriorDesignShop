@@ -26,7 +26,7 @@ GO
 
 CREATE TABLE [Photos](
 	[PhotoID] uniqueidentifier NOT NULL,
-	[Image] varbinary(MAX) NOT NULL,	
+	[Image] nvarchar(500) NOT NULL,	
 
 	CONSTRAINT [PK_Photos] PRIMARY KEY ([PhotoID])		
 	);
@@ -253,7 +253,7 @@ GO
 CREATE PROCEDURE dbo.Photos_Create
 (
 	@PhotoID uniqueidentifier,
-	@Photo varbinary(MAX)
+	@Photo nvarchar(500)
 )
 AS
 BEGIN
@@ -447,7 +447,7 @@ GO
 CREATE PROCEDURE dbo.Photos_Update
 (
 	@PhotoID uniqueidentifier,
-	@Photo varbinary(MAX)
+	@Photo nvarchar(500)
 )
 AS
 BEGIN

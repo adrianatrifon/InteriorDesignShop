@@ -10,7 +10,7 @@ namespace UMT360.InteriorDesignWebApp.Models
         public string Description { set; get; }
         public string Category { set; get; }
         public string Style { set; get; }
-        public byte[] Photos { set; get; }
+        public string Photos { set; get; }
         #endregion
     }
 }

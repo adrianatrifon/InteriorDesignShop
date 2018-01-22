@@ -6,7 +6,7 @@ namespace UMT360.InteriorDesignWebApp.Models
     {
         #region Properties
         public Guid Id { set; get; }
-        public byte[] Image { set; get; }
+        public string Image { set; get; }
         #endregion
     }
 }

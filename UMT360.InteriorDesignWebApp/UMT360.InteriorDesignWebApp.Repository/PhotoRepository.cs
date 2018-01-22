@@ -45,7 +45,7 @@ namespace UMT360.InteriorDesignWebApp.Repository
         {
             Photo photo = new Photo();
             photo.Id = reader.GetGuid(reader.GetOrdinal("PhotoID"));
-            photo.Image = (byte[])reader["Image"];
+            photo.Image = reader.GetString(reader.GetOrdinal("Image")); 
             return photo;
         }
         internal SqlParameter[] GetParametersFromModel(Photo photo)

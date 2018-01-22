@@ -1,6 +1,6 @@
 ﻿var DesignService = function () {
 
-    _designs = [];
+    var _designs = [];
     $.ajax({
         crossDomain:true,
         url: "http://localhost:51902/api/designs",
