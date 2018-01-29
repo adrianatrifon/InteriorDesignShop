@@ -31,6 +31,12 @@ namespace UMT360.InteriorDesignWebApp.Business
         {
             return BusinessContext.Current.RepositoryContext.PhotoRepository.GetById(photoId);
         }
+        /*
+        public List<Photo> ReadDesignPhotos(Guid designId)
+        {
+            return BusinessContext.Current.RepositoryContext.PhotoRepository.ReadDesignPhotos(designId);
+        }
+        */
         #endregion 
     }
 }

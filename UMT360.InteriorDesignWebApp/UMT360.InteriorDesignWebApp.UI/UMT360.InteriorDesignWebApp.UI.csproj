@@ -121,6 +121,7 @@
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Scripts\Controllers\cardController.js" />
     <Content Include="Scripts\Controllers\designsController.js" />
+    <Content Include="Scripts\Controllers\modalController.js" />
     <Content Include="Scripts\jquery-3.2.1.js" />
     <Content Include="Scripts\jquery-3.2.1.min.js" />
     <Content Include="Scripts\jquery-3.2.1.slim.js" />

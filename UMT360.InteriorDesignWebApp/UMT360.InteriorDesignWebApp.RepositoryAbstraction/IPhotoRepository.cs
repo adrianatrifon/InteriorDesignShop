@@ -11,5 +11,6 @@ namespace UMT360.InteriorDesignWebApp.RepositoryAbstraction
         void Update(Photo photo);
         void Delete(Guid photoId);
         Photo GetById(Guid photoId);
+       // List<Photo> ReadDesignPhotos(Guid designId);
     }
 }

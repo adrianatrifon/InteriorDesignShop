@@ -2,11 +2,11 @@
     margin: 0;
     padding: 0;
 }
-
+/*
 body {
-    min-width: auto;
+   /* min-width: auto;
 }
-
+*/
 .pull-left {
     float: left;
 }
@@ -24,7 +24,7 @@ body {
 #pageheader img {
     width: 120px;
     height: 70px;
-    margin: 6 0 8 60;
+   /* margin: 6 0 8 60;*/
 }
 
 .maincontainer {
@@ -56,7 +56,7 @@ body {
 }
 
 #pageheader {
-    min-width: 100%;
+    max-width: 100%;
     z-index: 1;
     background-color: rgba(0, 160, 120, 0.5);
     position: fixed;
@@ -114,7 +114,7 @@ body {
 .flex-column {
     background-color: #eaeafa;
     height: 80%;
-    padding-top: 20;
+   /* padding-top: 20;*/
     border-right: solid 1px lightgrey;
     width: 15.4%;
 }
@@ -137,7 +137,7 @@ body {
 }
 #navBarContainer a {
     min-width: 18%;
-    background: grey,0.1;
+   /* background: grey,0.1;*/
     color: black;
     font-size: 20px;
     display: block;
@@ -148,7 +148,7 @@ body {
 
 #navBarContainer a:hover {
     color: white;
-    background: rgba(0,160,120);
+    /*background: rgba(0,160,120);*/
 }
 
 #navBarContainer a:active {
@@ -214,3 +214,76 @@ h4 {
     width: 45%;
 }
 
+.button-popup a{
+    color:white;
+    font-weight:bold;
+    text-decoration:none;
+    z-index:10;
+}
+
+.window-popup{
+    width:120%;
+    height:100%;
+    position:fixed;
+    z-index:10;
+    background:rgba(0,0,0,0.7);
+    top:0;
+    left:0;
+    display:none;
+}
+
+.wp-content{
+    width:900px;
+    height:600px;
+    background:white;
+    border-radius:3px;
+    position:absolute;
+    left:20%;
+    top:10%;
+}
+    
+    .wp-content a{
+        padding:10px;
+        background:#3498db;
+        color:white;
+        text-decoration:none;
+        position:absolute;
+        right:20px;
+        bottom:20px;
+        border-radius:5px;
+    }
+.wp-content .col-lg-10 {
+    width: 75%;
+}
+
+.wp-content .col-md-6 {
+    width: 60%;
+}
+
+.wp-content .col-md-3 {
+    width: 50%;
+}
+
+.image-carousel {
+    width: 800px;
+    height: 500px;
+    overflow: hidden;
+    position: relative;
+    margin: 0;
+}
+.wp-content {
+    padding:0;
+}
+.image-carousel .inner {
+    width: 900px;
+    height: 600px;
+    position: absolute;
+    z-index: 7;
+    left: 0;
+    padding: 0;
+   
+}
+.inner img {
+    width: 900px;
+    height: 600px;
+}

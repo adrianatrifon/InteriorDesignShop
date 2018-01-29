@@ -970,11 +970,27 @@ BEGIN
 		c.Name AS Category,
 		s.Name AS Style,
 		p.Image AS Photo
-	FROM dbo.Designs d LEFT JOIN dbo. DesignsPhotos ds ON d.DesignID=ds.DesignID RIGHT JOIN dbo.Photos p ON ds.PhotoID=p.PhotoID
-			INNER JOIN dbo.Categories c ON d.CategoryID=c.CategoryID
-			INNER JOIN dbo.Styles s ON d.StyleID=s.StyleID
-	ORDER BY d.Name
+	FROM dbo.Designs d RIGHT JOIN  dbo.DesignsPhotos dp ON d.DesignID=dp.DesignID LEFT JOIN dbo.Photos p ON dp.PhotoID=p.PhotoID
+	       INNER JOIN dbo.Categories c ON d.CategoryID=c.CategoryID
+			INNER JOIN dbo.Styles s ON d.StyleID=s.StyleID 
+	 ORDER BY d.Name
 END
 GO
 --DROP PROCEDURE dbo.DesignView_ReadAll;
 --EXECUTE dbo.DesignView_ReadAll;
+
+CREATE PROCEDURE dbo.DesignPhotos_ReadById
+(
+	@DesignID uniqueidentifier
+)
+AS
+BEGIN
+	SET NOCOUNT ON
+	SELECT p.PhotoID AS PhotoID, p.Image AS Image
+	FROM dbo.Photos p LEFT JOIN dbo.DesignsPhotos dp ON p.PhotoID=dp.PhotoID
+		RIGHT JOIN dbo.Designs d ON dp.DesignID=d.DesignID
+	WHERE d.DesignID=@DesignID
+END
+GO
+--EXECUTE dbo.DesignPhotos_ReadById @DesignID='64410FD6-734C-4A62-A553-20B68DB36773'
+--R

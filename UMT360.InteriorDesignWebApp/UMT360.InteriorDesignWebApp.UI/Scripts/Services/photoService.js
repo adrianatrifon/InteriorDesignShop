@@ -72,5 +72,5 @@
                 return _photos[index];
             }
         }
-    };
+    };    
 };

@@ -18,8 +18,9 @@
     <script src="Scripts/Services/designPhotoService.js"></script>
     <script src="Scripts/Services/designService.js"></script>
     <script src="Scripts/Services/photoService.js"></script>
-    <script src="Scripts/Services/serviceContext.js"></script>
-    <script src="Scripts/Controllers/cardController.js"></script>
+    <script src="Scripts/Services/serviceContext.js"></script>   
+    <script src="Scripts/Controllers/modalController.js"></script>
+    <script src="Scripts/Controllers/cardController.js"></script>   
     <script src="Scripts/Controllers/designsController.js"></script>
     <script src="Scripts/menuController.js"></script>
     <script src="Scripts/appController.js"></script>
@@ -77,8 +78,13 @@
             <div id="libraryContainer" class="container pull-right col-sm-4 col-md-6 col-lg-10 mt-4" style="display: none;">
                 <div id="libraryContainerCards" class="row">
                 </div>
-            </div>
+            </div>            
         </main> 
-
+    <div class="window-popup row">
+        <div class="wp-content col-sm-4 col-md-6 col-lg-10 mt-4">            
+            <a href="#" id="button-close-popup">Close</a>
+        </div>
+    </div>
+    
 </body>
 </html>

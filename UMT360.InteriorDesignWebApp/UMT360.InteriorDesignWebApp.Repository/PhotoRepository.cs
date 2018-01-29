@@ -40,7 +40,15 @@ namespace UMT360.InteriorDesignWebApp.Repository
             photos = ReadAll("dbo.Photos_GetById", parameters);
             return photos.Single();
         }
-
+        /*
+        public List<Photo> ReadDesignPhotos(Guid designId)
+        {
+            SqlParameter[] parameters = { new SqlParameter("@DesignID", designId) };
+            List<Photo> photos = new List<Photo>();
+            photos = ReadAll("dbo.DesignPhotos_ReadById", parameters);
+            return photos;
+        }
+        */
         protected override Photo GetModelFromReader(SqlDataReader reader)
         {
             Photo photo = new Photo();
